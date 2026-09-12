@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elecciones | Retorika</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="../index.html">RETORIKA</a>
+        </div>
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-label">NAVEGACIÓN</span>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">⌂</span>
+                Inicio
+            </a>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">◈</span>
+                Mapa
+            </a>
+
+        </div>
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-label">ANÁLISIS</span>
+
+            <a href="territorio.html" class="sidebar-link">
+                <span class="sidebar-icon">○</span>
+                Resumen
+            </a>
+
+            <a href="territorio.html#demografia" class="sidebar-link">
+                <span class="sidebar-icon">◌</span>
+                Demografía
+            </a>
+
+            <a href="economia.html" class="sidebar-link">
+                <span class="sidebar-icon">▱</span>
+                Economía
+            </a>
+
+            <a href="elecciones.html" class="sidebar-link active">
+                <span class="sidebar-icon">▥</span>
+                Elecciones
+            </a>
+
+            <a href="territorio.html#instituciones" class="sidebar-link">
+                <span class="sidebar-icon">♙</span>
+                Instituciones
+            </a>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">⚙</span>
+                Configuración
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">?</span>
+                Ayuda
+            </a>
+
+            <div class="user-profile">
+
+                <div class="user-avatar">DQ</div>
+
+                <div class="user-info">
+                    <strong>David Quintas</strong>
+                    <span>Analista</span>
+                </div>
+
+                <span class="user-menu">•••</span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+
+            <div class="breadcrumb">
+                <span>Análisis</span>
+                <strong>Elecciones</strong>
+            </div>
+
+            <div class="header-tools">
+
+                <div class="election-selector">
+
+                    <span class="selector-label">PROCESO</span>
+
+                    <select id="electionSelector">
+                        <option value="2024">
+                            Elecciones autonómicas 2024
+                        </option>
+                    </select>
+
+                </div>
+
+                <div class="header-avatar">DQ</div>
+
+            </div>
+
+        </header>
+
+        <section class="explorer">
+
+            <div class="territory-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        GALICIA · 18 FEBRERO 2024
+                    </span>
+
+                    <h1>
+                        Elecciones autonómicas
+                    </h1>
+
+                    <p>
+                        Resultados electorales y participación territorial.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-button"
+                    onclick="window.location.href='index.html'">
+                    ← Volver al mapa
+                </button>
+
+            </div>
+
+            <section class="territory-content">
+
+                <div class="kpi-grid">
+
+                    <div class="kpi-card">
+                        <span>Participación</span>
+                        <strong id="participation">—</strong>
+                        <small>electores</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <span>Abstención</span>
+                        <strong id="abstention">—</strong>
+                        <small>del censo</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <span>Votos válidos</span>
+                        <strong id="validVotes">—</strong>
+                        <small>votos</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <span>Escaños</span>
+                        <strong>75</strong>
+                        <small>Parlamento de Galicia</small>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <article class="dashboard-card large results-card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <span class="eyebrow">
+                                    RESULTADOS
+                                </span>
+
+                                <h2>
+                                    Votos por candidatura
+                                </h2>
+                            </div>
+
+                            <span class="source-label">
+                                Fuente: Xunta de Galicia
+                            </span>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="resultsChart"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="dashboard-card seats-card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <span class="eyebrow">
+                                    DISTRIBUCIÓN
+                                </span>
+
+                                <h2>
+                                    Escaños
+                                </h2>
+                            </div>
+
+                        </div>
+
+                        <div class="chart-container small">
+                            <canvas id="seatsChart"></canvas>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <article class="dashboard-card large">
+
+                        <div class="card-header">
+
+                            <div>
+                                <span class="eyebrow">
+                                    EVOLUCIÓN
+                                </span>
+
+                                <h2>
+                                    Resultados por elección
+                                </h2>
+
+                            </div>
+
+                            <span class="source-label">
+                                Galicia · 2024
+                            </span>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="evolutionChart"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <span class="eyebrow">
+                                    PARTICIPACIÓN
+                                </span>
+
+                                <h2>
+                                    Participación histórica
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+                        <div class="chart-container small">
+                            <canvas id="participationChart"></canvas>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <span class="eyebrow">
+                                PRINCIPALES FUERZAS
+                            </span>
+
+                            <h2>
+                                Resultado electoral
+                            </h2>
+
+                        </div>
+
+                        <span class="source-label">
+                            Galicia · 2024
+                        </span>
+
+                    </div>
+
+                    <div id="partyResults"
+                         class="election-results-list">
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="../js/elecciones.js"></script>
+
+</body>
+</html>

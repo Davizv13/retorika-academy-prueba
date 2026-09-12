@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Retorika - Explorador territorial">
+    <title>Explorar territorio | Retorika</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="../index.html">RETORIKA</a>
+        </div>
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">NAVEGACIÓN</span>
+
+            <a href="index.html" class="sidebar-link active">
+                <span class="sidebar-icon">⌂</span>
+                Inicio
+            </a>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">◎</span>
+                Mapa
+            </a>
+        </div>
+
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">ANÁLISIS</span>
+
+            <a href="territorio.html" class="sidebar-link">
+                <span class="sidebar-icon">◌</span>
+                Resumen
+            </a>
+
+            <a href="territorio.html#demografia" class="sidebar-link">
+                <span class="sidebar-icon">◒</span>
+                Demografía
+            </a>
+
+            <a href="economia.html" class="sidebar-link">
+                <span class="sidebar-icon">◫</span>
+                Economía
+            </a>
+
+            <a href="elecciones.html" class="sidebar-link">
+                <span class="sidebar-icon">◈</span>
+                Elecciones
+            </a>
+
+            <a href="territorio.html#instituciones" class="sidebar-link">
+                <span class="sidebar-icon">◇</span>
+                Instituciones
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">HERRAMIENTAS</span>
+
+            <a href="comparar.html" class="sidebar-link">
+                <span class="sidebar-icon">⇄</span>
+                Comparar
+            </a>
+
+            <a href="informe.html" class="sidebar-link">
+                <span class="sidebar-icon">▤</span>
+                Informes
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">⚙</span>
+                Configuración
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">?</span>
+                Ayuda
+            </a>
+
+            <div class="user-profile">
+                <div class="user-avatar">DQ</div>
+
+                <div class="user-info">
+                    <strong>David Quintas</strong>
+                    <span>Analista</span>
+                </div>
+
+                <span class="user-menu">•••</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+
+            <div class="breadcrumb">
+                <span>Explorar</span>
+                <strong>España</strong>
+            </div>
+
+            <div class="header-tools">
+
+                <div class="election-selector">
+                    <span class="selector-label">PROCESO</span>
+                    <select id="electionSelect">
+                        <option>Elecciones autonómicas 2024</option>
+                        <option>Elecciones generales 2023</option>
+                        <option>Elecciones municipales 2023</option>
+                    </select>
+                </div>
+
+                <div class="header-user">
+                    <div class="header-avatar">DQ</div>
+                </div>
+
+            </div>
+
+        </header>
+
+        <section class="explorer">
+
+            <div class="explorer-heading">
+
+                <div>
+                    <span class="eyebrow">INTELIGENCIA TERRITORIAL</span>
+
+                    <h1>
+                        Explora España.
+                    </h1>
+
+                    <p>
+                        Selecciona un territorio para comenzar el análisis.
+                    </p>
+                </div>
+
+                <div class="data-status">
+                    <span class="status-dot"></span>
+                    Datos oficiales
+                </div>
+
+            </div>
+
+            <div class="explorer-controls">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="text" id="territorySearch" placeholder="Buscar comunidad, provincia o municipio...">
+                </div>
+
+                <div class="level-selector">
+
+                    <button class="level-button active" data-level="comunidades">
+                        Comunidades
+                    </button>
+
+                    <button class="level-button" data-level="provincias">
+                        Provincias
+                    </button>
+
+                    <button class="level-button" data-level="municipios">
+                        Municipios
+                    </button>
+
+                </div>
+
+                <div class="map-mode">
+                    <select id="mapMode">
+                        <option value="political">Resultado electoral</option>
+                        <option value="population">Población</option>
+                        <option value="density">Densidad</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="explorer-layout">
+
+                <section class="map-panel">
+
+                    <div class="map-panel-header">
+
+                        <div>
+                            <strong>Mapa territorial</strong>
+                            <span id="mapDescription">
+                                Comunidades autónomas
+                            </span>
+                        </div>
+
+                        <button class="map-reset" id="resetMap">
+                            Restablecer vista
+                        </button>
+
+                    </div>
+
+                    <div id="map"></div>
+
+                    <div class="map-legend" id="mapLegend">
+                        <span class="legend-title">Resultado electoral</span>
+
+                        <div class="legend-items">
+                            <div>
+                                <i class="legend-color party-pp"></i>
+                                PP
+                            </div>
+
+                            <div>
+                                <i class="legend-color party-psoe"></i>
+                                PSOE
+                            </div>
+
+                            <div>
+                                <i class="legend-color party-bng"></i>
+                                BNG
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <aside class="territory-list">
+
+                    <div class="territory-list-header">
+
+                        <div>
+                            <span class="eyebrow">TERRITORIOS</span>
+                            <h2 id="territoryCount">17 comunidades</h2>
+                        </div>
+
+                        <button class="sort-button" id="sortButton">
+                            A–Z
+                        </button>
+
+                    </div>
+
+                    <div class="territory-items" id="territoryItems">
+
+                        <button class="territory-item featured-territory">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Galicia</strong>
+                                <span>2.714.741 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                        <button class="territory-item">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Andalucía</strong>
+                                <span>8.600.000 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                        <button class="territory-item">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Aragón</strong>
+                                <span>1.350.000 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                        <button class="territory-item">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Asturias</strong>
+                                <span>1.000.000 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                        <button class="territory-item">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Illes Balears</strong>
+                                <span>1.230.000 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                        <button class="territory-item">
+                            <div class="territory-color"></div>
+
+                            <div class="territory-info">
+                                <strong>Canarias</strong>
+                                <span>2.250.000 habitantes</span>
+                            </div>
+
+                            <div class="territory-arrow">→</div>
+                        </button>
+
+                    </div>
+
+                    <button class="view-all-button">
+                        Ver todos los territorios
+                        <span>→</span>
+                    </button>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/mapa.js"></script>
+
+</body>
+
+</html>
