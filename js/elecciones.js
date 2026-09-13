@@ -111,6 +111,19 @@ function updateTerritoryHeader(isMunicipality) {
     const title = document.querySelector(".territory-header h1");
     const subtitle = document.querySelector(".territory-header p");
     const eyebrow = document.querySelector(".territory-header .eyebrow");
+    const resultsSource = document.getElementById("resultsSource");
+    const evolutionSource = document.getElementById("evolutionSource");
+
+    if (evolutionSource) {
+        evolutionSource.textContent =
+            isMunicipality
+                ? `${territoryName} · 2024`
+                : "Galicia · 2024";
+    }
+
+    if (resultsSource && territoryName) {
+        resultsSource.textContent = `${territoryName} · 2024`;
+    }
 
     if (isMunicipality && territoryName) {
 
@@ -128,7 +141,13 @@ function updateTerritoryHeader(isMunicipality) {
                 `MUNICIPIO · ${territoryName.toUpperCase()} · 18 FEBRERO 2024`;
         }
 
-        document.title = `Elecciones · ${territoryName} | Retorika`;
+        if (resultsSource) {
+            resultsSource.textContent =
+                `${territoryName} · 2024`;
+        }
+
+        document.title =
+            `Elecciones · ${territoryName} | Retorika`;
 
     } else {
 
@@ -145,6 +164,14 @@ function updateTerritoryHeader(isMunicipality) {
             eyebrow.textContent =
                 "GALICIA · 18 FEBRERO 2024";
         }
+
+        if (resultsSource) {
+            resultsSource.textContent =
+                "Galicia · 2024";
+        }
+
+        document.title =
+            "Elecciones | Retorika";
     }
 }
 
@@ -472,24 +499,26 @@ function renderPartyResults(election) {
     const sorted = [...election.parties]
         .sort((a, b) => b.votes - a.votes);
 
-    container.innerHTML = sorted.map(party => `
-        <div class="election-party-row">
+    container.innerHTML = sorted.map((party, index) => `
+        <tr>
+            <td>
+                <span class="position-number">
+                    ${index + 1}
+                </span>
+            </td>
 
-            <div>
+            <td>
                 <strong>${party.name}</strong>
-                <span>
-                    ${formatNumber(party.votes)} votos
-                </span>
-            </div>
+            </td>
 
-            <div class="election-party-percentage">
-                <strong>${party.percentage.toLocaleString("es-ES")}%</strong>
-                <span>
-                    ${territoryCode ? "—" : `${party.seats} escaños`}
-                </span>
-            </div>
+            <td>
+                ${formatNumber(party.votes)}
+            </td>
 
-        </div>
+            <td>
+                ${party.percentage.toLocaleString("es-ES")}%
+            </td>
+        </tr>
     `).join("");
 }
 

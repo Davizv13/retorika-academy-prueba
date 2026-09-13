@@ -71,7 +71,7 @@
                     Comparar
                 </a>
 
-                <a href="informe.html" class="sidebar-link">
+                <a id="reportsLink" href="informes.html" class="sidebar-link">
                     <span class="sidebar-icon">▤</span>
                     Informes
                 </a>
@@ -116,7 +116,6 @@
                 <div class="header-tools">
 
                     <div class="election-selector">
-
                         <span class="selector-label">PROCESO</span>
 
                         <select>
@@ -124,7 +123,6 @@
                             <option>Elecciones generales 2023</option>
                             <option>Elecciones municipales 2023</option>
                         </select>
-
                     </div>
 
                     <div class="header-avatar">DQ</div>
@@ -160,16 +158,33 @@
                 </div>
 
                 <nav class="territory-tabs">
-                    <a href="#" class="active">Resumen</a>
-                    <a href="#demografia">Demografía</a>
-                    <a id="economyLink" href="economia.html">Economía</a>
-                    <a id="electionsLink" href="elecciones.html">Elecciones</a>
-                    <a href="#instituciones">Instituciones</a>
+
+                    <a href="#" class="active">
+                        Resumen
+                    </a>
+
+                    <a href="#demografia">
+                        Demografía
+                    </a>
+
+                    <a id="economyLink" href="economia.html">
+                        Economía
+                    </a>
+
+                    <a id="electionsLink" href="elecciones.html">
+                        Elecciones
+                    </a>
+
+                    <a href="#instituciones">
+                        Instituciones
+                    </a>
+
                 </nav>
 
-                <section class="territory-content">
+                <section class="territory-content" id="demografia">
 
                     <div class="kpi-grid">
+
                         <div class="kpi-card">
                             <span>Población</span>
                             <strong id="population">—</strong>
@@ -193,36 +208,51 @@
                             <strong id="density">—</strong>
                             <small>hab./km²</small>
                         </div>
+
                     </div>
 
                     <div class="dashboard-grid">
 
                         <article class="dashboard-card large">
+
                             <div class="card-header">
+
                                 <div>
                                     <span class="eyebrow">EVOLUCIÓN</span>
                                     <h2>Población</h2>
                                 </div>
-                                <span class="source-label">Fuente: IGE · INE</span>
+
+                                <span class="source-label">
+                                    Fuente: IGE · INE
+                                </span>
+
                             </div>
 
                             <div class="chart-container">
                                 <canvas id="populationChart"></canvas>
                             </div>
+
                         </article>
 
                         <article class="dashboard-card">
+
                             <div class="card-header">
+
                                 <div>
                                     <span class="eyebrow">ESTRUCTURA</span>
                                     <h2>Distribución por edad</h2>
                                 </div>
-                                <span class="source-label">2025</span>
+
+                                <span class="source-label">
+                                    2025
+                                </span>
+
                             </div>
 
                             <div class="chart-container small">
                                 <canvas id="ageChart"></canvas>
                             </div>
+
                         </article>
 
                     </div>
@@ -230,25 +260,35 @@
                     <div class="dashboard-grid">
 
                         <article class="dashboard-card">
+
                             <div class="card-header">
+
                                 <div>
                                     <span class="eyebrow">POBLACIÓN</span>
                                     <h2>Hombres y mujeres</h2>
                                 </div>
-                                <span class="source-label">Fuente: INE · 2025</span>
+
+                                <span class="source-label">
+                                    Fuente: INE · 2025
+                                </span>
+
                             </div>
 
                             <div class="chart-container small">
                                 <canvas id="genderChart"></canvas>
                             </div>
+
                         </article>
 
                         <article class="dashboard-card">
+
                             <div class="card-header">
+
                                 <div>
                                     <span class="eyebrow">INDICADORES</span>
                                     <h2>Datos demográficos</h2>
                                 </div>
+
                             </div>
 
                             <div class="indicator-list">
@@ -279,56 +319,7 @@
                                 </div>
 
                             </div>
-                        </article>
 
-                    </div>
-
-                    <div class="dashboard-grid">
-
-                        <article class="dashboard-card large">
-                            <div class="card-header">
-                                <div>
-                                    <span class="eyebrow">ELECCIONES · 2024</span>
-                                    <h2>Resultados electorales</h2>
-                                </div>
-                                <span class="source-label">Fuente: Xunta de Galicia</span>
-                            </div>
-
-                            <div class="chart-container">
-                                <canvas id="electionChart"></canvas>
-                            </div>
-                        </article>
-
-                        <article class="dashboard-card">
-                            <div class="card-header">
-                                <div>
-                                    <span class="eyebrow">PARTICIPACIÓN</span>
-                                    <h2>Participación electoral</h2>
-                                </div>
-                                <span class="source-label">2024</span>
-                            </div>
-
-                            <div class="indicator-list">
-                                <div class="indicator-row">
-                                    <span>Censo electoral</span>
-                                    <strong id="electionCensus">—</strong>
-                                </div>
-
-                                <div class="indicator-row">
-                                    <span>Participación</span>
-                                    <strong id="electionParticipation">—</strong>
-                                </div>
-
-                                <div class="indicator-row">
-                                    <span>Abstención</span>
-                                    <strong id="electionAbstention">—</strong>
-                                </div>
-
-                                <div class="indicator-row">
-                                    <span>Partido ganador</span>
-                                    <strong id="electionWinner">—</strong>
-                                </div>
-                            </div>
                         </article>
 
                     </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,312 +15,375 @@
 
 <body class="dashboard-body">
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <aside class="sidebar">
+        <aside class="sidebar">
 
-        <div class="sidebar-brand">
-            <a href="../index.html">RETORIKA</a>
-        </div>
+            <div class="sidebar-brand">
+                <a href="../index.html">RETORIKA</a>
+            </div>
 
-        <div class="sidebar-section">
+            <div class="sidebar-section">
 
-            <span class="sidebar-label">NAVEGACIÓN</span>
+                <span class="sidebar-label">NAVEGACIÓN</span>
 
-            <a href="index.html" class="sidebar-link">
-                <span class="sidebar-icon">⌂</span>
-                Inicio
-            </a>
+                <a href="index.html" class="sidebar-link">
+                    <span class="sidebar-icon">⌂</span>
+                    Inicio
+                </a>
 
-            <a href="index.html" class="sidebar-link">
-                <span class="sidebar-icon">◈</span>
-                Mapa
-            </a>
-
-        </div>
-
-        <div class="sidebar-section">
-
-            <span class="sidebar-label">ANÁLISIS</span>
-
-            <a href="territorio.html" class="sidebar-link">
-                <span class="sidebar-icon">○</span>
-                Resumen
-            </a>
-
-            <a href="territorio.html#demografia" class="sidebar-link">
-                <span class="sidebar-icon">◌</span>
-                Demografía
-            </a>
-
-            <a href="economia.html" class="sidebar-link active">
-                <span class="sidebar-icon">▱</span>
-                Economía
-            </a>
-
-            <a href="elecciones.html" class="sidebar-link">
-                <span class="sidebar-icon">▥</span>
-                Elecciones
-            </a>
-
-            <a href="territorio.html#instituciones" class="sidebar-link">
-                <span class="sidebar-icon">♙</span>
-                Instituciones
-            </a>
-
-        </div>
-
-        <div class="sidebar-bottom">
-
-            <a href="#" class="sidebar-link">
-                <span class="sidebar-icon">⚙</span>
-                Configuración
-            </a>
-
-            <a href="#" class="sidebar-link">
-                <span class="sidebar-icon">?</span>
-                Ayuda
-            </a>
-
-            <div class="user-profile">
-
-                <div class="user-avatar">DQ</div>
-
-                <div class="user-info">
-                    <strong>David Quintas</strong>
-                    <span>Analista</span>
-                </div>
-
-                <span class="user-menu">•••</span>
+                <a href="index.html" class="sidebar-link">
+                    <span class="sidebar-icon">◈</span>
+                    Mapa
+                </a>
 
             </div>
 
-        </div>
+            <div class="sidebar-section">
 
-    </aside>
+                <span class="sidebar-label">ANÁLISIS</span>
 
-    <main class="dashboard-main">
+                <a href="territorio.html" class="sidebar-link">
+                    <span class="sidebar-icon">○</span>
+                    Resumen
+                </a>
 
-        <header class="dashboard-header">
+                <a href="territorio.html#demografia" class="sidebar-link">
+                    <span class="sidebar-icon">◌</span>
+                    Demografía
+                </a>
 
-            <div class="breadcrumb">
-                <span>Análisis</span>
-                <strong>Economía</strong>
-            </div>
+                <a href="economia.html" class="sidebar-link active">
+                    <span class="sidebar-icon">▱</span>
+                    Economía
+                </a>
 
-            <div class="header-tools">
+                <a href="elecciones.html" class="sidebar-link">
+                    <span class="sidebar-icon">▥</span>
+                    Elecciones
+                </a>
 
-                <div class="election-selector">
-
-                    <span class="selector-label">TERRITORIO</span>
-
-                    <select id="territorySelector">
-                        <option value="galicia">Galicia</option>
-                    </select>
-
-                </div>
-
-                <div class="header-avatar">DQ</div>
-
-            </div>
-
-        </header>
-
-        <section class="explorer">
-
-            <div class="territory-header">
-
-                <div>
-
-                    <span class="eyebrow" id="territoryEyebrow">
-                        GALICIA · ECONOMÍA
-                    </span>
-
-                    <h1 id="territoryName">
-                        Economía
-                    </h1>
-
-                    <p id="territoryDescription">
-                        Indicadores económicos y evolución territorial.
-                    </p>
-
-                </div>
-
-                <button
-                    class="secondary-button"
-                    onclick="window.location.href='index.html'">
-                    ← Volver al mapa
-                </button>
+                <a href="territorio.html#instituciones" class="sidebar-link">
+                    <span class="sidebar-icon">♙</span>
+                    Instituciones
+                </a>
 
             </div>
 
-            <section class="territory-content">
+            <div class="sidebar-bottom">
 
-                <div class="kpi-grid">
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">⚙</span>
+                    Configuración
+                </a>
 
-                    <div class="kpi-card">
-                        <span>Renta media</span>
-                        <strong id="income">—</strong>
-                        <small>hogar / mes</small>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">?</span>
+                    Ayuda
+                </a>
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">DQ</div>
+
+                    <div class="user-info">
+                        <strong>David Quintas</strong>
+                        <span>Analista</span>
                     </div>
 
-                    <div class="kpi-card">
-                        <span>PIB per cápita</span>
-                        <strong id="gdp">—</strong>
-                        <small>euros</small>
-                    </div>
-
-                    <div class="kpi-card">
-                        <span>Desempleo</span>
-                        <strong id="unemployment">—</strong>
-                        <small>tasa</small>
-                    </div>
-
-                    <div class="kpi-card">
-                        <span>Empresas</span>
-                        <strong id="companies">—</strong>
-                        <small>unidades</small>
-                    </div>
+                    <span class="user-menu">•••</span>
 
                 </div>
 
-                <div class="dashboard-grid">
+            </div>
 
-                    <article class="dashboard-card large">
+        </aside>
 
-                        <div class="card-header">
+        <main class="dashboard-main">
 
-                            <div>
-                                <span class="eyebrow">
-                                    EVOLUCIÓN
-                                </span>
+            <header class="dashboard-header">
 
-                                <h2>
-                                    Evolución de la renta
-                                </h2>
-                            </div>
+                <div class="breadcrumb">
+                    <span>Análisis</span>
+                    <strong>Economía</strong>
+                </div>
 
-                            <span class="source-label">
-                                Fuente: IGE
-                            </span>
+                <div class="header-tools">
 
-                        </div>
+                    <div class="election-selector">
 
-                        <div class="chart-container">
-                            <canvas id="incomeChart"></canvas>
-                        </div>
+                        <span class="selector-label">TERRITORIO</span>
 
-                    </article>
+                        <select id="territorySelector">
+                            <option value="galicia">Galicia</option>
+                        </select>
 
-                    <article class="dashboard-card">
+                    </div>
 
-                        <div class="card-header">
-
-                            <div>
-                                <span class="eyebrow">
-                                    MERCADO LABORAL
-                                </span>
-
-                                <h2>
-                                    Desempleo
-                                </h2>
-
-                            </div>
-
-                        </div>
-
-                        <div class="chart-container small">
-                            <canvas id="unemploymentChart"></canvas>
-                        </div>
-
-                    </article>
+                    <div class="header-avatar">DQ</div>
 
                 </div>
 
-                <div class="dashboard-grid">
+            </header>
 
-                    <article class="dashboard-card large">
+            <section class="explorer">
 
-                        <div class="card-header">
+                <div class="territory-header">
 
-                            <div>
-                                <span class="eyebrow">
-                                    ACTIVIDAD
-                                </span>
+                    <div>
 
-                                <h2>
-                                    Empresas por sector
-                                </h2>
+                        <span class="eyebrow" id="territoryEyebrow">
+                            GALICIA · ECONOMÍA
+                        </span>
 
-                            </div>
+                        <h1 id="territoryName">
+                            Economía
+                        </h1>
 
-                            <span class="source-label">
-                                Fuente: IGE
-                            </span>
+                        <p id="territoryDescription">
+                            Indicadores económicos y evolución territorial.
+                        </p>
 
-                        </div>
+                    </div>
 
-                        <div class="chart-container">
-                            <canvas id="sectorChart"></canvas>
-                        </div>
-
-                    </article>
-
-                    <article class="dashboard-card">
-
-                        <div class="card-header">
-
-                            <div>
-                                <span class="eyebrow">
-                                    INDICADORES
-                                </span>
-
-                                <h2>
-                                    Datos económicos
-                                </h2>
-
-                            </div>
-
-                        </div>
-
-                        <div class="indicator-list">
-
-                            <div class="indicator-row">
-                                <span>Renta media</span>
-                                <strong id="incomeDetail">—</strong>
-                            </div>
-
-                            <div class="indicator-row">
-                                <span>PIB per cápita</span>
-                                <strong id="gdpDetail">—</strong>
-                            </div>
-
-                            <div class="indicator-row">
-                                <span>Desempleo</span>
-                                <strong id="unemploymentDetail">—</strong>
-                            </div>
-
-                            <div class="indicator-row">
-                                <span>Empresas</span>
-                                <strong id="companiesDetail">—</strong>
-                            </div>
-
-                        </div>
-
-                    </article>
+                    <button class="secondary-button" onclick="window.location.href='index.html'">
+                        ← Volver al mapa
+                    </button>
 
                 </div>
+
+                <section class="territory-content">
+
+                    <div class="kpi-grid">
+
+                        <div class="kpi-card">
+
+                            <span>Renta disponible</span>
+
+                            <strong id="income">—</strong>
+
+                            <small>€/habitante · año</small>
+
+                        </div>
+
+                        <div class="kpi-card">
+
+                            <span>PIB per cápita</span>
+
+                            <strong id="gdp">—</strong>
+
+                            <small>euros · 2020</small>
+
+                        </div>
+
+                        <div class="kpi-card">
+
+                            <span>Paro registrado</span>
+
+                            <strong id="unemployment">—</strong>
+
+                            <small>personas · 2025</small>
+
+                        </div>
+
+                        <div class="kpi-card">
+
+                            <span>Unidades locales</span>
+
+                            <strong id="companies">—</strong>
+
+                            <small>unidades · 2024</small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-grid">
+
+                        <article class="dashboard-card large">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        EVOLUCIÓN
+                                    </span>
+
+                                    <h2>
+                                        Evolución de la renta
+                                    </h2>
+
+                                </div>
+
+                                <span class="source-label">
+                                    Fuente: IGE
+                                </span>
+
+                            </div>
+
+                            <div class="chart-container">
+
+                                <canvas id="incomeChart"></canvas>
+
+                            </div>
+
+                        </article>
+
+                        <article class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        MERCADO LABORAL
+                                    </span>
+
+                                    <h2>
+                                        Paro registrado
+                                    </h2>
+
+                                </div>
+
+                                <span class="source-label">
+                                    Fuente: IGE
+                                </span>
+
+                            </div>
+
+                            <div class="chart-container small">
+
+                                <canvas id="unemploymentChart"></canvas>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="dashboard-grid">
+
+                        <article class="dashboard-card large">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        PIB
+                                    </span>
+
+                                    <h2 id="pibTitle">
+                                        Producto interior bruto
+                                    </h2>
+
+                                </div>
+
+                                <span class="source-label">
+                                    Fuente: IGE · 2020
+                                </span>
+
+                            </div>
+
+                            <div class="economic-highlight">
+
+                                <div class="economic-highlight-main">
+
+                                    <span class="economic-highlight-label">
+                                        PIB POR HABITANTE
+                                    </span>
+
+                                    <strong id="gdpHighlight">—</strong>
+
+                                    <span class="economic-highlight-year">
+                                        Datos disponibles · 2020
+                                    </span>
+
+                                </div>
+
+                                <div class="economic-highlight-info">
+
+                                    <span>Producto interior bruto</span>
+
+                                    <p>
+                                        Valor generado por el territorio por habitante.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                        <article class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        INDICADORES
+                                    </span>
+
+                                    <h2>
+                                        Datos económicos
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                            <div class="indicator-list">
+
+                                <div class="indicator-row">
+
+                                    <span>Renta disponible</span>
+
+                                    <strong id="incomeDetail">—</strong>
+
+                                </div>
+
+                                <div class="indicator-row">
+
+                                    <span>PIB per cápita</span>
+
+                                    <strong id="gdpDetail">—</strong>
+
+                                </div>
+
+                                <div class="indicator-row">
+
+                                    <span>Paro registrado</span>
+
+                                    <strong id="unemploymentDetail">—</strong>
+
+                                </div>
+
+                                <div class="indicator-row">
+
+                                    <span>Unidades locales</span>
+
+                                    <strong id="companiesDetail">—</strong>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </section>
 
             </section>
 
-        </section>
+        </main>
 
-    </main>
+    </div>
 
-</div>
-
-<script src="../js/economia.js"></script>
+    <script src="../js/economia.js"></script>
 
 </body>
-</html>
 
+</html>

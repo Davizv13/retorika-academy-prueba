@@ -1,12 +1,20 @@
+/* 
+   DASHBOARD
+    */
+
 .dashboard-body {
     background: #f5f6f8;
     min-height: 100vh;
 }
 
+/* 
+   SIDEBAR
+    */
+
 .sidebar {
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
     bottom: 0;
     width: 245px;
     background: #081525;
@@ -54,7 +62,7 @@
     border-radius: 4px;
     color: rgba(255, 255, 255, 0.57);
     font-size: 12px;
-    transition: 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
 .sidebar-link:hover {
@@ -132,6 +140,10 @@
     font-size: 10px;
 }
 
+/* 
+   HEADER
+    */
+
 .dashboard-main {
     margin-left: 245px;
     min-height: 100vh;
@@ -139,12 +151,12 @@
 
 .dashboard-header {
     height: 78px;
-    background: white;
-    border-bottom: 1px solid #e4e7ec;
+    padding: 0 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 38px;
+    background: white;
+    border-bottom: 1px solid #e4e7ec;
 }
 
 .breadcrumb {
@@ -183,20 +195,20 @@
 
 .selector-label {
     font-size: 8px;
+    font-weight: 700;
     letter-spacing: 0.12em;
     color: #98a2b3;
-    font-weight: 700;
 }
 
 .election-selector select,
 .map-mode select {
+    padding: 8px 30px 8px 10px;
     border: 1px solid #e4e7ec;
+    border-radius: 3px;
     background: white;
     color: #344054;
-    padding: 8px 30px 8px 10px;
     font-family: inherit;
     font-size: 10px;
-    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -206,16 +218,20 @@
     font-size: 9px;
 }
 
+/* 
+   EXPLORER / MAPA
+    */
+
 .explorer {
-    padding: 45px 42px 60px;
     max-width: 1700px;
     margin: auto;
+    padding: 45px 42px 60px;
 }
 
 .explorer-heading {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
+    justify-content: space-between;
 }
 
 .explorer-heading h1 {
@@ -250,10 +266,10 @@
 }
 
 .explorer-controls {
-    margin-top: 34px;
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-top: 34px;
 }
 
 .search-box {
@@ -268,20 +284,20 @@
     border-radius: 4px;
 }
 
-.search-box > span {
+.search-box>span {
     font-size: 21px;
-    color: #98a2b3;
     line-height: 1;
+    color: #98a2b3;
 }
 
 .search-box input {
+    width: 100%;
     border: 0;
     outline: 0;
-    width: 100%;
+    background: transparent;
+    color: #344054;
     font-family: inherit;
     font-size: 11px;
-    color: #344054;
-    background: transparent;
 }
 
 .search-box input::placeholder {
@@ -289,23 +305,23 @@
 }
 
 .level-selector {
-    display: flex;
     height: 42px;
+    display: flex;
+    overflow: hidden;
     background: white;
     border: 1px solid #e4e7ec;
     border-radius: 4px;
-    overflow: hidden;
 }
 
 .level-button {
-    border: 0;
-    background: transparent;
     padding: 0 17px;
+    border: 0;
+    border-right: 1px solid #e4e7ec;
+    background: transparent;
     color: #667085;
     font-family: inherit;
     font-size: 10px;
     cursor: pointer;
-    border-right: 1px solid #e4e7ec;
 }
 
 .level-button:last-child {
@@ -322,10 +338,10 @@
 }
 
 .explorer-layout {
-    margin-top: 18px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 330px;
     gap: 18px;
+    margin-top: 18px;
 }
 
 .map-panel,
@@ -341,14 +357,14 @@
 
 .map-panel-header {
     height: 67px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
     border-bottom: 1px solid #e4e7ec;
 }
 
-.map-panel-header > div {
+.map-panel-header>div {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -390,12 +406,12 @@
 .map-legend {
     position: absolute;
     z-index: 500;
-    bottom: 18px;
     left: 18px;
+    bottom: 18px;
+    min-width: 175px;
+    padding: 13px 15px;
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid #e4e7ec;
-    padding: 13px 15px;
-    min-width: 175px;
 }
 
 .legend-title {
@@ -413,7 +429,7 @@
     gap: 13px;
 }
 
-.legend-items > div {
+.legend-items>div {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -440,18 +456,22 @@
     background: #4d9b76;
 }
 
+/* 
+   TERRITORY LIST
+    */
+
 .territory-list {
+    min-height: 610px;
     display: flex;
     flex-direction: column;
-    min-height: 610px;
 }
 
 .territory-list-header {
     min-height: 82px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
     border-bottom: 1px solid #e4e7ec;
 }
 
@@ -465,13 +485,13 @@
 }
 
 .sort-button {
-    border: 1px solid #e4e7ec;
-    background: white;
     padding: 7px 9px;
+    border: 1px solid #e4e7ec;
     border-radius: 3px;
+    background: white;
+    color: #667085;
     font-family: inherit;
     font-size: 9px;
-    color: #667085;
     cursor: pointer;
 }
 
@@ -483,13 +503,13 @@
 .territory-item {
     width: 100%;
     min-height: 73px;
+    padding: 0 19px;
+    display: flex;
+    align-items: center;
     border: 0;
     border-bottom: 1px solid #f0f1f3;
     background: white;
-    display: flex;
-    align-items: center;
     text-align: left;
-    padding: 0 19px;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -502,8 +522,8 @@
 .territory-color {
     width: 4px;
     height: 35px;
-    background: #d0d5dd;
     margin-right: 13px;
+    background: #d0d5dd;
     border-radius: 3px;
 }
 
@@ -539,8 +559,8 @@
     border: 0;
     border-top: 1px solid #e4e7ec;
     background: white;
-    font-family: inherit;
     color: #2f6df6;
+    font-family: inherit;
     font-size: 10px;
     font-weight: 600;
     cursor: pointer;
@@ -550,7 +570,705 @@
     margin-left: 12px;
 }
 
+/* 
+   TERRITORIOS
+    */
+
+.territory-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 28px;
+}
+
+.territory-header h1 {
+    margin: 8px 0 6px;
+    font-family: "DM Serif Display", serif;
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: -0.8px;
+}
+
+.territory-header p {
+    margin: 0;
+    color: #667085;
+    font-size: 15px;
+}
+
+.secondary-button {
+    padding: 11px 17px;
+    border: 1px solid #d9e0e8;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #163a5f;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-button:hover {
+    border-color: #163a5f;
+    background: #f5f8fb;
+}
+
+.territory-tabs {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #e3e7ec;
+}
+
+.territory-tabs a {
+    position: relative;
+    padding: 0 2px 14px;
+    color: #667085;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.territory-tabs a:hover {
+    color: #163a5f;
+}
+
+.territory-tabs a.active {
+    color: #163a5f;
+    font-weight: 600;
+}
+
+.territory-tabs a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: #163a5f;
+    border-radius: 2px;
+}
+
+.territory-content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* 
+   KPI / CARDS
+    */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.kpi-card {
+    min-height: 125px;
+    padding: 21px;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e3e7ec;
+    border-radius: 12px;
+}
+
+.kpi-card span {
+    margin-bottom: 12px;
+    color: #667085;
+    font-size: 13px;
+}
+
+.kpi-card strong {
+    color: #162b44;
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+}
+
+.kpi-card small {
+    margin-top: 5px;
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+    gap: 22px;
+}
+
+.dashboard-card {
+    min-height: 300px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e3e7ec;
+    border-radius: 12px;
+}
+
+.dashboard-card.large {
+    min-height: 380px;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card-header h2 {
+    margin: 6px 0 0;
+    color: #162b44;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.source-label {
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+.empty-chart {
+    height: 270px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #d9e0e8;
+    border-radius: 8px;
+    background: #fafbfc;
+    color: #98a2b3;
+    font-size: 13px;
+}
+
+.empty-chart.small {
+    height: 220px;
+}
+
+/* 
+   CHARTS
+    */
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 25px;
+}
+
+.chart-container.small {
+    height: 250px;
+}
+
+/* 
+   INDICADORES
+    */
+
+.indicator-list {
+    margin-top: 20px;
+}
+
+.indicator-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #eef1f4;
+}
+
+.indicator-row:last-child {
+    border-bottom: none;
+}
+
+.indicator-row span {
+    color: #667085;
+    font-size: 13px;
+}
+
+.indicator-row strong {
+    color: #162b44;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 
+   ELECCIONES MUNICIPALES
+    */
+
+.municipal-election-summary {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.municipal-election-main {
+    padding-right: 24px;
+}
+
+.municipal-election-main strong {
+    display: block;
+    margin: 8px 0;
+    font-size: 20px;
+}
+
+.municipal-election-main p {
+    margin: 0;
+    color: #667085;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.municipal-election-note {
+    padding: 22px;
+    border: 1px solid #e3e7ec;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.municipal-election-note span,
+.municipal-election-note small {
+    display: block;
+    color: #667085;
+}
+
+.municipal-election-note strong {
+    display: block;
+    margin: 6px 0;
+    font-size: 18px;
+}
+
+.municipal-election-note small {
+    line-height: 1.5;
+}
+
+.municipal-participation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.municipal-participation-value {
+    color: #163a5f;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.municipal-participation>span {
+    margin-top: 4px;
+    color: #667085;
+}
+
+.municipal-participation-bar {
+    width: 80%;
+    height: 8px;
+    margin: 24px 0 16px;
+    overflow: hidden;
+    background: #e7edf3;
+    border-radius: 20px;
+}
+
+.municipal-participation-bar div {
+    height: 100%;
+    background: #163a5f;
+    border-radius: 20px;
+}
+
+.municipal-participation small {
+    max-width: 320px;
+    color: #98a2b3;
+    line-height: 1.5;
+}
+
+.municipal-evolution {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.municipal-evolution-chart {
+    position: relative;
+    flex: 1;
+    padding: 20px 10px 10px;
+}
+
+.evolution-axis {
+    margin-bottom: 18px;
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+.evolution-point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.evolution-point-marker {
+    width: 12px;
+    height: 12px;
+    background: #163a5f;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #e8f0f7;
+}
+
+.evolution-point-label {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.evolution-point-label strong {
+    font-size: 18px;
+}
+
+.evolution-point-label span {
+    color: #667085;
+    font-size: 13px;
+}
+
+.evolution-line {
+    height: 1px;
+    margin: 18px 0 18px 5px;
+    background: #dfe5eb;
+}
+
+.evolution-secondary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.evolution-secondary-item {
+    padding: 14px 16px;
+    border: 1px solid #e7ebef;
+    border-radius: 8px;
+    background: #fafbfc;
+}
+
+.evolution-secondary-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #667085;
+    font-size: 12px;
+}
+
+.evolution-secondary-item strong {
+    font-size: 15px;
+}
+
+.evolution-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #edf0f2;
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+.evolution-footer strong {
+    color: #667085;
+    font-weight: 500;
+}
+
+/* 
+   VISTA MUNICIPAL
+    */
+
+.municipal-view .kpi-card:nth-child(4),
+.municipal-view #seatsChart,
+.municipal-view .seats-card {
+    display: none;
+}
+
+.municipal-view .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.municipal-view .dashboard-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+}
+
+.municipal-view .dashboard-grid:has(.seats-card) {
+    grid-template-columns: 1fr;
+}
+
+.municipal-view .results-card {
+    grid-column: 1 / -1;
+}
+
+/* 
+   TABLA DE ELECCIONES
+    */
+
+.election-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.election-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.election-table thead {
+    background: #f8fafc;
+}
+
+.election-table th {
+    padding: 13px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e4e7ec;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.election-table th:nth-child(3),
+.election-table th:nth-child(4),
+.election-table td:nth-child(3),
+.election-table td:nth-child(4) {
+    text-align: right;
+}
+
+.election-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.election-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.election-table td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #eef1f4;
+    color: #344054;
+}
+
+.election-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.election-table td:nth-child(2) strong {
+    color: #101828;
+    font-weight: 650;
+}
+
+.election-table td:nth-child(3) {
+    color: #475467;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.election-table td:nth-child(4) {
+    color: #173b68;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.position-number {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #f2f4f7;
+    color: #475467;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.election-table tbody tr:first-child .position-number {
+    background: #e8eef8;
+    color: #173b68;
+}
+
+/* 
+   ECONOMÍA
+    */
+
+.economic-highlight {
+    min-height: 230px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #e8edf3;
+    border-radius: 12px;
+}
+
+.economic-highlight-main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.economic-highlight-label {
+    color: #7b8794;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.economic-highlight-main strong {
+    color: #081525;
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.economic-highlight-year {
+    color: #7b8794;
+    font-size: 13px;
+}
+
+.economic-highlight-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 24px;
+    border-top: 1px solid #e5eaf0;
+}
+
+.economic-highlight-info span {
+    display: block;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.economic-highlight-info p {
+    margin: 0;
+    color: #7b8794;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+#pibTitle {
+    margin-bottom: 20px;
+}
+
+/* 
+   INFORMES
+    */
+
+.report-value {
+    margin-top: 28px;
+    color: #081525;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.report-description {
+    margin: 8px 0 0;
+    color: #7b8794;
+    font-size: 13px;
+}
+
+.report-summary {
+    margin-top: 24px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.summary-grid>div {
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #e8edf3;
+    border-radius: 10px;
+}
+
+.summary-grid span {
+    display: block;
+    margin-bottom: 8px;
+    color: #98a2b3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.summary-grid strong {
+    color: #081525;
+    font-size: 15px;
+}
+
+/* Boton Generar informe */
+
+.report-note+* {
+    margin-top: 0;
+}
+
+.primary-button {
+    border-radius: 8px;
+    background: #315f8c;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.primary-button:hover {
+    background: #3d709f;
+}
+
+.primary-button:active {
+    transform: translateY(1px);
+}
+
+
+/* Bloque final de informe territorial */
+
+.report-note {
+    padding: 28px 30px;
+}
+
+.report-note .card-header {
+    margin-bottom: 22px;
+}
+
+.report-note .card-header h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.report-note p {
+    margin: 0 0 22px;
+    max-width: 650px;
+    line-height: 1.7;
+    color: #667085;
+
+}
+
+.report-note .source-label {
+    display: block;
+    padding-top: 18px;
+    border-top: 1px solid #e5eaf0;
+    color: #7b8794;
+    font-size: 12px;
+}
+
+/* 
+   RESPONSIVE
+    */
+
 @media (max-width: 1100px) {
+
     .sidebar {
         width: 210px;
     }
@@ -570,9 +1288,30 @@
     .search-box {
         width: 300px;
     }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .municipal-view .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .municipal-view .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 850px) {
+
     .sidebar {
         position: static;
         width: 100%;
@@ -628,192 +1367,33 @@
         min-height: 400px;
     }
 
-    
-}
-
-/* Territorios */   
-
-
-.territory-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 32px;
-    margin-bottom: 28px;
-}
-
-.territory-header h1 {
-    margin: 8px 0 6px;
-    font-family: "DM Serif Display", serif;
-    font-size: 42px;
-    font-weight: 400;
-    letter-spacing: -0.8px;
-}
-
-.territory-header p {
-    margin: 0;
-    color: #667085;
-    font-size: 15px;
-}
-
-.secondary-button {
-    border: 1px solid #d9e0e8;
-    background: #ffffff;
-    color: #163a5f;
-    padding: 11px 17px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.secondary-button:hover {
-    border-color: #163a5f;
-    background: #f5f8fb;
-}
-
-.territory-tabs {
-    display: flex;
-    gap: 28px;
-    border-bottom: 1px solid #e3e7ec;
-    margin-bottom: 28px;
-}
-
-.territory-tabs a {
-    position: relative;
-    padding: 0 2px 14px;
-    color: #667085;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.territory-tabs a:hover {
-    color: #163a5f;
-}
-
-.territory-tabs a.active {
-    color: #163a5f;
-    font-weight: 600;
-}
-
-.territory-tabs a.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 2px;
-    background: #163a5f;
-    border-radius: 2px;
-}
-
-.territory-content {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
-.kpi-card {
-    background: #ffffff;
-    border: 1px solid #e3e7ec;
-    border-radius: 12px;
-    padding: 21px;
-    display: flex;
-    flex-direction: column;
-    min-height: 125px;
-}
-
-.kpi-card span {
-    color: #667085;
-    font-size: 13px;
-    margin-bottom: 12px;
-}
-
-.kpi-card strong {
-    color: #162b44;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-}
-
-.kpi-card small {
-    margin-top: 5px;
-    color: #98a2b3;
-    font-size: 12px;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
-    gap: 22px;
-}
-
-.dashboard-card {
-    background: #ffffff;
-    border: 1px solid #e3e7ec;
-    border-radius: 12px;
-    padding: 24px;
-    min-height: 300px;
-}
-
-.dashboard-card.large {
-    min-height: 380px;
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.card-header h2 {
-    margin: 6px 0 0;
-    color: #162b44;
-    font-size: 19px;
-    font-weight: 600;
-}
-
-.source-label {
-    color: #98a2b3;
-    font-size: 11px;
-}
-
-.empty-chart {
-    height: 270px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    border: 1px dashed #d9e0e8;
-    border-radius: 8px;
-    background: #fafbfc;
-    color: #98a2b3;
-    font-size: 13px;
-}
-
-.empty-chart.small {
-    height: 220px;
-}
-
-@media (max-width: 1100px) {
-    .kpi-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .municipal-election-summary {
+        grid-template-columns: 1fr;
     }
 
-    .dashboard-grid {
+    .municipal-election-main {
+        padding-right: 0;
+    }
+
+    .evolution-secondary {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 700px) {
+
+    .explorer {
+        padding: 30px 18px 45px;
+    }
+
+    .explorer-heading h1 {
+        font-size: 36px;
+    }
+
     .territory-header {
         align-items: flex-start;
         flex-direction: column;
@@ -828,254 +1408,332 @@
         overflow-x: auto;
     }
 
-    .kpi-grid {
+    .kpi-grid,
+    .municipal-view .kpi-grid {
         grid-template-columns: 1fr;
     }
-}
-.chart-container {
-    position: relative;
-    height: 300px;
-    margin-top: 25px;
+
+    .dashboard-card {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        height: 68px;
+    }
+
+    .map-panel {
+        min-height: 500px;
+    }
+
+    #map {
+        height: 430px;
+    }
+
+    .election-table {
+        min-width: 650px;
+    }
 }
 
-.chart-container.small {
-    height: 250px;
+/* 
+   PRINT
+    */
+
+@media print {
+
+    .sidebar,
+    .dashboard-header,
+    .primary-button {
+        display: none !important;
+    }
+
+    .dashboard-main {
+        margin-left: 0 !important;
+    }
+
+    .dashboard-content,
+    .explorer {
+        padding: 0 !important;
+        max-width: none !important;
+    }
+
+    .dashboard-body,
+    body {
+        background: white;
+    }
+
+    .dashboard-card,
+    .kpi-card {
+        break-inside: avoid;
+    }
 }
 
-.indicator-list {
-    margin-top: 20px;
+/* 
+   COMPARAR
+    */
+
+.comparison-selector {
+    margin-bottom: 24px;
 }
 
-.indicator-row {
+.comparison-selector-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #eef1f4;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
-.indicator-row:last-child {
+.comparison-selector-header h2 {
+    margin: 6px 0 0;
+}
+
+.comparison-selectors {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    align-items: end;
+    gap: 24px;
+}
+
+.comparison-select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comparison-select-group label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #344054;
+}
+
+.comparison-select {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid #d9e0e7;
+    border-radius: 8px;
+    background: #fff;
+    color: #081525;
+    font-size: 14px;
+    outline: none;
+}
+
+.comparison-select:focus {
+    border-color: #315f8c;
+}
+
+.comparison-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #7b8794;
+}
+
+.comparison-content.hidden {
+    display: none;
+}
+
+.comparison-territories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.comparison-territory-card {
+    padding: 22px 24px;
+    background: #fff;
+    border: 1px solid #e5eaf0;
+    border-radius: 12px;
+}
+
+.comparison-territory-card span {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #7b8794;
+    text-transform: uppercase;
+}
+
+.comparison-territory-card strong {
+    display: block;
+    font-size: 22px;
+    color: #081525;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #edf0f3;
+    text-align: left;
+    font-size: 14px;
+}
+
+.comparison-table th {
+    background: #f8fafc;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.comparison-table td:first-child {
+    color: #344054;
+    font-weight: 600;
+}
+
+.comparison-table td:not(:first-child) {
+    color: #081525;
+    font-weight: 600;
+}
+
+.comparison-table tr:last-child td {
     border-bottom: none;
 }
 
-.indicator-row span {
-    color: #667085;
-    font-size: 13px;
-}
-
-.indicator-row strong {
-    color: #162b44;
-    font-size: 14px;
-    font-weight: 600;
-}
-.municipal-election-summary {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 24px;
-    align-items: center;
-}
-
-.municipal-election-main {
-    padding-right: 24px;
-}
-
-.municipal-election-main strong {
-    display: block;
-    margin: 8px 0;
-    font-size: 20px;
-}
-
-.municipal-election-main p {
-    margin: 0;
-    color: #667085;
-    line-height: 1.6;
-    font-size: 14px;
-}
-
-.municipal-election-note {
-    padding: 22px;
-    border: 1px solid #e3e7ec;
-    border-radius: 10px;
-    background: #f8fafc;
-}
-
-.municipal-election-note span,
-.municipal-election-note small {
-    display: block;
-    color: #667085;
-}
-
-.municipal-election-note strong {
-    display: block;
-    margin: 6px 0;
-    font-size: 18px;
-}
-
-.municipal-election-note small {
-    line-height: 1.5;
-}
-
-.municipal-participation {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.municipal-participation-value {
-    font-size: 42px;
-    font-weight: 700;
-    color: #163a5f;
-}
-
-.municipal-participation > span {
-    margin-top: 4px;
-    color: #667085;
-}
-
-.municipal-participation-bar {
-    width: 80%;
-    height: 8px;
-    margin: 24px 0 16px;
-    background: #e7edf3;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.municipal-participation-bar div {
-    height: 100%;
-    background: #163a5f;
-    border-radius: 20px;
-}
-
-.municipal-participation small {
-    max-width: 320px;
-    color: #98a2b3;
-    line-height: 1.5;
-}
-
-.municipal-evolution {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.municipal-evolution-chart {
+.comparison-chart {
+    height: 380px;
     position: relative;
-    flex: 1;
-    padding: 20px 10px 10px;
 }
 
-.evolution-axis {
-    color: #98a2b3;
-    font-size: 12px;
-    margin-bottom: 18px;
+/* Comparacion de territorios */
+
+.comparison-territories {
+    gap: 32px;
+    margin-bottom: 32px;
 }
 
-.evolution-point {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.comparison-territories .dashboard-card {
+    min-height: 0;
+    padding: 22px 24px;
 }
 
-.evolution-point-marker {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #163a5f;
-    box-shadow: 0 0 0 5px #e8f0f7;
+.comparison-territories .card-header {
+    margin-bottom: 10px;
 }
 
-.evolution-point-label {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+.comparison-territories .card-header h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
 }
 
-.evolution-point-label strong {
-    font-size: 18px;
+
+/* Separacion entre los bloques principales */
+
+#comparisonContent>.dashboard-card {
+    margin-bottom: 28px;
 }
 
-.evolution-point-label span {
+#comparisonContent>.dashboard-card:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Bloque final de analisis comparativo */
+
+#comparisonContent .report-note {
+    padding: 28px 30px;
+}
+
+#comparisonContent .report-note .card-header {
+    margin-bottom: 22px;
+}
+
+#comparisonContent .report-note .card-header h2 {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+#comparisonContent .report-note p {
+    margin: 0 0 22px;
+    max-width: 850px;
+    line-height: 1.7;
     color: #667085;
-    font-size: 13px;
 }
 
-.evolution-line {
-    height: 1px;
-    background: #dfe5eb;
-    margin: 18px 0 18px 5px;
-}
-
-.evolution-secondary {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.evolution-secondary-item {
-    padding: 14px 16px;
-    border: 1px solid #e7ebef;
-    border-radius: 8px;
-    background: #fafbfc;
-}
-
-.evolution-secondary-item span {
+#comparisonContent .report-note .source-label {
     display: block;
-    color: #667085;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-.evolution-secondary-item strong {
-    font-size: 15px;
-}
-
-.evolution-footer {
-    border-top: 1px solid #edf0f2;
-    padding-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    color: #98a2b3;
+    padding-top: 18px;
+    border-top: 1px solid #e5eaf0;
+    color: #7b8794;
     font-size: 12px;
 }
 
-.evolution-footer strong {
-    color: #667085;
+
+/* Separacion del bloque de seleccion */
+
+.comparison-selector {
+    margin-bottom: 32px;
+}
+
+.comparison-selector .card-header {
+    margin-bottom: 26px;
+}
+
+
+/* Espaciado de los selectores */
+
+.comparison-selectors {
+    gap: 28px;
+}
+
+/* Datos de la tabla de comparacion */
+
+.comparison-table td:not(:first-child) {
+    color: #081525;
     font-weight: 500;
 }
 
-.municipal-view .kpi-card:nth-child(4),
-.municipal-view #seatsChart {
-    display: none;
+
+/* Boton Comparar */
+
+#compareButton {
+    background: #315f8c;
+    border-radius: 8px;
+    padding: 11px 20px;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.municipal-view .kpi-grid {
-    grid-template-columns: repeat(3, 1fr);
+#compareButton:hover {
+    background: #3d709f;
 }
 
-.municipal-view .dashboard-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+#compareButton:active {
+    transform: translateY(1px);
 }
 
-.municipal-view #seatsChart {
-    display: none;
-}
-.municipal-view .seats-card {
-    display: none;
-}
+@media (max-width: 800px) {
 
-.municipal-view .kpi-grid {
-    grid-template-columns: repeat(3, 1fr);
-}
-.municipal-view .dashboard-grid:has(.seats-card) {
-    grid-template-columns: 1fr;
-}
-.municipal-view .results-card {
-    grid-column: 1 / -1;
+    .comparison-selectors {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .comparison-vs {
+        height: auto;
+    }
+
+    .comparison-territories {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-selector-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
 }

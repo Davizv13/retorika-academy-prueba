@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Comparar | Retorika</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="../index.html">RETORIKA</a>
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-label">
+                NAVEGACIÓN
+            </span>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">⌂</span>
+                Inicio
+            </a>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">◎</span>
+                Mapa
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-label">
+                ANÁLISIS
+            </span>
+
+            <a href="territorio.html" class="sidebar-link">
+                <span class="sidebar-icon">◌</span>
+                Resumen
+            </a>
+
+            <a href="territorio.html#demografia" class="sidebar-link">
+                <span class="sidebar-icon">◒</span>
+                Demografía
+            </a>
+
+            <a href="economia.html" class="sidebar-link">
+                <span class="sidebar-icon">◫</span>
+                Economía
+            </a>
+
+            <a href="elecciones.html" class="sidebar-link">
+                <span class="sidebar-icon">◈</span>
+                Elecciones
+            </a>
+
+            <a href="territorio.html#instituciones" class="sidebar-link">
+                <span class="sidebar-icon">◇</span>
+                Instituciones
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-label">
+                HERRAMIENTAS
+            </span>
+
+            <a href="comparar.html" class="sidebar-link active">
+                <span class="sidebar-icon">⇄</span>
+                Comparar
+            </a>
+
+            <a id="reportsLink" href="informes.html" class="sidebar-link">
+                <span class="sidebar-icon">▤</span>
+                Informes
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">⚙</span>
+                Configuración
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">?</span>
+                Ayuda
+            </a>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    DQ
+                </div>
+
+                <div class="user-info">
+                    <strong>David Quintas</strong>
+                    <span>Analista</span>
+                </div>
+
+                <span class="user-menu">
+                    •••
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-header">
+
+            <div class="breadcrumb">
+
+                <span>
+                    Explorar España
+                </span>
+
+                <strong>
+                    Comparar
+                </strong>
+
+            </div>
+
+
+            <div class="header-tools">
+
+                <div class="election-selector">
+
+                    <span class="selector-label">
+                        PROCESO
+                    </span>
+
+                    <select>
+
+                        <option>
+                            Elecciones autonómicas 2024
+                        </option>
+
+                        <option>
+                            Elecciones generales 2023
+                        </option>
+
+                        <option>
+                            Elecciones municipales 2023
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="header-avatar">
+                    DQ
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="explorer">
+
+
+            <div class="territory-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        ANÁLISIS COMPARATIVO
+                    </span>
+
+                    <h1>
+                        Comparar territorios
+                    </h1>
+
+                    <p>
+                        Compara los principales indicadores de dos territorios y analiza sus diferencias y evolución.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <section class="territory-content">
+
+
+                <div class="dashboard-card comparison-selector">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                SELECCIÓN
+                            </span>
+
+                            <h2>
+                                Selecciona los territorios
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            id="compareButton"
+                            class="primary-button">
+
+                            Comparar
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="comparison-selectors">
+
+
+                        <div class="comparison-select-group">
+
+                            <label for="territoryA">
+                                Territorio A
+                            </label>
+
+                            <select
+                                id="territoryA"
+                                class="comparison-select">
+
+                                <option value="">
+                                    Selecciona un territorio
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="comparison-vs">
+                            VS
+                        </div>
+
+
+                        <div class="comparison-select-group">
+
+                            <label for="territoryB">
+                                Territorio B
+                            </label>
+
+                            <select
+                                id="territoryB"
+                                class="comparison-select">
+
+                                <option value="">
+                                    Selecciona un territorio
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="comparisonContent"
+                    class="comparison-content hidden">
+
+
+                    <div class="comparison-territories">
+
+
+                        <div class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        TERRITORIO A
+                                    </span>
+
+                                    <h2 id="territoryAName">
+                                        —
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        TERRITORIO B
+                                    </span>
+
+                                    <h2 id="territoryBName">
+                                        —
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    INDICADORES
+                                </span>
+
+                                <h2>
+                                    Comparación territorial
+                                </h2>
+
+                                <p>
+                                    Principales indicadores demográficos y económicos.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="comparison-table-wrapper">
+
+                            <table class="comparison-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Indicador
+                                        </th>
+
+                                        <th id="tableNameA">
+                                            Territorio A
+                                        </th>
+
+                                        <th id="tableNameB">
+                                            Territorio B
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Población
+                                        </td>
+
+                                        <td id="populationA">
+                                            —
+                                        </td>
+
+                                        <td id="populationB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Edad media
+                                        </td>
+
+                                        <td id="ageA">
+                                            —
+                                        </td>
+
+                                        <td id="ageB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Densidad
+                                        </td>
+
+                                        <td id="densityA">
+                                            —
+                                        </td>
+
+                                        <td id="densityB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Superficie
+                                        </td>
+
+                                        <td id="areaA">
+                                            —
+                                        </td>
+
+                                        <td id="areaB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Población extranjera
+                                        </td>
+
+                                        <td id="foreignA">
+                                            —
+                                        </td>
+
+                                        <td id="foreignB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Renta disponible
+                                        </td>
+
+                                        <td id="incomeA">
+                                            —
+                                        </td>
+
+                                        <td id="incomeB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            PIB per cápita
+                                        </td>
+
+                                        <td id="gdpA">
+                                            —
+                                        </td>
+
+                                        <td id="gdpB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            Paro registrado
+                                        </td>
+
+                                        <td id="unemploymentA">
+                                            —
+                                        </td>
+
+                                        <td id="unemploymentB">
+                                            —
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    EVOLUCIÓN
+                                </span>
+
+                                <h2>
+                                    Evolución de la población
+                                </h2>
+
+                                <p>
+                                    Evolución de la población de ambos territorios entre 2000 y 2025.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-container comparison-chart">
+
+                            <canvas
+                                id="populationComparisonChart">
+                            </canvas>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="dashboard-card report-note">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    RETORIKA
+                                </span>
+
+                                <h2>
+                                    Análisis comparativo
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <p>
+                            La comparación permite identificar diferencias demográficas y económicas entre los territorios seleccionados y analizar su evolución.
+                        </p>
+
+
+                        <span class="source-label">
+                            Fuentes: IGE · INE
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="../js/comparar.js"></script>
+
+</body>
+</html>

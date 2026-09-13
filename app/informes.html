@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informes | Retorika</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="../index.html">RETORIKA</a>
+        </div>
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">NAVEGACIÓN</span>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">⌂</span>
+                Inicio
+            </a>
+
+            <a href="index.html" class="sidebar-link">
+                <span class="sidebar-icon">◎</span>
+                Mapa
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">ANÁLISIS</span>
+
+            <a href="territorio.html" class="sidebar-link">
+                <span class="sidebar-icon">◌</span>
+                Resumen
+            </a>
+
+            <a href="territorio.html#demografia" class="sidebar-link">
+                <span class="sidebar-icon">◒</span>
+                Demografía
+            </a>
+
+            <a href="economia.html" class="sidebar-link">
+                <span class="sidebar-icon">◫</span>
+                Economía
+            </a>
+
+            <a href="elecciones.html" class="sidebar-link">
+                <span class="sidebar-icon">◈</span>
+                Elecciones
+            </a>
+
+            <a href="territorio.html#instituciones" class="sidebar-link">
+                <span class="sidebar-icon">◇</span>
+                Instituciones
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <span class="sidebar-label">HERRAMIENTAS</span>
+
+            <a href="comparar.html" class="sidebar-link">
+                <span class="sidebar-icon">⇄</span>
+                Comparar
+            </a>
+
+            <a id="reportsLink" href="informes.html" class="sidebar-link active">
+                <span class="sidebar-icon">▤</span>
+                Informes
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">⚙</span>
+                Configuración
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <span class="sidebar-icon">?</span>
+                Ayuda
+            </a>
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    DQ
+                </div>
+
+                <div class="user-info">
+                    <strong>David Quintas</strong>
+                    <span>Analista</span>
+                </div>
+
+                <span class="user-menu">
+                    •••
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+
+            <div class="breadcrumb">
+
+                <span>Explorar España</span>
+
+                <strong id="breadcrumbTerritory">
+                    Informes
+                </strong>
+
+            </div>
+
+            <div class="header-tools">
+
+                <div class="election-selector">
+
+                    <span class="selector-label">
+                        PROCESO
+                    </span>
+
+                    <select>
+                        <option>Elecciones autonómicas 2024</option>
+                        <option>Elecciones generales 2023</option>
+                        <option>Elecciones municipales 2023</option>
+                    </select>
+
+                </div>
+
+                <div class="header-avatar">
+                    DQ
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="explorer">
+
+            <div class="territory-header">
+
+                <div>
+
+                    <span class="eyebrow" id="reportLevel">
+                        INFORME TERRITORIAL
+                    </span>
+
+                    <h1 id="reportTitle">
+                        Informe territorial
+                    </h1>
+
+                    <p id="reportDescription">
+                        Síntesis de los principales indicadores del territorio seleccionado.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="window.print()">
+                    Generar informe
+                </button>
+
+            </div>
+
+
+            <section class="territory-content">
+
+                <div class="kpi-grid">
+
+                    <div class="kpi-card">
+
+                        <span>Población</span>
+
+                        <strong id="population">
+                            —
+                        </strong>
+
+                        <small>
+                            habitantes · 2025
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-card">
+
+                        <span>Renta disponible</span>
+
+                        <strong id="income">
+                            —
+                        </strong>
+
+                        <small>
+                            €/habitante · 2023
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-card">
+
+                        <span>PIB per cápita</span>
+
+                        <strong id="gdp">
+                            —
+                        </strong>
+
+                        <small>
+                            euros · 2020
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-card">
+
+                        <span>Paro registrado</span>
+
+                        <strong id="unemployment">
+                            —
+                        </strong>
+
+                        <small>
+                            personas · 2025
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <article class="dashboard-card large">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    RESUMEN
+                                </span>
+
+                                <h2>
+                                    Información territorial
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="indicator-list">
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Municipio
+                                </span>
+
+                                <strong id="summaryName">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Provincia
+                                </span>
+
+                                <strong id="summaryProvince">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Comunidad autónoma
+                                </span>
+
+                                <strong id="summaryCommunity">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Superficie
+                                </span>
+
+                                <strong id="summaryArea">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Densidad
+                                </span>
+
+                                <strong id="summaryDensity">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    DEMOGRAFÍA
+                                </span>
+
+                                <h2>
+                                    Estructura de población
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="indicator-list">
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Edad media
+                                </span>
+
+                                <strong id="averageAge">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Menores de 15 años
+                                </span>
+
+                                <strong id="youngPopulation">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    15–64 años
+                                </span>
+
+                                <strong id="workingPopulation">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    65 años o más
+                                </span>
+
+                                <strong id="oldPopulation">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="indicator-row">
+
+                                <span>
+                                    Población extranjera
+                                </span>
+
+                                <strong id="foreignPopulation">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <div class="dashboard-card report-note">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                RETORIKA
+                            </span>
+
+                            <h2 class="informeTerritorial">
+                                Informe territorial
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <p class="informeTerritorial">
+                        Este informe reúne los principales indicadores demográficos y económicos disponibles para el territorio seleccionado.
+                    </p>
+
+                    <span class="source-label">
+                        Fuentes: IGE · INE
+                    </span>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/informes.js"></script>
+
+</body>
+</html>
