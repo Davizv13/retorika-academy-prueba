@@ -657,86 +657,64 @@ function updateLinks(code, name) {
         return;
     }
 
-
     const query =
         `?code=${encodeURIComponent(code)}&name=${encodeURIComponent(name || "")}`;
 
-
-    const economyLink =
-        document.getElementById("economyLink");
-
+    const economyLink = document.getElementById("economyLink");
 
     if (economyLink) {
-
-        economyLink.href =
-            `economia.html${query}`;
-
+        economyLink.href = `economia.html${query}`;
     }
 
-
-    const electionsLink =
-        document.getElementById("electionsLink");
-
+    const electionsLink = document.getElementById("electionsLink");
 
     if (electionsLink) {
-
-        electionsLink.href =
-            `elecciones.html${query}`;
-
+        electionsLink.href = `elecciones.html${query}`;
     }
 
     const reportsLink = document.getElementById("reportsLink");
 
     if (reportsLink) {
-        reportsLink.href =
-            `informes.html${query}`;
+        reportsLink.href = `informes.html${query}`;
     }
 
+    const sidebarLinks = document.querySelectorAll(".sidebar-link");
 
-    document.querySelectorAll(".sidebar-link").forEach(link => {
+    sidebarLinks.forEach(link => {
 
-        const text = link.textContent.trim();
+        const text = link.textContent
+            .replace(/\s+/g, " ")
+            .trim();
 
-
-        if (text === "Economía") {
-
-            link.href =
-                `economia.html${query}`;
-
+        if (text.includes("Economía")) {
+            link.href = `economia.html${query}`;
         }
 
-
-        if (text === "Elecciones") {
-
-            link.href =
-                `elecciones.html${query}`;
-
+        if (text.includes("Elecciones")) {
+            link.href = `elecciones.html${query}`;
         }
 
-
-        if (text === "Resumen") {
-
-            link.href =
-                `territorio.html${query}`;
-
+        if (text.includes("Resumen")) {
+            link.href = `territorio.html${query}`;
         }
 
-
-        if (text === "Demografía") {
-
-            link.href =
-                `territorio.html${query}#demografia`;
-
+        if (text.includes("Demografía")) {
+            link.href = `territorio.html${query}#demografia`;
         }
 
+        if (text.includes("Instituciones")) {
+            link.href = `territorio.html${query}#instituciones`;
+        }
 
-        if (text === "Instituciones") {
+        if (text.includes("Informes")) {
+            link.href = `informes.html${query}`;
+        }
 
-            link.href =
-                `territorio.html${query}#instituciones`;
-
+        if (text.includes("Comparar")) {
+            link.href = `comparar.html${query}`;
         }
 
     });
-
 }
+
+

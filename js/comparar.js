@@ -1,6 +1,8 @@
 const params = new URLSearchParams(window.location.search);
 
 const initialCode = params.get("code");
+const territoryCode = params.get("code");
+const territoryName = params.get("name");
 
 let municipiosData = {};
 let historicaData = {};
@@ -264,10 +266,10 @@ function compareTerritories() {
 
 
     window.history.replaceState(
-        {},
-        "",
-        `comparar.html?code=${encodeURIComponent(codeA)}`
-    );
+    {},
+    "",
+    `comparar.html?code=${encodeURIComponent(codeA)}&name=${encodeURIComponent(territoryName || municipalityA.nombre)}`
+);
 
 }
 
@@ -493,5 +495,51 @@ compareButton.addEventListener(
     compareTerritories
 );
 
+function updateSidebarLinks() {
 
+    if (!territoryCode) {
+        return;
+    }
+
+    const query =
+        `?code=${encodeURIComponent(territoryCode)}&name=${encodeURIComponent(territoryName || "")}`;
+
+    document.querySelectorAll(".sidebar-link").forEach(link => {
+
+        const text = link.textContent
+            .replace(/\s+/g, " ")
+            .trim();
+
+        if (text.includes("Resumen")) {
+            link.href = `territorio.html${query}`;
+        }
+
+        if (text.includes("Demografía")) {
+            link.href = `territorio.html${query}#demografia`;
+        }
+
+        if (text.includes("Economía")) {
+            link.href = `economia.html${query}`;
+        }
+
+        if (text.includes("Elecciones")) {
+            link.href = `elecciones.html${query}`;
+        }
+
+        if (text.includes("Instituciones")) {
+            link.href = `territorio.html${query}#instituciones`;
+        }
+
+        if (text.includes("Comparar")) {
+            link.href = `comparar.html${query}`;
+        }
+
+        if (text.includes("Informes")) {
+            link.href = `informes.html${query}`;
+        }
+
+    });
+}
+
+updateSidebarLinks();
 loadData();

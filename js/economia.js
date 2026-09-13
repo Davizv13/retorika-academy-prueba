@@ -365,4 +365,40 @@ async function loadEconomy() {
     }
 }
 
+function updateSidebar() {
+    if (!territoryCode) {
+        return;
+    }
+
+    const query =
+        `?code=${encodeURIComponent(territoryCode)}&name=${encodeURIComponent(territoryName || "")}`;
+
+    const resumen = document.getElementById("sidebarResumen");
+    const demografia = document.getElementById("sidebarDemografia");
+    const economia = document.getElementById("sidebarEconomia");
+    const elecciones = document.getElementById("sidebarElecciones");
+    const instituciones = document.getElementById("sidebarInstituciones");
+
+    if (resumen) {
+        resumen.href = `territorio.html${query}`;
+    }
+
+    if (demografia) {
+        demografia.href = `territorio.html${query}#demografia`;
+    }
+
+    if (economia) {
+        economia.href = `economia.html${query}`;
+    }
+
+    if (elecciones) {
+        elecciones.href = `elecciones.html${query}`;
+    }
+
+    if (instituciones) {
+        instituciones.href = `territorio.html${query}#instituciones`;
+    }
+}
+
+updateSidebar();
 loadEconomy();
