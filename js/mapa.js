@@ -12,6 +12,9 @@ let currentLayer = null;
 let currentLevel = "comunidades";
 let selectedCommunity = null;
 let selectedProvince = null;
+let electionData = {};
+
+
 
 const layerIds = {
     comunidades: 17,
@@ -53,6 +56,53 @@ const styles = {
         fillOpacity: 1
     }
 };
+
+
+function getElectionColor(code) {
+
+    const election = electionData[code];
+
+    if (!election || !election.ganador) {
+        return {
+            color: "#CBD5E1",
+            fillColor: "#E2E8F0",
+            fillOpacity: 0.85
+        };
+    }
+
+    const winner = election.ganador;
+
+    if (winner === "PP") {
+        return {
+            color: "#163A5F",
+            fillColor: "#2563EB",
+            fillOpacity: 0.85
+        };
+    }
+
+    if (winner === "PSdeG-PSOE" || winner === "PSOE") {
+        return {
+            color: "#991B1B",
+            fillColor: "#EF4444",
+            fillOpacity: 0.85
+        };
+    }
+
+    if (winner === "BNG") {
+        return {
+            color: "#166534",
+            fillColor: "#22C55E",
+            fillOpacity: 0.85
+        };
+    }
+
+    return {
+        color: "#64748B",
+        fillColor: "#CBD5E1",
+        fillOpacity: 0.85
+    };
+}
+
 
 function getName(properties) {
     return (
@@ -101,7 +151,16 @@ function loadLevel(level, where = "1=1") {
             }
 
             currentLayer = L.geoJSON(data, {
-                style: () => styles.default,
+                style: feature => {
+                    const properties = feature.properties || {};
+                    const code = String(properties.codine || "");
+
+                    if (currentLevel === "municipios") {
+                        return getElectionColor(code);
+                    }
+
+                    return styles.default;
+                },
 
                 onEachFeature: (feature, layer) => {
                     const properties = feature.properties || {};
@@ -329,4 +388,13 @@ document.getElementById("sortButton")?.addEventListener("click", () => {
         .forEach(item => container.appendChild(item));
 });
 
-loadLevel("comunidades");
+fetch("../data/elecciones.json")
+    .then(response => response.json())
+    .then(data => {
+        electionData = data;
+        loadLevel("comunidades");
+    })
+    .catch(error => {
+        console.error("Error cargando elecciones:", error);
+        loadLevel("comunidades");
+    });
