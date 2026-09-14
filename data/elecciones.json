@@ -351,8 +351,8 @@
     },
     "ganador": "BNG"
   },
-  "36012": {
-    "nombre": "Cerdedo-Cotobade",
+ "36902": {
+    "nombre": "Cerdedo Cotobade",
     "censo": 4966,
     "votos": 3591,
     "nulos": 49,
@@ -360,19 +360,19 @@
     "abstencion": 1375,
     "validos": 3542,
     "candidaturas": {
-      "BNG": 882,
-      "ECG": 2,
-      "ESCANOS EN BLANCO": 6,
-      "PACMA": 6,
-      "PODEMOS-ALIANZA VERDE": 4,
-      "PP": 1983,
-      "PSdeG-PSOE": 512,
-      "PUM+J": 1,
-      "SUMAR GALICIA": 60,
-      "VOX": 65
+        "BNG": 882,
+        "ECG": 2,
+        "ESCANOS EN BLANCO": 6,
+        "PACMA": 6,
+        "PODEMOS-ALIANZA VERDE": 4,
+        "PP": 1983,
+        "PSdeG-PSOE": 512,
+        "PUM+J": 1,
+        "SUMAR GALICIA": 60,
+        "VOX": 65
     },
     "ganador": "PP"
-  },
+},
   "36013": {
     "nombre": "Covelo",
     "censo": 2197,
@@ -2771,7 +2771,7 @@
     },
     "ganador": "PP"
   },
-  "150902": {
+  "15902": {
     "nombre": "Oza-Cesuras",
     "censo": 4548,
     "votos": 3168,
@@ -6953,5 +6953,27 @@
     "VOX": 5
   },
   "ganador": "PP"
+},
+"15901": {
+    "nombre": "Cariño",
+    "censo": 3156,
+    "votos": 1880,
+    "nulos": 29,
+    "blancos": 8,
+    "abstencion": 1276,
+    "validos": 1851,
+    "candidaturas": {
+        "BNG": 600,
+        "ECG": 0,
+        "ESCANOS EN BLANCO": 4,
+        "PACMA": 6,
+        "PODEMOS-ALIANZA VERDE": 6,
+        "PP": 865,
+        "PSdeG-PSOE": 305,
+        "PUM+J": 0,
+        "SUMAR GALICIA": 25,
+        "VOX": 32
+    },
+    "ganador": "PP"
 }
 }
