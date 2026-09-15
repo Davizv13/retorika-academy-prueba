@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituciones | Retorika</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/LogoRetorika.png">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+                <a href="../index.html">RETORIKA</a>
+            </div>
+
+            <div class="sidebar-section">
+
+                <span class="sidebar-label">NAVEGACIÓN</span>
+
+                <a href="index.html" class="sidebar-link">
+                    <span class="sidebar-icon">⌂</span>
+                    Inicio
+                </a>
+
+                <a href="index.html" class="sidebar-link">
+                    <span class="sidebar-icon">◎</span>
+                    Mapa
+                </a>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <span class="sidebar-label">ANÁLISIS</span>
+
+                <a id="summaryLink" href="territorio.html" class="sidebar-link">
+                    <span class="sidebar-icon">◌</span>
+                    Resumen
+                </a>
+
+                <a id="demographyLink" href="territorio.html#demografia" class="sidebar-link">
+                    <span class="sidebar-icon">◒</span>
+                    Demografía
+                </a>
+
+                <a id="economyLink" href="economia.html" class="sidebar-link">
+                    <span class="sidebar-icon">◫</span>
+                    Economía
+                </a>
+
+                <a id="electionsLink" href="elecciones.html" class="sidebar-link">
+                    <span class="sidebar-icon">◈</span>
+                    Elecciones
+                </a>
+
+                <a id="institutionsSidebarLink" href="instituciones.html" class="sidebar-link active">
+                    <span class="sidebar-icon">♜</span>
+                    Instituciones
+                </a>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <span class="sidebar-label">HERRAMIENTAS</span>
+
+                <a id="compareLink" href="comparar.html" class="sidebar-link">
+                    <span class="sidebar-icon">⇄</span>
+                    Comparar
+                </a>
+
+                <a id="reportsLink" href="informes.html" class="sidebar-link">
+                    <span class="sidebar-icon">▤</span>
+                    Informes
+                </a>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">⚙</span>
+                    Configuración
+                </a>
+
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">?</span>
+                    Ayuda
+                </a>
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">DQ</div>
+
+                    <div class="user-info">
+                        <strong>David Quintas</strong>
+                        <span>Analista</span>
+                    </div>
+
+                    <span class="user-menu">•••</span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <main class="dashboard-main">
+
+            <header class="dashboard-header">
+
+                <div class="breadcrumb">
+                    <span>Explorar España</span>
+                    <strong id="breadcrumbTerritory">Territorio</strong>
+                </div>
+
+                <div class="header-tools">
+                    <div class="header-avatar">DQ</div>
+                </div>
+
+            </header>
+
+            <section class="explorer">
+
+                <div class="territory-header">
+
+                    <div>
+
+                        <span class="eyebrow" id="territoryLevel">
+                            INSTITUCIONES
+                        </span>
+
+                        <h1 id="territoryName">
+                            Territorio
+                        </h1>
+
+                        <p id="territoryDescription">
+                            Gobierno, representantes e información institucional.
+                        </p>
+
+                    </div>
+
+                    <button class="secondary-button" onclick="window.location.href='index.html'">
+                        ← Volver al mapa
+                    </button>
+
+                </div>
+
+                <nav class="territory-tabs">
+
+                    <a id="summaryTab" href="territorio.html">
+                        Resumen
+                    </a>
+
+                    <a id="demographyTab" href="territorio.html#demografia">
+                        Demografía
+                    </a>
+
+                    <a id="economyTab" href="economia.html">
+                        Economía
+                    </a>
+
+                    <a id="electionsTab" href="elecciones.html">
+                        Elecciones
+                    </a>
+
+                    <a href="#" class="active">
+                        Instituciones
+                    </a>
+
+                </nav>
+
+                <section class="territory-content">
+
+                    <div id="emptyState" class="dashboard-card">
+
+                        <div class="card-header">
+                            <div>
+                                <span class="eyebrow">INSTITUCIONES</span>
+                                <h2>Selecciona un territorio</h2>
+                            </div>
+                        </div>
+
+                        <p>
+                            Selecciona un municipio desde el mapa para consultar
+                            sus instituciones y representantes.
+                        </p>
+
+                    </div>
+
+                    <div id="institutionContent" style="display: none;">
+
+                        <div class="kpi-grid">
+
+                            <div class="kpi-card">
+                                <span>Alcalde / Alcaldesa</span>
+                                <strong id="mayorName">—</strong>
+                                <small id="mayorParty">—</small>
+                            </div>
+
+                            <div class="kpi-card">
+                                <span>Representantes</span>
+                                <strong id="representativeCount">—</strong>
+                                <small>municipales</small>
+                            </div>
+
+                            <div class="kpi-card">
+                                <span>Partidos</span>
+                                <strong id="partyCount">—</strong>
+                                <small>con representación</small>
+                            </div>
+
+                            <div class="kpi-card">
+                                <span>Entidades locales</span>
+                                <strong id="entityCount">—</strong>
+                                <small>registradas</small>
+                            </div>
+
+                        </div>
+
+                        <div class="dashboard-grid">
+
+                            <article class="dashboard-card">
+
+                                <div class="card-header">
+
+                                    <div>
+                                        <span class="eyebrow">GOBIERNO</span>
+                                        <h2>Alcaldía</h2>
+                                    </div>
+
+                                    <span class="source-label">
+                                        Registro de Entidades Locales de Galicia
+                                    </span>
+
+                                </div>
+
+                                <div class="indicator-list">
+
+                                    <div class="indicator-row">
+                                        <span>Nombre</span>
+                                        <strong id="mayorFullName">—</strong>
+                                    </div>
+
+                                    <div class="indicator-row">
+                                        <span>Partido</span>
+                                        <strong id="mayorFullParty">—</strong>
+                                    </div>
+
+                                    <div class="indicator-row">
+                                        <span>Fecha de posesión</span>
+                                        <strong id="mayorDate">—</strong>
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                            <article class="dashboard-card">
+
+                                <div class="card-header">
+
+                                    <div>
+                                        <span class="eyebrow">AYUNTAMIENTO</span>
+                                        <h2>Información de contacto</h2>
+                                    </div>
+
+                                </div>
+
+                                <div class="indicator-list">
+
+                                    <div class="indicator-row">
+                                        <span>Dirección</span>
+                                        <strong id="townHallAddress">—</strong>
+                                    </div>
+
+                                    <div class="indicator-row">
+                                        <span>Teléfono</span>
+                                        <strong id="townHallPhone">—</strong>
+                                    </div>
+
+                                    <div class="indicator-row">
+                                        <span>Email</span>
+                                        <strong id="townHallEmail">—</strong>
+                                    </div>
+
+                                    <div class="indicator-row">
+                                        <span>Web</span>
+                                        <strong id="townHallWeb">—</strong>
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                        <article class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+                                    <span class="eyebrow">REPRESENTANTES</span>
+                                    <h2>Composición del Ayuntamiento</h2>
+                                </div>
+
+                                <span class="source-label">
+                                    Mandato 2023–2027
+                                </span>
+
+                            </div>
+
+                            <div id="representativesTable"></div>
+
+                        </article>
+
+                        <article class="dashboard-card">
+
+                            <div class="card-header">
+
+                                <div>
+                                    <span class="eyebrow">ENTIDADES LOCALES</span>
+                                    <h2>Entidades vinculadas</h2>
+                                </div>
+
+                                <span class="source-label">
+                                    Registro de Entidades Locales de Galicia
+                                </span>
+
+                            </div>
+
+                            <div id="entitiesList"></div>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/instituciones.js"></script>
+
+</body>
+
+</html>

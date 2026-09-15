@@ -838,6 +838,14 @@ function updateLinks(code, name) {
             `elecciones.html${query}`;
     }
 
+    const institutionsLink =
+        document.getElementById("institutionsLink");
+
+    if (institutionsLink) {
+        institutionsLink.href =
+            `instituciones.html${query}`;
+    }
+
     const reportsLink =
         document.getElementById("reportsLink");
 
@@ -878,7 +886,7 @@ function updateLinks(code, name) {
 
         if (text.includes("Instituciones")) {
             link.href =
-                `territorio.html${query}#instituciones`;
+                `instituciones.html${query}`;
         }
 
         if (text.includes("Informes")) {

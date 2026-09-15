@@ -479,7 +479,7 @@ function updateSidebarLinks() {
         }
 
         if (text.includes("Instituciones")) {
-            link.href = `territorio.html${query}#instituciones`;
+            link.href = `instituciones.html${query}`;
         }
 
         if (text.includes("Comparar")) {

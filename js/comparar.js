@@ -266,10 +266,10 @@ function compareTerritories() {
 
 
     window.history.replaceState(
-    {},
-    "",
-    `comparar.html?code=${encodeURIComponent(codeA)}&name=${encodeURIComponent(territoryName || municipalityA.nombre)}`
-);
+        {},
+        "",
+        `comparar.html?code=${encodeURIComponent(codeA)}&name=${encodeURIComponent(territoryName || municipalityA.nombre)}`
+    );
 
 }
 
@@ -322,7 +322,7 @@ function fillIndicators(
     document.getElementById(`income${prefix}`)
         .textContent =
         income &&
-        income.porHabitante !== null
+            income.porHabitante !== null
             ? formatEuro(income.porHabitante)
             : "—";
 
@@ -336,7 +336,7 @@ function fillIndicators(
     document.getElementById(`gdp${prefix}`)
         .textContent =
         gdp &&
-        gdp.porHabitante !== null
+            gdp.porHabitante !== null
             ? formatEuro(gdp.porHabitante)
             : "—";
 
@@ -350,7 +350,7 @@ function fillIndicators(
     document.getElementById(`unemployment${prefix}`)
         .textContent =
         unemployment !== undefined &&
-        unemployment !== null
+            unemployment !== null
             ? formatNumber(unemployment)
             : "—";
 
@@ -527,7 +527,7 @@ function updateSidebarLinks() {
         }
 
         if (text.includes("Instituciones")) {
-            link.href = `territorio.html${query}#instituciones`;
+            link.href = `instituciones.html${query}`;
         }
 
         if (text.includes("Comparar")) {

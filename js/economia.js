@@ -543,6 +543,12 @@ function updateSidebar() {
     const instituciones =
         document.getElementById("sidebarInstituciones");
 
+    const comparar =
+        document.getElementById("sidebarComparar");
+
+    const informes =
+        document.getElementById("sidebarInformes");
+
     if (resumen) {
         resumen.href =
             `territorio.html${query}`;
@@ -565,8 +571,20 @@ function updateSidebar() {
 
     if (instituciones) {
         instituciones.href =
-            `territorio.html${query}#instituciones`;
+            `instituciones.html${query}`;
     }
+
+    if (comparar) {
+        comparar.href =
+            `comparar.html${query}`;
+    }
+
+    if (informes) {
+        informes.href =
+            `informes.html${query}`;
+    }
+
+
 }
 
 updateSidebar();

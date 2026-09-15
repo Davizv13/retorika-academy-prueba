@@ -166,7 +166,7 @@ function renderReport() {
 
     const economia =
         economiaData &&
-        economiaData.municipios
+            economiaData.municipios
             ? economiaData.municipios[territoryCode]
             : null;
 
@@ -251,7 +251,7 @@ function renderReport() {
 
         income.textContent =
             renta &&
-            renta.porHabitante !== null
+                renta.porHabitante !== null
                 ? `${formatNumber(renta.porHabitante)} €`
                 : "—";
 
@@ -274,7 +274,7 @@ function renderReport() {
 
         gdp.textContent =
             pib &&
-            pib.porHabitante !== null
+                pib.porHabitante !== null
                 ? `${formatNumber(pib.porHabitante)} €`
                 : "—";
 
@@ -297,7 +297,7 @@ function renderReport() {
 
         unemployment.textContent =
             paro !== undefined &&
-            paro !== null
+                paro !== null
                 ? formatNumber(paro)
                 : "—";
 
@@ -478,8 +478,7 @@ function updateSidebarLinks() {
 
 
             if (text.includes("Instituciones")) {
-                link.href =
-                    `territorio.html${query}#instituciones`;
+                link.href = `instituciones.html${query}`;
             }
 
 

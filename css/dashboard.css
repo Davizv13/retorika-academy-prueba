@@ -1716,6 +1716,186 @@
     transform: translateY(1px);
 }
 
+/* =========================================================
+   INSTITUCIONES
+   ========================================================= */
+
+.institution-entity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 20px;
+    border: 1px solid #e8edf2;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.institution-entity:hover {
+    border-color: #d6dee7;
+    box-shadow: 0 4px 14px rgba(8, 21, 37, 0.05);
+}
+
+.institution-entity > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.institution-entity strong {
+    color: #172033;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.institution-entity span {
+    color: #7b8797;
+    font-size: 12px;
+}
+
+.institution-entity-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    color: #7b8797;
+    font-size: 12px;
+    text-align: right;
+}
+
+#institutionContent > .dashboard-card {
+    margin-bottom: 30px;
+}
+
+#institutionContent > .dashboard-grid {
+    margin-bottom: 30px;
+}
+
+#institutionContent > .dashboard-card {
+    margin-bottom: 30px;
+}
+
+#institutionContent > .dashboard-grid {
+    margin-bottom: 30px;
+}
+
+#institutionContent .kpi-grid {
+    margin-bottom: 30px;
+}
+
+/* Tabla */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.data-table thead th {
+    padding: 13px 16px;
+    text-align: left;
+    background: #f8fafc;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #e6ebf0;
+    white-space: nowrap;
+}
+
+.data-table tbody td {
+    padding: 14px 16px;
+    color: #344054;
+    border-bottom: 1px solid #edf0f3;
+    vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.data-table tbody td:first-child {
+    color: #172033;
+    font-weight: 600;
+}
+
+.data-table tbody td:nth-child(3) {
+    font-weight: 500;
+    color: #475467;
+}
+
+
+/* Informacion institucional */
+
+#townHallWeb {
+    color: #315b8f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#townHallWeb:hover {
+    color: #173f70;
+    text-decoration: underline;
+}
+
+#townHallEmail {
+    word-break: break-word;
+}
+
+
+/* Estado vacio */
+
+#emptyState {
+    margin-top: 4px;
+}
+
+#emptyState p {
+    color: #7b8797;
+    line-height: 1.6;
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .institution-entity {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .institution-entity-meta {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .data-table {
+        min-width: 720px;
+    }
+
+}
+
 @media (max-width: 800px) {
 
     .comparison-selectors {
