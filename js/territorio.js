@@ -20,7 +20,6 @@ const youngPopulation = document.getElementById("youngPopulation");
 const workingPopulation = document.getElementById("workingPopulation");
 const oldPopulation = document.getElementById("oldPopulation");
 
-
 let populationChart = null;
 let ageChart = null;
 let genderChart = null;
@@ -78,152 +77,306 @@ function formatPercentage(value) {
 }
 
 
-Promise.all([
-    fetch("../data/municipios.json").then(response => response.json()),
-    fetch("../data/poblacion_historica.json").then(response => response.json()),
-    fetch("../data/elecciones.json").then(response => response.json())
-])
-    .then(([municipios, historica, elecciones]) => {
+function showEmptyState() {
 
-        const territory = municipios[code];
+    if (territoryName) {
+        territoryName.textContent = "Resumen";
+    }
 
-        if (!territory) {
+    if (breadcrumbTerritory) {
+        breadcrumbTerritory.textContent = "Sin territorio";
+    }
 
-            if (territoryName) {
-                territoryName.textContent = name || "Territorio";
-            }
+    if (territoryLevel) {
+        territoryLevel.textContent =
+            "SELECCIONA UN MUNICIPIO EN EL MAPA";
+    }
 
-            if (breadcrumbTerritory) {
-                breadcrumbTerritory.textContent = name || "Territorio";
-            }
+    document.title = "Resumen | Retorika";
 
-            if (ineCode) {
-                ineCode.textContent = code || "—";
-            }
 
-            return;
+    const elements = [
+        population,
+        area,
+        density,
+        ineCode,
+        averageAge,
+        foreignPopulation,
+        foreignPercentage,
+        youngPopulation,
+        workingPopulation,
+        oldPopulation
+    ];
+
+    elements.forEach(element => {
+
+        if (element) {
+            element.textContent = "—";
         }
-
-
-        if (territoryName) {
-            territoryName.textContent = territory.nombre;
-        }
-
-        if (breadcrumbTerritory) {
-            breadcrumbTerritory.textContent = territory.nombre;
-        }
-
-        if (territoryLevel) {
-            territoryLevel.textContent =
-                `MUNICIPIO · ${territory.provincia.toUpperCase()} · ${territory.comunidad.toUpperCase()}`;
-        }
-
-        document.title = `${territory.nombre} | Retorika`;
-
-
-        if (population) {
-            population.textContent = formatNumber(territory.poblacion);
-        }
-
-        if (area) {
-            area.textContent = territory.superficie
-                ? `${formatDecimal(territory.superficie)} km²`
-                : "—";
-        }
-
-        if (density) {
-            density.textContent = territory.densidad
-                ? `${formatDecimal(territory.densidad)} hab/km²`
-                : "—";
-        }
-
-        if (ineCode) {
-            ineCode.textContent = code || "—";
-        }
-
-
-        if (averageAge) {
-            averageAge.textContent = territory.edadMedia
-                ? `${formatDecimal(territory.edadMedia)} años`
-                : "—";
-        }
-
-        if (foreignPopulation) {
-            foreignPopulation.textContent =
-                territory.extranjeros !== undefined
-                    ? formatNumber(territory.extranjeros)
-                    : "—";
-        }
-
-        if (foreignPercentage) {
-            foreignPercentage.textContent =
-                territory.porcentajeExtranjeros !== undefined
-                    ? `${formatPercentage(territory.porcentajeExtranjeros)} de la población`
-                    : "—";
-        }
-
-
-        if (youngPopulation) {
-            youngPopulation.textContent =
-                territory.menores15 !== undefined
-                    ? formatNumber(territory.menores15)
-                    : "—";
-        }
-
-        if (workingPopulation) {
-            workingPopulation.textContent =
-                territory.edad15_64 !== undefined
-                    ? formatNumber(territory.edad15_64)
-                    : "—";
-        }
-
-        if (oldPopulation) {
-            oldPopulation.textContent =
-                territory.mayores65 !== undefined
-                    ? formatNumber(territory.mayores65)
-                    : "—";
-        }
-
-
-        const history = historica[code];
-
-        if (history && history.serie) {
-            createPopulationChart(history);
-        }
-
-
-        const election = elecciones[code];
-
-        if (election) {
-            createElectionChart(election);
-        }
-
-
-        createAgeChart(territory);
-        createGenderChart(territory);
-
-
-        updateLinks(code, name);
-
-    })
-    .catch(error => {
-
-        console.error("Error cargando los datos del territorio:", error);
 
     });
 
 
+    const chartMessages = [
+        "populationChart",
+        "ageChart",
+        "genderChart",
+        "electionChart"
+    ];
+
+
+    chartMessages.forEach(id => {
+
+        const canvas = document.getElementById(id);
+
+        if (!canvas) {
+            return;
+        }
+
+        canvas.parentElement.innerHTML = `
+            <div style="
+                height:100%;
+                min-height:180px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#98a2b3;
+                font-size:13px;
+                text-align:center;
+                line-height:1.5;
+                padding:20px;
+                box-sizing:border-box;
+            ">
+                Selecciona un municipio en el mapa<br>
+                para consultar sus datos.
+            </div>
+        `;
+
+    });
+
+
+    const electionCensus =
+        document.getElementById("electionCensus");
+
+    const electionParticipation =
+        document.getElementById("electionParticipation");
+
+    const electionAbstention =
+        document.getElementById("electionAbstention");
+
+    const electionWinner =
+        document.getElementById("electionWinner");
+
+
+    if (electionCensus) {
+        electionCensus.textContent = "—";
+    }
+
+    if (electionParticipation) {
+        electionParticipation.textContent = "—";
+    }
+
+    if (electionAbstention) {
+        electionAbstention.textContent = "—";
+    }
+
+    if (electionWinner) {
+        electionWinner.textContent = "—";
+    }
+
+
+    updateLinks(null, null);
+}
+
+
+if (!code) {
+
+    showEmptyState();
+
+} else {
+
+    Promise.all([
+        fetch("../data/municipios.json").then(response => response.json()),
+        fetch("../data/poblacion_historica.json").then(response => response.json()),
+        fetch("../data/elecciones.json").then(response => response.json())
+    ])
+        .then(([municipios, historica, elecciones]) => {
+
+            const territory = municipios[code];
+
+            if (!territory) {
+
+                showEmptyState();
+
+                return;
+            }
+
+
+            if (territoryName) {
+                territoryName.textContent = territory.nombre;
+            }
+
+            if (breadcrumbTerritory) {
+                breadcrumbTerritory.textContent = territory.nombre;
+            }
+
+            if (territoryLevel) {
+                territoryLevel.textContent =
+                    `MUNICIPIO · ${territory.provincia.toUpperCase()} · ${territory.comunidad.toUpperCase()}`;
+            }
+
+            document.title =
+                `${territory.nombre} | Retorika`;
+
+
+            if (population) {
+                population.textContent =
+                    formatNumber(territory.poblacion);
+            }
+
+            if (area) {
+                area.textContent =
+                    territory.superficie !== undefined
+                        ? `${formatDecimal(territory.superficie)} km²`
+                        : "—";
+            }
+
+            if (density) {
+                density.textContent =
+                    territory.densidad !== undefined
+                        ? `${formatDecimal(territory.densidad)} hab/km²`
+                        : "—";
+            }
+
+            if (ineCode) {
+                ineCode.textContent = code;
+            }
+
+
+            if (averageAge) {
+                averageAge.textContent =
+                    territory.edadMedia !== undefined
+                        ? `${formatDecimal(territory.edadMedia)} años`
+                        : "—";
+            }
+
+            if (foreignPopulation) {
+                foreignPopulation.textContent =
+                    territory.extranjeros !== undefined
+                        ? formatNumber(territory.extranjeros)
+                        : "—";
+            }
+
+            if (foreignPercentage) {
+                foreignPercentage.textContent =
+                    territory.porcentajeExtranjeros !== undefined
+                        ? `${formatPercentage(territory.porcentajeExtranjeros)} de la población`
+                        : "—";
+            }
+
+
+            if (youngPopulation) {
+                youngPopulation.textContent =
+                    territory.menores15 !== undefined
+                        ? formatNumber(territory.menores15)
+                        : "—";
+            }
+
+            if (workingPopulation) {
+                workingPopulation.textContent =
+                    territory.edad15_64 !== undefined
+                        ? formatNumber(territory.edad15_64)
+                        : "—";
+            }
+
+            if (oldPopulation) {
+                oldPopulation.textContent =
+                    territory.mayores65 !== undefined
+                        ? formatNumber(territory.mayores65)
+                        : "—";
+            }
+
+
+            const history = historica[code];
+
+            if (history && history.serie) {
+                createPopulationChart(history);
+            } else {
+                showChartEmptyState("populationChart");
+            }
+
+
+            const election = elecciones[code];
+
+            if (election) {
+                createElectionChart(election);
+            } else {
+                showChartEmptyState("electionChart");
+            }
+
+
+            createAgeChart(territory);
+            createGenderChart(territory);
+
+
+            updateLinks(code, territory.nombre);
+
+        })
+        .catch(error => {
+
+            console.error(
+                "Error cargando los datos del territorio:",
+                error
+            );
+
+            showEmptyState();
+
+        });
+}
+
+
+function showChartEmptyState(id) {
+
+    const canvas = document.getElementById(id);
+
+    if (!canvas) {
+        return;
+    }
+
+    canvas.parentElement.innerHTML = `
+        <div style="
+            height:100%;
+            min-height:180px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#98a2b3;
+            font-size:13px;
+            text-align:center;
+            line-height:1.5;
+            padding:20px;
+            box-sizing:border-box;
+        ">
+            Datos no disponibles
+        </div>
+    `;
+}
+
+
 function createPopulationChart(data) {
 
-    const canvas = document.getElementById("populationChart");
+    const canvas =
+        document.getElementById("populationChart");
 
     if (!canvas || !data || !data.serie) {
         return;
     }
 
-    const labels = data.serie.map(item => item.anio);
+    const labels =
+        data.serie.map(item => item.anio);
 
-    const values = data.serie.map(item => item.poblacion);
+    const values =
+        data.serie.map(item => item.poblacion);
 
 
     if (populationChart) {
@@ -327,7 +480,8 @@ function createPopulationChart(data) {
 
 function createAgeChart(territory) {
 
-    const canvas = document.getElementById("ageChart");
+    const canvas =
+        document.getElementById("ageChart");
 
     if (!canvas) {
         return;
@@ -397,7 +551,8 @@ function createAgeChart(territory) {
 
 function createGenderChart(territory) {
 
-    const canvas = document.getElementById("genderChart");
+    const canvas =
+        document.getElementById("genderChart");
 
     if (!canvas) {
         return;
@@ -496,18 +651,18 @@ function createGenderChart(territory) {
 
 function createElectionChart(election) {
 
-    const canvas = document.getElementById("electionChart");
+    const canvas =
+        document.getElementById("electionChart");
 
     if (!canvas || !election || !election.candidaturas) {
         return;
     }
 
 
-    const results = Object.entries(election.candidaturas)
-
-        .sort((a, b) => b[1] - a[1])
-
-        .slice(0, 6);
+    const results =
+        Object.entries(election.candidaturas)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6);
 
 
     if (electionChart) {
@@ -521,14 +676,16 @@ function createElectionChart(election) {
 
         data: {
 
-            labels: results.map(item => item[0]),
+            labels:
+                results.map(item => item[0]),
 
             datasets: [
 
                 {
                     label: "Votos",
 
-                    data: results.map(item => item[1]),
+                    data:
+                        results.map(item => item[1]),
 
                     borderWidth: 0,
 
@@ -607,16 +764,22 @@ function createElectionChart(election) {
     });
 
 
-    const census = document.getElementById("electionCensus");
-    const participation = document.getElementById("electionParticipation");
-    const abstention = document.getElementById("electionAbstention");
-    const winner = document.getElementById("electionWinner");
+    const census =
+        document.getElementById("electionCensus");
+
+    const participation =
+        document.getElementById("electionParticipation");
+
+    const abstention =
+        document.getElementById("electionAbstention");
+
+    const winner =
+        document.getElementById("electionWinner");
 
 
     if (census) {
-
-        census.textContent = formatNumber(election.censo);
-
+        census.textContent =
+            formatNumber(election.censo);
     }
 
 
@@ -643,9 +806,8 @@ function createElectionChart(election) {
 
 
     if (winner) {
-
-        winner.textContent = election.ganador || "—";
-
+        winner.textContent =
+            election.ganador || "—";
     }
 
 }
@@ -660,61 +822,74 @@ function updateLinks(code, name) {
     const query =
         `?code=${encodeURIComponent(code)}&name=${encodeURIComponent(name || "")}`;
 
-    const economyLink = document.getElementById("economyLink");
+    const economyLink =
+        document.getElementById("economyLink");
 
     if (economyLink) {
-        economyLink.href = `economia.html${query}`;
+        economyLink.href =
+            `economia.html${query}`;
     }
 
-    const electionsLink = document.getElementById("electionsLink");
+    const electionsLink =
+        document.getElementById("electionsLink");
 
     if (electionsLink) {
-        electionsLink.href = `elecciones.html${query}`;
+        electionsLink.href =
+            `elecciones.html${query}`;
     }
 
-    const reportsLink = document.getElementById("reportsLink");
+    const reportsLink =
+        document.getElementById("reportsLink");
 
     if (reportsLink) {
-        reportsLink.href = `informes.html${query}`;
+        reportsLink.href =
+            `informes.html${query}`;
     }
 
-    const sidebarLinks = document.querySelectorAll(".sidebar-link");
+    const sidebarLinks =
+        document.querySelectorAll(".sidebar-link");
 
     sidebarLinks.forEach(link => {
 
-        const text = link.textContent
-            .replace(/\s+/g, " ")
-            .trim();
+        const text =
+            link.textContent
+                .replace(/\s+/g, " ")
+                .trim();
 
         if (text.includes("Economía")) {
-            link.href = `economia.html${query}`;
+            link.href =
+                `economia.html${query}`;
         }
 
         if (text.includes("Elecciones")) {
-            link.href = `elecciones.html${query}`;
+            link.href =
+                `elecciones.html${query}`;
         }
 
         if (text.includes("Resumen")) {
-            link.href = `territorio.html${query}`;
+            link.href =
+                `territorio.html${query}`;
         }
 
         if (text.includes("Demografía")) {
-            link.href = `territorio.html${query}#demografia`;
+            link.href =
+                `territorio.html${query}#demografia`;
         }
 
         if (text.includes("Instituciones")) {
-            link.href = `territorio.html${query}#instituciones`;
+            link.href =
+                `territorio.html${query}#instituciones`;
         }
 
         if (text.includes("Informes")) {
-            link.href = `informes.html${query}`;
+            link.href =
+                `informes.html${query}`;
         }
 
         if (text.includes("Comparar")) {
-            link.href = `comparar.html${query}`;
+            link.href =
+                `comparar.html${query}`;
         }
 
     });
 }
-
-

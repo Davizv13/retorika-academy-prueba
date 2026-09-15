@@ -7,29 +7,6 @@ if (territoryCode) {
     document.body.classList.add("municipal-view");
 }
 
-const galiciaElection = {
-    participation: 67.31,
-    abstention: 32.69,
-    validVotes: 1498287,
-
-    parties: [
-        { name: "PP", votes: 700491, percentage: 47.36, seats: 40 },
-        { name: "BNG", votes: 467074, percentage: 31.57, seats: 25 },
-        { name: "PSdeG-PSOE", votes: 207691, percentage: 14.04, seats: 9 },
-        { name: "DO", votes: 15312, percentage: 1.03, seats: 1 },
-        { name: "VOX", votes: 32493, percentage: 2.19, seats: 0 },
-        { name: "SUMAR", votes: 28171, percentage: 1.90, seats: 0 }
-    ],
-
-    historical: {
-        years: [2001, 2005, 2009, 2012, 2016, 2020, 2024],
-        PP: [791885, 756562, 789427, 661281, 682150, 627762, 700491],
-        BNG: [346423, 311954, 270712, 146027, 119446, 311340, 467074],
-        PSOE: [334819, 555603, 524488, 297584, 256381, 253750, 207691],
-        participation: [60.15, 64.20, 64.41, 54.94, 53.62, 49.01, 67.31]
-    }
-};
-
 function formatNumber(value) {
     return Number(value).toLocaleString("es-ES");
 }
@@ -42,68 +19,144 @@ function calculatePercentage(value, total) {
 
 async function loadElection() {
 
-    let currentElection = galiciaElection;
-    let isMunicipality = false;
-
-    if (territoryCode) {
-
-        try {
-
-            const response = await fetch("../data/elecciones.json");
-
-            if (!response.ok) {
-                throw new Error("No se pudo cargar elecciones.json");
-            }
-
-            const elections = await response.json();
-
-            const municipality = elections[territoryCode];
-
-            if (municipality) {
-
-                isMunicipality = true;
-
-                const parties = Object.entries(municipality.candidaturas)
-                    .map(([name, votes]) => ({
-                        name,
-                        votes,
-                        percentage: calculatePercentage(votes, municipality.validos),
-                        seats: 0
-                    }))
-                    .sort((a, b) => b.votes - a.votes)
-                    .slice(0, 8);
-
-                currentElection = {
-                    participation: calculatePercentage(
-                        municipality.votos,
-                        municipality.censo
-                    ),
-
-                    abstention: calculatePercentage(
-                        municipality.abstencion,
-                        municipality.censo
-                    ),
-
-                    validVotes: municipality.validos,
-
-                    parties,
-
-                    historical: null
-                };
-            }
-
-        } catch (error) {
-            console.error("Error cargando elecciones:", error);
-        }
+    if (!territoryCode) {
+        updateTerritoryHeader(false);
+        showEmptyState();
+        return;
     }
 
-    updateTerritoryHeader(isMunicipality);
-    updateKpis(currentElection);
-    createResultsChart(currentElection);
-    createSeatsChart(currentElection);
-    createEvolutionChart(currentElection);
-    createParticipationChart(currentElection);
-    renderPartyResults(currentElection);
+    try {
+
+        const response = await fetch("../data/elecciones.json");
+
+        if (!response.ok) {
+            throw new Error("No se pudo cargar elecciones.json");
+        }
+
+        const elections = await response.json();
+        const municipality = elections[territoryCode];
+
+        if (!municipality) {
+            updateTerritoryHeader(false);
+            showEmptyState();
+            return;
+        }
+
+        const parties = Object.entries(municipality.candidaturas)
+            .map(([name, votes]) => ({
+                name,
+                votes,
+                percentage: calculatePercentage(
+                    votes,
+                    municipality.validos
+                ),
+                seats: 0
+            }))
+            .sort((a, b) => b.votes - a.votes)
+            .slice(0, 8);
+
+        const currentElection = {
+
+            participation: calculatePercentage(
+                municipality.votos,
+                municipality.censo
+            ),
+
+            abstention: calculatePercentage(
+                municipality.abstencion,
+                municipality.censo
+            ),
+
+            validVotes: municipality.validos,
+
+            parties,
+
+            historical: null
+        };
+
+        updateTerritoryHeader(true);
+        updateKpis(currentElection);
+        createResultsChart(currentElection);
+        createSeatsChart(currentElection);
+        createEvolutionChart(currentElection);
+        createParticipationChart(currentElection);
+        renderPartyResults(currentElection);
+
+    } catch (error) {
+
+        console.error("Error cargando elecciones:", error);
+
+        updateTerritoryHeader(false);
+        showEmptyState();
+    }
+}
+
+function showEmptyState() {
+
+    document.getElementById("participation").textContent = "—";
+    document.getElementById("abstention").textContent = "—";
+    document.getElementById("validVotes").textContent = "—";
+
+    const containers = [
+        "resultsChart",
+        "seatsChart",
+        "evolutionChart",
+        "participationChart"
+    ];
+
+    containers.forEach(id => {
+
+        const canvas = document.getElementById(id);
+
+        if (!canvas) return;
+
+        canvas.parentElement.innerHTML = `
+            <div style="
+                height:100%;
+                min-height:180px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#98a2b3;
+                font-size:13px;
+                text-align:center;
+                line-height:1.5;
+                padding:20px;
+                box-sizing:border-box;
+            ">
+                Selecciona un municipio en el mapa<br>
+                para consultar sus datos electorales.
+            </div>
+        `;
+    });
+
+    const table = document.getElementById("partyResults");
+
+    if (table) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" style="
+                    text-align:center;
+                    color:#98a2b3;
+                    padding:30px;
+                ">
+                    Selecciona un municipio en el mapa para consultar sus datos electorales.
+                </td>
+            </tr>
+        `;
+    }
+
+    const source = document.getElementById("resultsSource");
+    const partySource = document.getElementById("partyResultsSource");
+
+    if (source) {
+        source.textContent = "Sin territorio seleccionado";
+    }
+
+    if (partySource) {
+        partySource.textContent = "Sin territorio seleccionado";
+    }
 }
 
 function updateTerritoryHeader(isMunicipality) {
@@ -112,18 +165,8 @@ function updateTerritoryHeader(isMunicipality) {
     const subtitle = document.querySelector(".territory-header p");
     const eyebrow = document.querySelector(".territory-header .eyebrow");
     const resultsSource = document.getElementById("resultsSource");
-    const evolutionSource = document.getElementById("evolutionSource");
-
-    if (evolutionSource) {
-        evolutionSource.textContent =
-            isMunicipality
-                ? `${territoryName} · 2024`
-                : "Galicia · 2024";
-    }
-
-    if (resultsSource && territoryName) {
-        resultsSource.textContent = `${territoryName} · 2024`;
-    }
+    const partyResultsSource =
+        document.getElementById("partyResultsSource");
 
     if (isMunicipality && territoryName) {
 
@@ -146,28 +189,38 @@ function updateTerritoryHeader(isMunicipality) {
                 `${territoryName} · 2024`;
         }
 
+        if (partyResultsSource) {
+            partyResultsSource.textContent =
+                `${territoryName} · 2024`;
+        }
+
         document.title =
             `Elecciones · ${territoryName} | Retorika`;
 
     } else {
 
         if (title) {
-            title.textContent = "Elecciones autonómicas";
+            title.textContent = "Elecciones";
         }
 
         if (subtitle) {
             subtitle.textContent =
-                "Resultados electorales y participación territorial.";
+                "Selecciona un municipio en el mapa para consultar sus datos electorales.";
         }
 
         if (eyebrow) {
             eyebrow.textContent =
-                "GALICIA · 18 FEBRERO 2024";
+                "SIN TERRITORIO SELECCIONADO";
         }
 
         if (resultsSource) {
             resultsSource.textContent =
-                "Galicia · 2024";
+                "Sin territorio seleccionado";
+        }
+
+        if (partyResultsSource) {
+            partyResultsSource.textContent =
+                "Sin territorio seleccionado";
         }
 
         document.title =
@@ -176,6 +229,7 @@ function updateTerritoryHeader(isMunicipality) {
 }
 
 function updateKpis(election) {
+
     document.getElementById("participation").textContent =
         `${election.participation.toLocaleString("es-ES")}%`;
 
@@ -257,237 +311,106 @@ function createSeatsChart(election) {
 
     if (!canvas) return;
 
-    const parties = election.parties
-        .filter(p => p.seats > 0);
+    const container = canvas.parentElement;
 
-    if (!parties.length) {
-
-        canvas.parentElement.innerHTML = `
-            <div style="
-                height:100%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#98a2b3;
-                font-size:13px;
-                text-align:center;
-            ">
-                Los escaños solo se muestran<br>
-                en la vista autonómica.
-            </div>
-        `;
-
-        return;
-    }
-
-    new Chart(canvas, {
-        type: "doughnut",
-
-        data: {
-            labels: parties.map(p => p.name),
-
-            datasets: [{
-                data: parties.map(p => p.seats),
-                borderWidth: 0
-            }]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "65%",
-
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    });
+    container.innerHTML = `
+        <div style="
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#98a2b3;
+            font-size:13px;
+            text-align:center;
+        ">
+            Los escaños solo se muestran<br>
+            en la vista autonómica.
+        </div>
+    `;
 }
 
 function createEvolutionChart(election) {
+
     const canvas = document.getElementById("evolutionChart");
 
     if (!canvas) return;
 
-    if (!election.historical) {
-        const container = canvas.parentElement;
+    const container = canvas.parentElement;
 
-        container.innerHTML = `
-            <div class="municipal-evolution">
-                <div class="municipal-evolution-chart">
-                    
+    container.innerHTML = `
+        <div class="municipal-evolution">
+            <div class="municipal-evolution-chart">
 
-                    <div class="evolution-point">
-                        <div class="evolution-point-marker"></div>
-                        <div class="evolution-point-label">
-                            <strong>${election.parties[0]?.name || "—"}</strong>
-                            <span>${formatNumber(election.parties[0]?.votes || 0)} votos</span>
+                <div class="evolution-point">
+                    <div class="evolution-point-marker"></div>
+
+                    <div class="evolution-point-label">
+                        <strong>
+                            ${election.parties[0]?.name || "—"}
+                        </strong>
+
+                        <span>
+                            ${formatNumber(
+                                election.parties[0]?.votes || 0
+                            )} votos
+                        </span>
+                    </div>
+                </div>
+
+                <div class="evolution-line"></div>
+
+                <div class="evolution-secondary">
+
+                    ${election.parties.slice(1, 4).map(party => `
+                        <div class="evolution-secondary-item">
+                            <span>${party.name}</span>
+                            <strong>${formatNumber(party.votes)}</strong>
                         </div>
-                    </div>
+                    `).join("")}
 
-                    <div class="evolution-line"></div>
-
-                    <div class="evolution-secondary">
-                        ${election.parties.slice(1, 4).map(party => `
-                            <div class="evolution-secondary-item">
-                                <span>${party.name}</span>
-                                <strong>${formatNumber(party.votes)}</strong>
-                            </div>
-                        `).join("")}
-                    </div>
                 </div>
 
-                <div class="evolution-footer">
-                    <span>Última elección disponible</span>
-                    <strong>Elecciones al Parlamento de Galicia · 2024</strong>
-                </div>
             </div>
-        `;
 
-        return;
-    }
+            <div class="evolution-footer">
+                <span>Última elección disponible</span>
 
-    const historical = election.historical;
-
-    new Chart(canvas, {
-        type: "line",
-
-        data: {
-            labels: historical.years,
-
-            datasets: [
-                {
-                    label: "PP",
-                    data: historical.PP,
-                    borderWidth: 2,
-                    tension: 0.3
-                },
-                {
-                    label: "BNG",
-                    data: historical.BNG,
-                    borderWidth: 2,
-                    tension: 0.3
-                },
-                {
-                    label: "PSdeG",
-                    data: historical.PSOE,
-                    borderWidth: 2,
-                    tension: 0.3
-                }
-            ]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            },
-
-            scales: {
-                y: {
-                    ticks: {
-                        callback: value => formatNumber(value)
-                    },
-
-                    grid: {
-                        color: "#eef1f4"
-                    }
-                },
-
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
-    });
+                <strong>
+                    Elecciones al Parlamento de Galicia · 2024
+                </strong>
+            </div>
+        </div>
+    `;
 }
 
 function createParticipationChart(election) {
+
     const canvas = document.getElementById("participationChart");
 
     if (!canvas) return;
 
-    if (!election.historical) {
-        const container = canvas.parentElement;
+    const container = canvas.parentElement;
 
-        container.innerHTML = `
-            <div class="municipal-participation">
-                <div class="municipal-participation-value">
-                    ${election.participation.toLocaleString("es-ES")}%
-                </div>
+    container.innerHTML = `
+        <div class="municipal-participation">
 
-                <span>Participación en 2024</span>
-
-                <div class="municipal-participation-bar">
-                    <div style="width:${election.participation}%"></div>
-                </div>
-
-                <small>
-                    La serie histórica municipal no está incluida en el conjunto de datos actual.
-                </small>
+            <div class="municipal-participation-value">
+                ${election.participation.toLocaleString("es-ES")}%
             </div>
-        `;
 
-        return;
-    }
+            <span>Participación en 2024</span>
 
-    const historical = election.historical;
+            <div class="municipal-participation-bar">
+                <div style="width:${election.participation}%"></div>
+            </div>
 
-    new Chart(canvas, {
-        type: "line",
+            <small>
+                La serie histórica municipal no está incluida
+                en el conjunto de datos actual.
+            </small>
 
-        data: {
-            labels: historical.years,
-
-            datasets: [{
-                label: "Participación",
-                data: historical.participation,
-                borderWidth: 2,
-                tension: 0.3,
-                fill: false
-            }]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-
-            scales: {
-                y: {
-                    min: 40,
-                    max: 75,
-
-                    ticks: {
-                        callback: value => `${value}%`
-                    },
-
-                    grid: {
-                        color: "#eef1f4"
-                    }
-                },
-
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
-    });
+        </div>
+    `;
 }
 
 function renderPartyResults(election) {
@@ -501,6 +424,7 @@ function renderPartyResults(election) {
 
     container.innerHTML = sorted.map((party, index) => `
         <tr>
+
             <td>
                 <span class="position-number">
                     ${index + 1}
@@ -518,6 +442,7 @@ function renderPartyResults(election) {
             <td>
                 ${party.percentage.toLocaleString("es-ES")}%
             </td>
+
         </tr>
     `).join("");
 }

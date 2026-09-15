@@ -29,11 +29,15 @@ function getMunicipalityData() {
 }
 
 function updateTerritoryHeader(data) {
+
     const nameElement = document.getElementById("territoryName");
-    const descriptionElement = document.getElementById("territoryDescription");
-    const eyebrowElement = document.getElementById("territoryEyebrow");
+    const descriptionElement =
+        document.getElementById("territoryDescription");
+    const eyebrowElement =
+        document.getElementById("territoryEyebrow");
 
     if (territoryName && data) {
+
         if (nameElement) {
             nameElement.textContent =
                 `Economía · ${territoryName}`;
@@ -51,11 +55,103 @@ function updateTerritoryHeader(data) {
 
         document.title =
             `Economía · ${territoryName} | Retorika`;
+
+    } else {
+
+        if (nameElement) {
+            nameElement.textContent = "Economía";
+        }
+
+        if (descriptionElement) {
+            descriptionElement.textContent =
+                "Selecciona un municipio en el mapa para consultar sus indicadores económicos.";
+        }
+
+        if (eyebrowElement) {
+            eyebrowElement.textContent =
+                "SIN TERRITORIO SELECCIONADO";
+        }
+
+        document.title = "Economía | Retorika";
     }
 }
 
+function showEmptyState() {
+
+    updateTerritoryHeader(null);
+
+    const elements = [
+        "income",
+        "gdp",
+        "unemployment",
+        "companies",
+        "gdpHighlight"
+    ];
+
+    elements.forEach(id => {
+
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = "—";
+        }
+    });
+
+    const detailElements = [
+        "incomeDetail",
+        "gdpDetail",
+        "unemploymentDetail",
+        "companiesDetail"
+    ];
+
+    detailElements.forEach(id => {
+
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent =
+                "Selecciona un municipio para consultar este dato.";
+        }
+    });
+
+    const charts = [
+        "incomeChart",
+        "unemploymentChart"
+    ];
+
+    charts.forEach(id => {
+
+        const canvas = document.getElementById(id);
+
+        if (!canvas) {
+            return;
+        }
+
+        canvas.parentElement.innerHTML = `
+            <div style="
+                height:100%;
+                min-height:180px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#98a2b3;
+                font-size:13px;
+                text-align:center;
+                line-height:1.5;
+                padding:20px;
+                box-sizing:border-box;
+            ">
+                Selecciona un municipio en el mapa<br>
+                para consultar sus datos económicos.
+            </div>
+        `;
+    });
+}
+
 function updatePage(data) {
+
     if (!data) {
+        showEmptyState();
         return;
     }
 
@@ -111,11 +207,20 @@ function updatePage(data) {
             ? data.unidadesLocales[latestUnidadesYear]
             : null;
 
-    const incomeElement = document.getElementById("income");
-    const gdpElement = document.getElementById("gdp");
-    const unemploymentElement = document.getElementById("unemployment");
-    const companiesElement = document.getElementById("companies");
-    const gdpHighlight = document.getElementById("gdpHighlight");
+    const incomeElement =
+        document.getElementById("income");
+
+    const gdpElement =
+        document.getElementById("gdp");
+
+    const unemploymentElement =
+        document.getElementById("unemployment");
+
+    const companiesElement =
+        document.getElementById("companies");
+
+    const gdpHighlight =
+        document.getElementById("gdpHighlight");
 
     if (incomeElement) {
         incomeElement.textContent =
@@ -145,10 +250,17 @@ function updatePage(data) {
                 : "—";
     }
 
-    const incomeDetail = document.getElementById("incomeDetail");
-    const gdpDetail = document.getElementById("gdpDetail");
-    const unemploymentDetail = document.getElementById("unemploymentDetail");
-    const companiesDetail = document.getElementById("companiesDetail");
+    const incomeDetail =
+        document.getElementById("incomeDetail");
+
+    const gdpDetail =
+        document.getElementById("gdpDetail");
+
+    const unemploymentDetail =
+        document.getElementById("unemploymentDetail");
+
+    const companiesDetail =
+        document.getElementById("companiesDetail");
 
     if (incomeDetail) {
         incomeDetail.textContent =
@@ -189,7 +301,9 @@ function updatePage(data) {
 }
 
 function createIncomeChart(data) {
-    const canvas = document.getElementById("incomeChart");
+
+    const canvas =
+        document.getElementById("incomeChart");
 
     if (!canvas) {
         return;
@@ -212,8 +326,10 @@ function createIncomeChart(data) {
 
     incomeChartInstance = new Chart(canvas, {
         type: "line",
+
         data: {
             labels: years,
+
             datasets: [{
                 label: "Renta disponible por habitante",
                 data: values,
@@ -222,13 +338,16 @@ function createIncomeChart(data) {
                 fill: false
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
+
             plugins: {
                 legend: {
                     display: false
                 },
+
                 tooltip: {
                     callbacks: {
                         label: context =>
@@ -236,16 +355,19 @@ function createIncomeChart(data) {
                     }
                 }
             },
+
             scales: {
                 y: {
                     ticks: {
                         callback: value =>
                             `${formatNumber(value)} €`
                     },
+
                     grid: {
                         color: "#eef1f4"
                     }
                 },
+
                 x: {
                     grid: {
                         display: false
@@ -257,7 +379,9 @@ function createIncomeChart(data) {
 }
 
 function createUnemploymentChart(data) {
-    const canvas = document.getElementById("unemploymentChart");
+
+    const canvas =
+        document.getElementById("unemploymentChart");
 
     if (!canvas) {
         return;
@@ -267,6 +391,7 @@ function createUnemploymentChart(data) {
         .sort((a, b) => Number(a) - Number(b));
 
     if (!years.length) {
+
         canvas.parentElement.innerHTML = `
             <div style="
                 height:100%;
@@ -294,8 +419,10 @@ function createUnemploymentChart(data) {
 
     unemploymentChartInstance = new Chart(canvas, {
         type: "line",
+
         data: {
             labels: years,
+
             datasets: [{
                 label: "Paro registrado",
                 data: values,
@@ -304,13 +431,16 @@ function createUnemploymentChart(data) {
                 fill: false
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
+
             plugins: {
                 legend: {
                     display: false
                 },
+
                 tooltip: {
                     callbacks: {
                         label: context =>
@@ -318,17 +448,21 @@ function createUnemploymentChart(data) {
                     }
                 }
             },
+
             scales: {
                 y: {
                     beginAtZero: true,
+
                     ticks: {
                         callback: value =>
                             formatNumber(value)
                     },
+
                     grid: {
                         color: "#eef1f4"
                     }
                 },
+
                 x: {
                     grid: {
                         display: false
@@ -340,11 +474,21 @@ function createUnemploymentChart(data) {
 }
 
 async function loadEconomy() {
+
+    if (!territoryCode) {
+        showEmptyState();
+        return;
+    }
+
     try {
-        const response = await fetch("../data/economia.json");
+
+        const response =
+            await fetch("../data/economia.json");
 
         if (!response.ok) {
-            throw new Error("No se pudo cargar economia.json");
+            throw new Error(
+                "No se pudo cargar economia.json"
+            );
         }
 
         economiaData = await response.json();
@@ -352,7 +496,11 @@ async function loadEconomy() {
         const data = getMunicipalityData();
 
         if (!data) {
-            console.error("No hay datos económicos para el territorio seleccionado.");
+            console.error(
+                "No hay datos económicos para el territorio seleccionado."
+            );
+
+            showEmptyState();
             return;
         }
 
@@ -361,11 +509,18 @@ async function loadEconomy() {
         createUnemploymentChart(data);
 
     } catch (error) {
-        console.error("Error cargando datos económicos:", error);
+
+        console.error(
+            "Error cargando datos económicos:",
+            error
+        );
+
+        showEmptyState();
     }
 }
 
 function updateSidebar() {
+
     if (!territoryCode) {
         return;
     }
@@ -373,30 +528,44 @@ function updateSidebar() {
     const query =
         `?code=${encodeURIComponent(territoryCode)}&name=${encodeURIComponent(territoryName || "")}`;
 
-    const resumen = document.getElementById("sidebarResumen");
-    const demografia = document.getElementById("sidebarDemografia");
-    const economia = document.getElementById("sidebarEconomia");
-    const elecciones = document.getElementById("sidebarElecciones");
-    const instituciones = document.getElementById("sidebarInstituciones");
+    const resumen =
+        document.getElementById("sidebarResumen");
+
+    const demografia =
+        document.getElementById("sidebarDemografia");
+
+    const economia =
+        document.getElementById("sidebarEconomia");
+
+    const elecciones =
+        document.getElementById("sidebarElecciones");
+
+    const instituciones =
+        document.getElementById("sidebarInstituciones");
 
     if (resumen) {
-        resumen.href = `territorio.html${query}`;
+        resumen.href =
+            `territorio.html${query}`;
     }
 
     if (demografia) {
-        demografia.href = `territorio.html${query}#demografia`;
+        demografia.href =
+            `territorio.html${query}#demografia`;
     }
 
     if (economia) {
-        economia.href = `economia.html${query}`;
+        economia.href =
+            `economia.html${query}`;
     }
 
     if (elecciones) {
-        elecciones.href = `elecciones.html${query}`;
+        elecciones.href =
+            `elecciones.html${query}`;
     }
 
     if (instituciones) {
-        instituciones.href = `territorio.html${query}#instituciones`;
+        instituciones.href =
+            `territorio.html${query}#instituciones`;
     }
 }
 

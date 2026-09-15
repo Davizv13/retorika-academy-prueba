@@ -195,7 +195,7 @@ function loadLevel(level, where = "1=1") {
 
                 if (countElement) {
                     if (currentLevel === "comunidades") {
-                        countElement.textContent = `${currentLayer.getLayers().length} comunidades`;
+                        countElement.textContent = "17 comunidades";
                     }
 
                     if (currentLevel === "provincias") {
