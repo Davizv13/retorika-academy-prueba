@@ -244,7 +244,7 @@ if (!code) {
             if (density) {
                 density.textContent =
                     territory.densidad !== undefined
-                        ? `${formatDecimal(territory.densidad)} hab/km²`
+                        ? formatDecimal(territory.densidad)
                         : "—";
             }
 
@@ -256,7 +256,7 @@ if (!code) {
             if (averageAge) {
                 averageAge.textContent =
                     territory.edadMedia !== undefined
-                        ? `${formatDecimal(territory.edadMedia)} años`
+                        ? formatDecimal(territory.edadMedia)
                         : "—";
             }
 
@@ -518,7 +518,13 @@ function createAgeChart(territory) {
 
                     ],
 
-                    borderWidth: 0
+                    backgroundColor: [
+                        "#2563eb",
+                        "#ec4899",
+                        "#22c55e"
+                    ],
+                    borderColor: "#ffffff",
+                    borderWidth: 3
 
                 }
 

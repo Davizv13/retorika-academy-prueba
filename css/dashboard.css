@@ -1,921 +1,1124 @@
-/* 
-   DASHBOARD
-    */
+:root {
+    /* ========================================
+       PALETA BASE
+       ======================================== */
+
+    --bg: #f4f7fc;
+    --white: #ffffff;
+
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    --border: #e2e8f0;
+    --border-soft: #e9eef5;
+
+
+    /* ========================================
+       AZUL · COLOR PRINCIPAL
+       ======================================== */
+
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-soft: #eff6ff;
+    --blue-light: #e0edff;
+
+
+    /* ========================================
+       VERDE MENTA
+       ======================================== */
+
+    --green: #059669;
+    --green-soft: rgba(16, 185, 129, 0.12);
+    --green-light: #d1fae5;
+
+
+    /* ========================================
+       ROSA / FUCSIA
+       ======================================== */
+
+    --pink: #ff2a85;
+    --pink-soft: rgba(225, 29, 72, 0.10);
+    --pink-light: #ffe4e6;
+
+
+    /* ========================================
+       MORADO
+       ======================================== */
+
+    --purple: #7c3aed;
+    --purple-soft: rgba(139, 92, 246, 0.12);
+    --purple-light: #ede9fe;
+
+
+    /* ========================================
+       AMARILLO / NARANJA
+       ======================================== */
+
+    --yellow: #d97706;
+    --yellow-soft: rgba(245, 158, 11, 0.12);
+    --yellow-light: #fef3c7;
+
+
+    /* ========================================
+       CIAN
+       ======================================== */
+
+    --cyan: #0284c7;
+    --cyan-soft: rgba(2, 132, 199, 0.10);
+    --cyan-light: #e0f2fe;
+
+
+    /* ========================================
+       ROJO
+       ======================================== */
+
+    --red: #dc2626;
+    --red-soft: rgba(239, 68, 68, 0.10);
+
+
+    /* ========================================
+       FORMAS Y SOMBRAS
+       ======================================== */
+
+    --shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+    --shadow-hover: 0 12px 30px rgba(15, 23, 42, 0.07);
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 78% -10%,
+            rgba(224, 237, 255, 0.9),
+            transparent 28%),
+        radial-gradient(circle at 15% 0%,
+            rgba(224, 242, 254, 0.65),
+            transparent 25%),
+        var(--bg);
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 .dashboard-body {
-    background: #f5f6f8;
     min-height: 100vh;
 }
 
-/* 
+.dashboard {
+    min-height: 100vh;
+}
+
+.dashboard-grid > .dashboard-card:nth-child(3),
+.dashboard-grid > .dashboard-card:nth-child(4) {
+    grid-column: 1 / -1;
+}
+
+/* ========================================
+   TABLA
+   ======================================== */
+
+#representativesTable {
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    margin-top: 18px;
+    overflow-x: auto;
+}
+
+#representativesTable table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+#representativesTable thead {
+    background: #f8fafc;
+}
+
+#representativesTable th {
+    padding: 13px 16px;
+    text-align: left;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#representativesTable td {
+    padding: 14px 16px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid #eef2f7;
+}
+
+#representativesTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#representativesTable tbody tr {
+    transition: background 0.15s ease;
+}
+
+#representativesTable tbody tr:hover {
+    background: #f8fafc;
+}
+
+#representativesTable td:first-child {
+    color: #172033;
+    font-weight: 700;
+}
+
+#representativesTable td:nth-child(2) {
+    color: #64748b;
+}
+
+#representativesTable td:nth-child(3) {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+#representativesTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #f8fafc;
+}
+
+/* ========================================
+   Entidades
+   ======================================== */
+
+   #entitiesList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+    max-height: 430px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.institution-entity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 15px 17px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.institution-entity:hover {
+    background: #f1f5f9;
+    border-color: #dbe3ef;
+}
+
+.institution-entity > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.institution-entity strong {
+    color: #172033;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.institution-entity > div:first-child span {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.institution-entity-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    min-width: 180px;
+}
+
+.institution-entity-meta span {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: right;
+}
+
+.institution-entity-meta span:first-child {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* ========================================
    SIDEBAR
-    */
+   ======================================== */
 
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 245px;
-    background: #081525;
-    color: white;
+    width: 238px;
     display: flex;
     flex-direction: column;
+    padding: 22px 15px 16px;
+    background: rgba(255, 255, 255, 0.94);
+    border-right: 1px solid var(--border);
+    backdrop-filter: blur(20px);
     z-index: 1000;
 }
 
 .sidebar-brand {
-    height: 78px;
     display: flex;
     align-items: center;
-    padding: 0 28px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    height: 48px;
+    padding: 0 11px;
+    margin-bottom: 24px;
 }
 
 .sidebar-brand a {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    color: #2563eb;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+    text-decoration: none;
 }
 
+
 .sidebar-section {
-    padding: 28px 15px 0;
+    margin-bottom: 24px;
 }
 
 .sidebar-label {
-    display: block;
-    padding: 0 13px;
-    margin-bottom: 9px;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.32);
+    padding: 0 12px;
+    margin-bottom: 8px;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
 }
 
 .sidebar-link {
-    height: 42px;
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 13px;
+    gap: 11px;
+    min-height: 42px;
+    padding: 7px 10px;
     margin-bottom: 3px;
-    border-radius: 4px;
-    color: rgba(255, 255, 255, 0.57);
+    border-radius: 11px;
+    color: #64748b;
+    font-family: "Inter", sans-serif;
     font-size: 12px;
-    transition: background 0.2s, color 0.2s;
+    font-weight: 600;
+    transition: all 0.18s ease;
 }
 
 .sidebar-link:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: white;
+    background: var(--blue-soft);
+    color: var(--blue);
 }
 
 .sidebar-link.active {
-    background: rgba(47, 109, 246, 0.18);
-    color: white;
+    background: var(--blue-light);
+    color: var(--blue);
 }
 
 .sidebar-icon {
-    width: 17px;
-    text-align: center;
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.45);
+    width: 22px;
+    min-width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 400;
 }
 
 .sidebar-link.active .sidebar-icon {
-    color: #5d8cff;
+    background: rgba(37, 99, 235, 0.12);
+    color: #64748b;
 }
+
 
 .sidebar-bottom {
     margin-top: auto;
-    padding: 0 15px 20px;
+}
+
+.sidebar-bottom::before {
+    content: "Personas. Estructura. Impacto.";
+    display: block;
+    padding: 15px 12px 18px;
+    color: var(--blue);
+    font-family: "Comic Sans MS", "Segoe Print", cursive;
+    font-size: 12px;
+    font-style: italic;
+    transform: rotate(-2deg);
 }
 
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-    padding: 14px 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.user-avatar,
-.header-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #315fbf;
-    color: white;
-    font-weight: 700;
+    gap: 9px;
+    padding: 12px 8px 3px;
+    border-top: 1px solid var(--border);
+    font-family: "Inter", sans-serif;
 }
 
 .user-avatar {
-    width: 31px;
-    height: 31px;
-    font-size: 9px;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.user-info strong {
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.user-info span {
-    margin-top: 1px;
-    font-size: 9px;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.user-menu {
-    margin-left: auto;
-    color: rgba(255, 255, 255, 0.3);
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-light), var(--purple-light));
+    color: var(--blue-dark);
     font-size: 10px;
+    font-weight: 800;
 }
 
-/* 
+.user-name {
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.user-role {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 9px;
+}
+
+
+/* ========================================
    HEADER
-    */
+   ======================================== */
 
 .dashboard-main {
-    margin-left: 245px;
     min-height: 100vh;
+    margin-left: 238px;
 }
 
 .dashboard-header {
-    height: 78px;
-    padding: 0 38px;
+    position: sticky;
+    top: 0;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    border-bottom: 1px solid #e4e7ec;
+    padding: 0 34px;
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+    backdrop-filter: blur(18px);
+    z-index: 900;
 }
 
 .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 7px;
+    color: var(--text-muted);
     font-size: 11px;
-}
-
-.breadcrumb span {
-    color: #98a2b3;
-}
-
-.breadcrumb span::after {
-    content: "/";
-    margin-left: 12px;
-    color: #d0d5dd;
+    font-weight: 650;
 }
 
 .breadcrumb strong {
-    color: #344054;
-    font-weight: 600;
+    color: var(--blue);
 }
 
 .header-tools {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 12px;
+}
+
+.header-avatar {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-light), var(--purple-light));
+    color: var(--blue-dark);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* ========================================
+   CONTENIDO
+   ======================================== */
+
+.explorer {
+    width: 100%;
+    padding: 24px 20px;
+}
+
+.territory-content {
+    width: 100%;
+    padding: 0;
+}
+
+.territory-header {
+    position: relative;
+    margin-bottom: 5px;
+    margin-left: 25px;
+}
+
+#territoryLevel {
+    color: #64748b;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.territory-header h1,
+.explorer h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 850;
+    line-height: 1.08;
+    letter-spacing: -1.7px;
+}
+
+.territory-header h1::after {
+    content: ".";
+    color: var(--pink);
+}
+
+.territory-header p,
+.explorer>p {
+    max-width: 680px;
+    margin: 11px 0 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
 }
 
 .election-selector {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
+    margin-bottom: 20px;
 }
 
 .selector-label {
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: #98a2b3;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 750;
 }
 
 .election-selector select,
-.map-mode select {
-    padding: 8px 30px 8px 10px;
-    border: 1px solid #e4e7ec;
-    border-radius: 3px;
-    background: white;
-    color: #344054;
-    font-family: inherit;
-    font-size: 10px;
-    cursor: pointer;
-}
-
-.header-avatar {
-    width: 31px;
-    height: 31px;
-    font-size: 9px;
-}
-
-/* 
-   EXPLORER / MAPA
-    */
-
-.explorer {
-    max-width: 1700px;
-    margin: auto;
-    padding: 45px 42px 60px;
-}
-
-.explorer-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
-.explorer-heading h1 {
-    margin-top: 10px;
-    font-family: "DM Serif Display", serif;
-    font-size: 45px;
-    line-height: 1;
-    font-weight: 400;
-    color: #081525;
-}
-
-.explorer-heading p {
-    margin-top: 10px;
-    font-size: 13px;
-    color: #667085;
-}
-
-.data-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-bottom: 5px;
-    font-size: 10px;
-    color: #667085;
-}
-
-.status-dot {
-    width: 7px;
-    height: 7px;
-    background: #3ba878;
-    border-radius: 50%;
-}
-
-.explorer-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 34px;
-}
-
-.search-box {
-    width: 370px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 13px;
-    background: white;
-    border: 1px solid #e4e7ec;
-    border-radius: 4px;
-}
-
-.search-box>span {
-    font-size: 21px;
-    line-height: 1;
-    color: #98a2b3;
-}
-
-.search-box input {
-    width: 100%;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: #344054;
-    font-family: inherit;
+#territorySelector {
+    min-height: 38px;
+    padding: 0 35px 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    background: var(--white);
+    color: var(--text);
     font-size: 11px;
 }
 
-.search-box input::placeholder {
-    color: #98a2b3;
-}
 
-.level-selector {
-    height: 42px;
-    display: flex;
-    overflow: hidden;
-    background: white;
-    border: 1px solid #e4e7ec;
-    border-radius: 4px;
-}
-
-.level-button {
-    padding: 0 17px;
-    border: 0;
-    border-right: 1px solid #e4e7ec;
-    background: transparent;
-    color: #667085;
-    font-family: inherit;
-    font-size: 10px;
-    cursor: pointer;
-}
-
-.level-button:last-child {
-    border-right: 0;
-}
-
-.level-button.active {
-    background: #081525;
-    color: white;
-}
-
-.map-mode {
-    margin-left: auto;
-}
-
-.explorer-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 330px;
-    gap: 18px;
-    margin-top: 18px;
-}
-
-.map-panel,
-.territory-list {
-    background: white;
-    border: 1px solid #e4e7ec;
-}
-
-.map-panel {
-    min-height: 610px;
-    position: relative;
-}
-
-.map-panel-header {
-    height: 67px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #e4e7ec;
-}
-
-.map-panel-header>div {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.map-panel-header strong {
-    font-size: 12px;
-    color: #344054;
-}
-
-.map-panel-header span {
-    font-size: 10px;
-    color: #98a2b3;
-}
-
-.map-reset {
-    border: 0;
-    background: transparent;
-    color: #667085;
-    font-family: inherit;
-    font-size: 9px;
-    cursor: pointer;
-}
-
-.map-reset:hover {
-    color: #2f6df6;
-}
-
-#map {
-    width: 100%;
-    height: 542px;
-    background: #f7f9fc;
-}
-
-.leaflet-container {
-    font-family: "Inter", sans-serif;
-}
-
-.map-legend {
-    position: absolute;
-    z-index: 500;
-    left: 18px;
-    bottom: 18px;
-    min-width: 175px;
-    padding: 13px 15px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #e4e7ec;
-}
-
-.legend-title {
-    display: block;
-    margin-bottom: 9px;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #667085;
-    text-transform: uppercase;
-}
-
-.legend-items {
-    display: flex;
-    gap: 13px;
-}
-
-.legend-items>div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 9px;
-    color: #475467;
-}
-
-.legend-color {
-    width: 8px;
-    height: 8px;
-    display: block;
-    border-radius: 1px;
-}
-
-.party-pp {
-    background: #3f6fc4;
-}
-
-.party-psoe {
-    background: #d85662;
-}
-
-.party-bng {
-    background: #4d9b76;
-}
-
-/* 
-   TERRITORY LIST
-    */
-
-.territory-list {
-    min-height: 610px;
-    display: flex;
-    flex-direction: column;
-}
-
-.territory-list-header {
-    min-height: 82px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #e4e7ec;
-}
-
-.territory-list-header h2 {
-    margin-top: 5px;
-    font-family: "DM Serif Display", serif;
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 400;
-    color: #081525;
-}
-
-.sort-button {
-    padding: 7px 9px;
-    border: 1px solid #e4e7ec;
-    border-radius: 3px;
-    background: white;
-    color: #667085;
-    font-family: inherit;
-    font-size: 9px;
-    cursor: pointer;
-}
-
-.territory-items {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.territory-item {
-    width: 100%;
-    min-height: 73px;
-    padding: 0 19px;
-    display: flex;
-    align-items: center;
-    border: 0;
-    border-bottom: 1px solid #f0f1f3;
-    background: white;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.territory-item:hover,
-.territory-item.featured-territory {
-    background: #f7f9fc;
-}
-
-.territory-color {
-    width: 4px;
-    height: 35px;
-    margin-right: 13px;
-    background: #d0d5dd;
-    border-radius: 3px;
-}
-
-.featured-territory .territory-color {
-    background: #2f6df6;
-}
-
-.territory-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.territory-info strong {
-    font-size: 11px;
-    font-weight: 600;
-    color: #344054;
-}
-
-.territory-info span {
-    margin-top: 3px;
-    font-size: 9px;
-    color: #98a2b3;
-}
-
-.territory-arrow {
-    margin-left: auto;
-    color: #98a2b3;
-    font-size: 14px;
-}
-
-.view-all-button {
-    height: 52px;
-    border: 0;
-    border-top: 1px solid #e4e7ec;
-    background: white;
-    color: #2f6df6;
-    font-family: inherit;
-    font-size: 10px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.view-all-button span {
-    margin-left: 12px;
-}
-
-/* 
-   TERRITORIOS
-    */
-
-.territory-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 32px;
-    margin-bottom: 28px;
-}
-
-.territory-header h1 {
-    margin: 8px 0 6px;
-    font-family: "DM Serif Display", serif;
-    font-size: 42px;
-    font-weight: 400;
-    letter-spacing: -0.8px;
-}
-
-.territory-header p {
-    margin: 0;
-    color: #667085;
-    font-size: 15px;
-}
-
-.secondary-button {
-    padding: 11px 17px;
-    border: 1px solid #d9e0e8;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #163a5f;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.secondary-button:hover {
-    border-color: #163a5f;
-    background: #f5f8fb;
-}
+/* ========================================
+   TABS
+   ======================================== */
 
 .territory-tabs {
     display: flex;
-    gap: 28px;
-    margin-bottom: 28px;
-    border-bottom: 1px solid #e3e7ec;
+    gap: 4px;
+    width: fit-content;
+    padding: 4px;
+    margin-bottom: 22px;
+    border-radius: 11px;
+    background: #eef2f7;
 }
 
-.territory-tabs a {
-    position: relative;
-    padding: 0 2px 14px;
-    color: #667085;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+.territory-tabs a,
+.territory-tabs button {
+    padding: 8px 13px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 750;
 }
 
-.territory-tabs a:hover {
-    color: #163a5f;
+.territory-tabs a.active,
+.territory-tabs button.active {
+    background: var(--white);
+    color: var(--blue);
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.06);
 }
 
-.territory-tabs a.active {
-    color: #163a5f;
-    font-weight: 600;
-}
 
-.territory-tabs a.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 2px;
-    background: #163a5f;
-    border-radius: 2px;
-}
-
-.territory-content {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-/* 
-   KPI / CARDS
-    */
+/* ========================================
+   KPI
+   ======================================== */
 
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 15px;
+    margin-bottom: 17px;
 }
 
 .kpi-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     min-height: 125px;
-    padding: 21px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+}
+
+.kpi-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #eaf2ff;
+    color: #2563eb;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.kpi-info {
     display: flex;
     flex-direction: column;
-    background: #ffffff;
-    border: 1px solid #e3e7ec;
-    border-radius: 12px;
+    gap: 3px;
 }
 
-.kpi-card span {
-    margin-bottom: 12px;
-    color: #667085;
-    font-size: 13px;
-}
-
-.kpi-card strong {
-    color: #162b44;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-}
-
-.kpi-card small {
-    margin-top: 5px;
-    color: #98a2b3;
+.kpi-info span {
+    margin: 0;
+    color: #64748b;
     font-size: 12px;
+    font-weight: 600;
 }
+
+.kpi-info strong {
+    display: block;
+    color: #172033;
+    font-size: 27px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.kpi-info small {
+    display: block;
+    margin: 0;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.kpi-grid:has(.kpi-card:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ========================================
+   DASHBOARD GRID
+   ======================================== */
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
-    gap: 22px;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .dashboard-card {
-    min-height: 300px;
-    padding: 24px;
-    background: #ffffff;
-    border: 1px solid #e3e7ec;
-    border-radius: 12px;
+    position: relative;
+    min-width: 0;
+    min-height: 250px;
+    padding: 20px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    transition: 0.2s ease;
+}
+
+.dashboard-card:hover {
+    box-shadow: var(--shadow-hover);
 }
 
 .dashboard-card.large {
-    min-height: 380px;
+    grid-column: auto;
 }
+
+.dashboard-card::before {
+    display: none !important;
+}
+
+/* ========================================
+   CABECERAS DE TARJETAS
+   ======================================== */
 
 .card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 20px;
+    gap: 12px;
+    margin-bottom: 17px;
 }
 
-.card-header h2 {
-    margin: 6px 0 0;
-    color: #162b44;
-    font-size: 19px;
-    font-weight: 600;
+.card-header h2,
+.card-header h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+}
+
+.card-header p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.card-header a {
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 750;
 }
 
 .source-label {
-    color: #98a2b3;
+    flex-shrink: 0;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: #f1f5f9;
+    color: var(--text-muted);
+    font-size: 8px;
+    font-weight: 750;
+}
+
+.dashboard-card .source-label {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.economic-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    min-height: 180px;
+    padding: 20px 35px;
+    box-sizing: border-box;
+}
+
+.economic-highlight-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 250px;
+}
+
+.economic-highlight-label {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.economic-highlight-main strong {
+    color: #172033;
+    font-size: 38px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+}
+
+.economic-highlight-year {
+    margin-top: 10px;
+    color: #94a3b8;
     font-size: 11px;
 }
 
-.empty-chart {
-    height: 270px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px dashed #d9e0e8;
-    border-radius: 8px;
-    background: #fafbfc;
-    color: #98a2b3;
-    font-size: 13px;
+.economic-highlight-info {
+    max-width: 300px;
+    padding-right: 20px;
 }
 
-.empty-chart.small {
-    height: 220px;
+.economic-highlight-info span {
+    display: block;
+    color: #172033;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 7px;
 }
 
-/* 
-   CHARTS
-    */
+.economic-highlight-info p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   GRÁFICOS
+   ======================================== */
 
 .chart-container {
     position: relative;
-    height: 300px;
-    margin-top: 25px;
+    width: 100%;
+    min-height: 245px;
 }
 
-.chart-container.small {
+.dashboard-card .chart-container.small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
     height: 250px;
+    padding: 25px 25px 5px;
+    box-sizing: border-box;
 }
 
-/* 
+.dashboard-card .chart-container.small canvas {
+    max-height: 195px !important;
+    transform: translateY(-8px);
+}
+
+.chart-container canvas {
+    max-width: 100%;
+}
+
+
+/* ========================================
    INDICADORES
-    */
+   ======================================== */
 
 .indicator-list {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .indicator-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #eef1f4;
+    gap: 15px;
+    min-height: 43px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eef1f5;
 }
 
 .indicator-row:last-child {
+    border-bottom: 0;
+}
+
+.indicator-label {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.indicator-value {
+    color: var(--text);
+    font-size: 10px;
+    font-weight: 750;
+    text-align: right;
+}
+
+
+/* ========================================
+   BOTONES
+   ======================================== */
+
+.secondary-button,
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 37px;
+    padding: 0 13px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 750;
+    transition: 0.2s ease;
+}
+
+.secondary-button {
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-secondary);
+}
+
+.secondary-button:hover {
+    border-color: #cbd5e1;
+    color: var(--blue);
+}
+
+.primary-button {
+    border: 0;
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.20);
+}
+
+.primary-button:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   ECONOMÍA
+   ======================================== */
+
+.economic-highlight {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--green-light), var(--white));
+    border: 1px solid rgba(16, 185, 129, 0.18);
+}
+
+.economic-highlight-main {
+    color: var(--green);
+    font-size: 27px;
+    font-weight: 850;
+}
+
+.economic-highlight-label {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.economic-highlight-year {
+    color: var(--text-muted);
+    font-size: 9px;
+}
+
+.economic-highlight-info {
+    color: var(--text-secondary);
+    font-size: 9px;
+    text-align: right;
+}
+
+#pibTitle {
+    color: var(--green);
+}
+
+
+/* ========================================
+   ELECCIONES
+   ======================================== */
+
+.results-card,
+.seats-card {
+    background: var(--white);
+}
+
+.results-card .source-label,
+.seats-card .source-label {
+    background: var(--blue-soft);
+    color: var(--blue);
+}
+
+/* TABLA DE ELECCIONES */
+
+.election-table-wrapper {
+    width: 100%;
+    margin-top: 18px;
+    overflow-x: auto;
+}
+
+.election-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.election-table th {
+    padding: 13px 15px;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.election-table td {
+    padding: 14px 15px;
+    color: #475569;
+    font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eef2f6;
+}
+
+.election-table tbody tr:last-child td {
     border-bottom: none;
 }
 
-.indicator-row span {
-    color: #667085;
-    font-size: 13px;
-}
-
-.indicator-row strong {
-    color: #162b44;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-/* 
-   ELECCIONES MUNICIPALES
-    */
-
-.municipal-election-summary {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 24px;
-    align-items: center;
-}
-
-.municipal-election-main {
-    padding-right: 24px;
-}
-
-.municipal-election-main strong {
-    display: block;
-    margin: 8px 0;
-    font-size: 20px;
-}
-
-.municipal-election-main p {
-    margin: 0;
-    color: #667085;
-    line-height: 1.6;
-    font-size: 14px;
-}
-
-.municipal-election-note {
-    padding: 22px;
-    border: 1px solid #e3e7ec;
-    border-radius: 10px;
+.election-table tbody tr:hover td {
     background: #f8fafc;
 }
 
-.municipal-election-note span,
-.municipal-election-note small {
-    display: block;
-    color: #667085;
+.election-table td strong {
+    color: #172033;
+    font-weight: 700;
 }
 
-.municipal-election-note strong {
-    display: block;
-    margin: 6px 0;
-    font-size: 18px;
+.election-table .position-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    background: #eaf2ff;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.municipal-election-note small {
-    line-height: 1.5;
-}
+/* Participación */
 
 .municipal-participation {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-height: 190px;
     text-align: center;
 }
 
 .municipal-participation-value {
-    color: #163a5f;
-    font-size: 42px;
-    font-weight: 700;
+    color: var(--blue);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
 }
 
-.municipal-participation>span {
-    margin-top: 4px;
-    color: #667085;
+.municipal-participation > span {
+    margin-top: 8px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .municipal-participation-bar {
-    width: 80%;
+    width: 75%;
     height: 8px;
-    margin: 24px 0 16px;
+    margin-top: 20px;
     overflow: hidden;
-    background: #e7edf3;
-    border-radius: 20px;
+    background: var(--blue-soft);
+    border-radius: 999px;
 }
 
 .municipal-participation-bar div {
     height: 100%;
-    background: #163a5f;
-    border-radius: 20px;
+    background: var(--blue);
+    border-radius: 999px;
 }
 
 .municipal-participation small {
-    max-width: 320px;
-    color: #98a2b3;
+    max-width: 280px;
+    margin-top: 14px;
+    color: var(--text-muted);
+    font-size: 10px;
     line-height: 1.5;
 }
 
+/* ========================================
+   EVOLUCION
+   ======================================== */
+
 .municipal-evolution {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 18px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
 }
 
 .municipal-evolution-chart {
-    position: relative;
-    flex: 1;
-    padding: 20px 10px 10px;
-}
-
-.evolution-axis {
-    margin-bottom: 18px;
-    color: #98a2b3;
-    font-size: 12px;
+    min-height: 180px;
 }
 
 .evolution-point {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    color: var(--blue);
 }
 
 .evolution-point-marker {
-    width: 12px;
-    height: 12px;
-    background: #163a5f;
-    border-radius: 50%;
-    box-shadow: 0 0 0 5px #e8f0f7;
+    background: var(--blue);
+    box-shadow: 0 0 0 5px var(--blue-soft);
 }
 
 .evolution-point-label {
@@ -925,611 +1128,135 @@
 }
 
 .evolution-point-label strong {
-    font-size: 18px;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 750;
 }
 
 .evolution-point-label span {
-    color: #667085;
-    font-size: 13px;
+    color: var(--text-secondary);
+    font-size: 11px;
 }
 
 .evolution-line {
-    height: 1px;
-    margin: 18px 0 18px 5px;
-    background: #dfe5eb;
+    background: #bfdbfe;
 }
 
 .evolution-secondary {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 14px;
 }
 
 .evolution-secondary-item {
-    padding: 14px 16px;
-    border: 1px solid #e7ebef;
-    border-radius: 8px;
-    background: #fafbfc;
+    padding: 11px 12px;
+    border-radius: 10px;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+}
+
+.evolution-secondary-item:nth-child(2) {
+    background: #fdf2f8;
+    border-color: #fbcfe8;
+}
+
+.evolution-secondary-item:nth-child(3) {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
 }
 
 .evolution-secondary-item span {
-    display: block;
-    margin-bottom: 5px;
-    color: #667085;
-    font-size: 12px;
+    color: var(--text-secondary);
+    font-size: 10px;
 }
 
 .evolution-secondary-item strong {
-    font-size: 15px;
+    display: block;
+    margin-top: 3px;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .evolution-footer {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    padding-top: 16px;
-    border-top: 1px solid #edf0f2;
-    color: #98a2b3;
-    font-size: 12px;
-}
-
-.evolution-footer strong {
-    color: #667085;
-    font-weight: 500;
-}
-
-/* 
-   VISTA MUNICIPAL
-    */
-
-.municipal-view .kpi-card:nth-child(4),
-.municipal-view #seatsChart,
-.municipal-view .seats-card {
-    display: none;
-}
-
-.municipal-view .kpi-grid {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.municipal-view .dashboard-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
-}
-
-.municipal-view .dashboard-grid:has(.seats-card) {
-    grid-template-columns: 1fr;
-}
-
-.municipal-view .results-card {
-    grid-column: 1 / -1;
-}
-
-/* 
-   TABLA DE ELECCIONES
-    */
-
-.election-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.election-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-}
-
-.election-table thead {
-    background: #f8fafc;
-}
-
-.election-table th {
-    padding: 13px 18px;
-    text-align: left;
-    border-bottom: 1px solid #e4e7ec;
-    color: #667085;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.election-table th:nth-child(3),
-.election-table th:nth-child(4),
-.election-table td:nth-child(3),
-.election-table td:nth-child(4) {
-    text-align: right;
-}
-
-.election-table tbody tr {
-    transition: background 0.15s ease;
-}
-
-.election-table tbody tr:hover {
-    background: #f8fafc;
-}
-
-.election-table td {
-    padding: 15px 18px;
-    border-bottom: 1px solid #eef1f4;
-    color: #344054;
-}
-
-.election-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.election-table td:nth-child(2) strong {
-    color: #101828;
-    font-weight: 650;
-}
-
-.election-table td:nth-child(3) {
-    color: #475467;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
-.election-table td:nth-child(4) {
-    color: #173b68;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-}
-
-.position-number {
-    width: 28px;
-    height: 28px;
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: #f2f4f7;
-    color: #475467;
-    font-size: 12px;
-    font-weight: 700;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    color: var(--text-muted);
+    font-size: 9px;
 }
 
-.election-table tbody tr:first-child .position-number {
-    background: #e8eef8;
-    color: #173b68;
-}
-
-/* 
-   ECONOMÍA
-    */
-
-.economic-highlight {
-    min-height: 230px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: #f8fafc;
-    border: 1px solid #e8edf3;
-    border-radius: 12px;
-}
-
-.economic-highlight-main {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.economic-highlight-label {
-    color: #7b8794;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-}
-
-.economic-highlight-main strong {
-    color: #081525;
-    font-size: 36px;
-    line-height: 1.1;
-    font-weight: 700;
-}
-
-.economic-highlight-year {
-    color: #7b8794;
-    font-size: 13px;
-}
-
-.economic-highlight-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 24px;
-    border-top: 1px solid #e5eaf0;
-}
-
-.economic-highlight-info span {
-    display: block;
-    color: #344054;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.economic-highlight-info p {
-    margin: 0;
-    color: #7b8794;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-#pibTitle {
-    margin-bottom: 20px;
-}
-
-/* 
-   INFORMES
-    */
-
-.report-value {
-    margin-top: 28px;
-    color: #081525;
-    font-size: 32px;
-    line-height: 1.1;
-    font-weight: 700;
-}
-
-.report-description {
-    margin: 8px 0 0;
-    color: #7b8794;
-    font-size: 13px;
-}
-
-.report-summary {
-    margin-top: 24px;
-}
-
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 24px;
-}
-
-.summary-grid>div {
-    padding: 18px;
-    background: #f8fafc;
-    border: 1px solid #e8edf3;
-    border-radius: 10px;
-}
-
-.summary-grid span {
-    display: block;
-    margin-bottom: 8px;
-    color: #98a2b3;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.summary-grid strong {
-    color: #081525;
-    font-size: 15px;
-}
-
-/* Boton Generar informe */
-
-.report-note+* {
-    margin-top: 0;
-}
-
-.primary-button {
-    border-radius: 8px;
-    background: #315f8c;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.primary-button:hover {
-    background: #3d709f;
-}
-
-.primary-button:active {
-    transform: translateY(1px);
-}
-
-
-/* Bloque final de informe territorial */
-
-.report-note {
-    padding: 28px 30px;
-}
-
-.report-note .card-header {
-    margin-bottom: 22px;
-}
-
-.report-note .card-header h2 {
-    margin-top: 8px;
-    margin-bottom: 0;
-}
-
-.report-note p {
-    margin: 0 0 22px;
-    max-width: 650px;
-    line-height: 1.7;
-    color: #667085;
-
-}
-
-.report-note .source-label {
-    display: block;
-    padding-top: 18px;
-    border-top: 1px solid #e5eaf0;
-    color: #7b8794;
-    font-size: 12px;
-}
-
-/* 
-   RESPONSIVE
-    */
-
-@media (max-width: 1100px) {
-
-    .sidebar {
-        width: 210px;
-    }
-
-    .dashboard-main {
-        margin-left: 210px;
-    }
-
-    .explorer {
-        padding: 35px 25px;
-    }
-
-    .explorer-layout {
-        grid-template-columns: minmax(0, 1fr) 280px;
-    }
-
-    .search-box {
-        width: 300px;
-    }
-
-    .kpi-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .municipal-view .kpi-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .municipal-view .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 850px) {
-
-    .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-    }
-
-    .sidebar-section,
-    .sidebar-bottom {
-        display: none;
-    }
-
-    .sidebar-brand {
-        height: 65px;
-    }
-
-    .dashboard-main {
-        margin-left: 0;
-    }
-
-    .dashboard-header {
-        padding: 0 20px;
-    }
-
-    .election-selector {
-        display: none;
-    }
-
-    .explorer-heading {
-        display: block;
-    }
-
-    .data-status {
-        margin-top: 20px;
-    }
-
-    .explorer-controls {
-        flex-wrap: wrap;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .map-mode {
-        margin-left: 0;
-    }
-
-    .explorer-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .territory-list {
-        min-height: 400px;
-    }
-
-    .municipal-election-summary {
-        grid-template-columns: 1fr;
-    }
-
-    .municipal-election-main {
-        padding-right: 0;
-    }
-
-    .evolution-secondary {
-        grid-template-columns: 1fr;
-    }
-
-    .summary-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 700px) {
-
-    .explorer {
-        padding: 30px 18px 45px;
-    }
-
-    .explorer-heading h1 {
-        font-size: 36px;
-    }
-
-    .territory-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .territory-header h1 {
-        font-size: 34px;
-    }
-
-    .territory-tabs {
-        gap: 18px;
-        overflow-x: auto;
-    }
-
-    .kpi-grid,
-    .municipal-view .kpi-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-card {
-        padding: 20px;
-    }
-
-    .dashboard-header {
-        height: 68px;
-    }
-
-    .map-panel {
-        min-height: 500px;
-    }
-
-    #map {
-        height: 430px;
-    }
-
-    .election-table {
-        min-width: 650px;
-    }
-}
-
-/* 
-   PRINT
-    */
-
-@media print {
-
-    .sidebar,
-    .dashboard-header,
-    .primary-button {
-        display: none !important;
-    }
-
-    .dashboard-main {
-        margin-left: 0 !important;
-    }
-
-    .dashboard-content,
-    .explorer {
-        padding: 0 !important;
-        max-width: none !important;
-    }
-
-    .dashboard-body,
-    body {
-        background: white;
-    }
-
-    .dashboard-card,
-    .kpi-card {
-        break-inside: avoid;
-    }
-}
-
-/* 
+/* ========================================
    COMPARAR
-    */
+   ======================================== */
 
 .comparison-selector {
-    margin-bottom: 24px;
-}
-
-.comparison-selector-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 28px;
-}
-
-.comparison-selector-header h2 {
-    margin: 6px 0 0;
+    padding: 30px 20px;
+    min-height: auto;
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(2, 132, 199, 0.08),
+            transparent 35%),
+        var(--white);
 }
 
 .comparison-selectors {
     display: grid;
-    grid-template-columns: 1fr 60px 1fr;
+    grid-template-columns: 1fr auto 1fr;
     align-items: end;
-    gap: 24px;
+    gap: 14px;
 }
 
 .comparison-select-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .comparison-select-group label {
-    font-size: 12px;
-    font-weight: 700;
-    color: #344054;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 750;
 }
 
 .comparison-select {
     width: 100%;
-    height: 46px;
-    padding: 0 14px;
-    border: 1px solid #d9e0e7;
-    border-radius: 8px;
-    background: #fff;
-    color: #081525;
-    font-size: 14px;
+    min-height: 39px;
+    padding: 0 11px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--text);
     outline: none;
+    font-size: 10px;
 }
 
 .comparison-select:focus {
-    border-color: #315f8c;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.07);
 }
 
 .comparison-vs {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--pink-soft);
+    color: var(--pink);
+    font-size: 9px;
+    font-weight: 850;
+}
+
+.comparison-content {
+    margin-top: 8px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 46px;
-    font-size: 12px;
-    font-weight: 800;
-    color: #7b8794;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .comparison-content.hidden {
@@ -1539,381 +1266,454 @@
 .comparison-territories {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
+    gap: 18px;
+    margin-bottom: 20px;
 }
 
-.comparison-territory-card {
-    padding: 22px 24px;
-    background: #fff;
-    border: 1px solid #e5eaf0;
+.comparison-territories > div {
+    padding: 25px 20px;
     border-radius: 12px;
+    min-height: auto;
 }
 
-.comparison-territory-card span {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #7b8794;
-    text-transform: uppercase;
+.comparison-territories>div:first-child {
+    background: var(--blue-soft);
 }
 
-.comparison-territory-card strong {
-    display: block;
-    font-size: 22px;
-    color: #081525;
+.comparison-territories>div:last-child {
+    background: var(--pink-soft);
 }
+
+.comparison-territories h3 {
+    margin: 0;
+    font-size: 12px;
+}
+
+
+/* TABLA DE COMPARACIÓN */
 
 .comparison-table-wrapper {
+    width: 100%;
+    margin-top: 18px;
     overflow-x: auto;
 }
 
 .comparison-table {
     width: 100%;
-    border-collapse: collapse;
-}
-
-.comparison-table th,
-.comparison-table td {
-    padding: 16px 18px;
-    border-bottom: 1px solid #edf0f3;
-    text-align: left;
-    font-size: 14px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .comparison-table th {
+    padding: 13px 15px;
     background: #f8fafc;
-    color: #344054;
-    font-size: 12px;
+    color: #64748b;
+    font-size: 10px;
     font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.comparison-table td {
+    padding: 14px 15px;
+    color: #475569;
+    font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eef2f6;
+}
+
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table tbody tr:hover td {
+    background: #f8fafc;
 }
 
 .comparison-table td:first-child {
-    color: #344054;
-    font-weight: 600;
+    color: #172033;
+    font-weight: 650;
 }
 
 .comparison-table td:not(:first-child) {
-    color: #081525;
+    color: #475569;
     font-weight: 600;
 }
 
-.comparison-table tr:last-child td {
-    border-bottom: none;
+/* ÚLTIMO BOX DE COMPARAR */
+
+.comparison-analysis {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    min-height: auto;
+    padding: 20px 20px;
 }
 
-.comparison-chart {
-    height: 380px;
-    position: relative;
+.comparison-analysis .card-header {
+    width: 100%;
+    margin: 0;
 }
 
-/* Comparacion de territorios */
-
-.comparison-territories {
-    gap: 32px;
-    margin-bottom: 32px;
-}
-
-.comparison-territories .dashboard-card {
-    min-height: 0;
-    padding: 22px 24px;
-}
-
-.comparison-territories .card-header {
-    margin-bottom: 10px;
-}
-
-.comparison-territories .card-header h2 {
-    margin-top: 8px;
-    margin-bottom: 0;
-}
-
-
-/* Separacion entre los bloques principales */
-
-#comparisonContent>.dashboard-card {
-    margin-bottom: 28px;
-}
-
-#comparisonContent>.dashboard-card:last-child {
-    margin-bottom: 0;
-}
-
-
-/* Bloque final de analisis comparativo */
-
-#comparisonContent .report-note {
-    padding: 28px 30px;
-}
-
-#comparisonContent .report-note .card-header {
-    margin-bottom: 22px;
-}
-
-#comparisonContent .report-note .card-header h2 {
-    margin-top: 8px;
-    margin-bottom: 0;
-}
-
-#comparisonContent .report-note p {
-    margin: 0 0 22px;
+.comparison-analysis p {
+    margin: 0;
     max-width: 850px;
-    line-height: 1.7;
-    color: #667085;
-}
-
-#comparisonContent .report-note .source-label {
-    display: block;
-    padding-top: 18px;
-    border-top: 1px solid #e5eaf0;
-    color: #7b8794;
+    color: #64748b;
     font-size: 12px;
-}
-
-
-/* Separacion del bloque de seleccion */
-
-.comparison-selector {
-    margin-bottom: 32px;
-}
-
-.comparison-selector .card-header {
-    margin-bottom: 26px;
-}
-
-
-/* Espaciado de los selectores */
-
-.comparison-selectors {
-    gap: 28px;
-}
-
-/* Datos de la tabla de comparacion */
-
-.comparison-table td:not(:first-child) {
-    color: #081525;
-    font-weight: 500;
-}
-
-
-/* Boton Comparar */
-
-#compareButton {
-    background: #315f8c;
-    border-radius: 8px;
-    padding: 11px 20px;
-    border: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-#compareButton:hover {
-    background: #3d709f;
-}
-
-#compareButton:active {
-    transform: translateY(1px);
-}
-
-/* =========================================================
-   INSTITUCIONES
-   ========================================================= */
-
-.institution-entity {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 18px 20px;
-    border: 1px solid #e8edf2;
-    border-radius: 10px;
-    background: #ffffff;
-    margin-bottom: 10px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.institution-entity:hover {
-    border-color: #d6dee7;
-    box-shadow: 0 4px 14px rgba(8, 21, 37, 0.05);
-}
-
-.institution-entity > div:first-child {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.institution-entity strong {
-    color: #172033;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.institution-entity span {
-    color: #7b8797;
-    font-size: 12px;
-}
-
-.institution-entity-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-    color: #7b8797;
-    font-size: 12px;
-    text-align: right;
-}
-
-#institutionContent > .dashboard-card {
-    margin-bottom: 30px;
-}
-
-#institutionContent > .dashboard-grid {
-    margin-bottom: 30px;
-}
-
-#institutionContent > .dashboard-card {
-    margin-bottom: 30px;
-}
-
-#institutionContent > .dashboard-grid {
-    margin-bottom: 30px;
-}
-
-#institutionContent .kpi-grid {
-    margin-bottom: 30px;
-}
-
-/* Tabla */
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
-
-.data-table thead th {
-    padding: 13px 16px;
-    text-align: left;
-    background: #f8fafc;
-    color: #667085;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid #e6ebf0;
-    white-space: nowrap;
-}
-
-.data-table tbody td {
-    padding: 14px 16px;
-    color: #344054;
-    border-bottom: 1px solid #edf0f3;
-    vertical-align: middle;
-}
-
-.data-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.data-table tbody tr {
-    transition: background 0.15s ease;
-}
-
-.data-table tbody tr:hover {
-    background: #f8fafc;
-}
-
-.data-table tbody td:first-child {
-    color: #172033;
-    font-weight: 600;
-}
-
-.data-table tbody td:nth-child(3) {
-    font-weight: 500;
-    color: #475467;
-}
-
-
-/* Informacion institucional */
-
-#townHallWeb {
-    color: #315b8f;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-#townHallWeb:hover {
-    color: #173f70;
-    text-decoration: underline;
-}
-
-#townHallEmail {
-    word-break: break-word;
-}
-
-
-/* Estado vacio */
-
-#emptyState {
-    margin-top: 4px;
-}
-
-#emptyState p {
-    color: #7b8797;
     line-height: 1.6;
 }
 
+.comparison-analysis .source-label {
+    margin: 0;
+}
 
-/* Responsive */
 
-@media (max-width: 900px) {
+/* ========================================
+   INFORMES
+   ======================================== */
 
+.territory-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.territory-header .primary-button {
+    margin-top: 40px;
+    margin-right: 15px;
+    white-space: nowrap;
+}
+
+.report-note {
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(245, 158, 11, 0.08),
+            transparent 35%),
+        var(--white);
+}
+
+.report-note .source-label {
+    background: var(--yellow-light);
+    color: var(--yellow);
+}
+
+.informeTerritorial {
+    background:
+        radial-gradient(circle at 100% 0%,
+            rgba(37, 99, 235, 0.045),
+            transparent 35%),
+        var(--white);
+}
+
+#emptyState {
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(139, 92, 246, 0.07),
+            transparent 40%),
+        var(--white);
+    text-align: center;
+}
+
+#emptyState h2 {
+    color: var(--purple);
+}
+
+.dashboard-card:last-child {
+    min-height: 0;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+/* ========================================
+   MAPA
+   ======================================== */
+
+#map {
+    min-height: 540px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.leaflet-control-zoom a {
+    color: var(--blue) !important;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+}
+
+.leaflet-popup-content {
+    font-family: inherit;
+    font-size: 11px;
+}
+
+
+/* ========================================
+   ESTADOS
+   ======================================== */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    border-radius: 99px;
+    background: var(--green-soft);
+    color: var(--green);
+    font-size: 9px;
+    font-weight: 750;
+}
+
+.status-badge::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+}
+
+
+/* ========================================
+   TERRITORIOS
+   ======================================== */
+
+.territory-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.territory-list button {
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    transition: 0.18s ease;
+}
+
+.territory-list button:hover {
+    border-color: #bfd5f5;
+    background: var(--blue-soft);
+    color: var(--blue);
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   MUNICIPAL
+   ======================================== */
+
+.municipal-participation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 190px;
+    text-align: center;
+}
+
+.municipal-participation-value {
+    color: #2563eb;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.municipal-participation > span {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.municipal-participation-bar {
+    width: 75%;
+    height: 8px;
+    margin-top: 20px;
+    overflow: hidden;
+    background: #eaf2ff;
+    border-radius: 999px;
+}
+
+.municipal-participation-bar div {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 999px;
+}
+
+.municipal-participation small {
+    max-width: 280px;
+    margin-top: 14px;
+    color: #94a3b8;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1150px) {
+    .sidebar {
+        width: 215px;
+    }
+
+    .dashboard-main {
+        margin-left: 215px;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-card.large {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 850px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding-bottom: 10px;
+    }
+
+    .dashboard-main {
+        margin-left: 0;
+    }
+
+    .dashboard-header {
+        position: relative;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card.large {
+        grid-column: span 1;
+    }
+
+    .comparison-selectors {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-vs {
+        margin: auto;
+    }
+}
+
+@media (max-width: 700px) {
     .institution-entity {
-        align-items: flex-start;
         flex-direction: column;
-        gap: 12px;
+        align-items: flex-start;
     }
 
     .institution-entity-meta {
         align-items: flex-start;
+        min-width: 0;
+    }
+
+    .institution-entity-meta span {
         text-align: left;
     }
-
 }
 
-@media (max-width: 700px) {
-
-    .data-table {
-        min-width: 720px;
+@media (max-width: 620px) {
+    .dashboard-header {
+        padding: 0 17px;
     }
 
-}
+    .explorer,
+    .territory-content {
+        width: calc(100% - 30px);
+        padding-top: 28px;
+    }
 
-@media (max-width: 800px) {
-
-    .comparison-selectors {
+    .kpi-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
     }
 
-    .comparison-vs {
-        height: auto;
-    }
-
+    .municipal-election-summary,
     .comparison-territories {
         grid-template-columns: 1fr;
     }
 
-    .comparison-selector-header {
-        align-items: flex-start;
-        flex-direction: column;
+    .territory-tabs {
+        width: 100%;
+        overflow-x: auto;
     }
 
+    .territory-tabs a,
+    .territory-tabs button {
+        white-space: nowrap;
+    }
+
+    .territory-list {
+        grid-template-columns: 1fr;
+    }
+
+    .territory-header h1,
+    .explorer h1 {
+        font-size: 31px;
+    }
+
+    .dashboard-card {
+        padding: 17px;
+    }
+}
+
+
+/* ========================================
+   PRINT
+   ======================================== */
+
+@media print {
+
+    .sidebar,
+    .dashboard-header,
+    .territory-tabs,
+    .secondary-button,
+    .primary-button {
+        display: none !important;
+    }
+
+    .dashboard-main {
+        margin-left: 0;
+    }
+
+    .explorer,
+    .territory-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .dashboard-card,
+    .kpi-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
 }

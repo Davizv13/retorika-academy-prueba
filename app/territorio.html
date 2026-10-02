@@ -9,6 +9,9 @@
     <link rel="icon" type="image/x-icon" href="../assets/LogoRetorika.png">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body class="dashboard-body">
@@ -79,28 +82,6 @@
             </div>
 
             <div class="sidebar-bottom">
-
-                <a href="#" class="sidebar-link">
-                    <span class="sidebar-icon">⚙</span>
-                    Configuración
-                </a>
-
-                <a href="#" class="sidebar-link">
-                    <span class="sidebar-icon">?</span>
-                    Ayuda
-                </a>
-
-                <div class="user-profile">
-                    <div class="user-avatar">DQ</div>
-
-                    <div class="user-info">
-                        <strong>David Quintas</strong>
-                        <span>Analista</span>
-                    </div>
-
-                    <span class="user-menu">•••</span>
-                </div>
-
             </div>
 
         </aside>
@@ -143,62 +124,47 @@
 
                     </div>
 
-                    <button class="secondary-button" onclick="window.location.href='index.html'">
-                        ← Volver al mapa
-                    </button>
-
                 </div>
 
-                <nav class="territory-tabs">
-
-                    <a href="#" class="active">
-                        Resumen
-                    </a>
-
-                    <a href="#demografia">
-                        Demografía
-                    </a>
-
-                    <a id="economyLink" href="economia.html">
-                        Economía
-                    </a>
-
-                    <a id="electionsLink" href="elecciones.html">
-                        Elecciones
-                    </a>
-                    <a id="institutionsLink" href="instituciones.html">
-                        Instituciones
-                    </a>
-
-
-                </nav>
 
                 <section class="territory-content" id="demografia">
 
                     <div class="kpi-grid">
 
                         <div class="kpi-card">
-                            <span>Población</span>
-                            <strong id="population">—</strong>
-                            <small>habitantes · 2025</small>
+                            <div class="kpi-icon">♙</div>
+                            <div class="kpi-info">
+                                <span>Población</span>
+                                <strong id="population">—</strong>
+                                <small>habitantes · 2025</small>
+                            </div>
                         </div>
 
                         <div class="kpi-card">
-                            <span>Edad media</span>
-                            <strong id="averageAge">—</strong>
-                            <small>años</small>
+                            <div class="kpi-icon">◷</div>
+                            <div class="kpi-info">
+                                <span>Edad media</span>
+                                <strong id="averageAge">—</strong>
+                                <small>años</small>
+                            </div>
                         </div>
 
                         <div class="kpi-card">
-                            <span>Población extranjera</span>
-                            <strong id="foreignPopulation">—</strong>
-                            <small id="foreignPercentage">—</small>
+                            <div class="kpi-icon">◎</div>
+                            <div class="kpi-info">
+                                <span>Población extranjera</span>
+                                <strong id="foreignPopulation">—</strong>
+                                <small id="foreignPercentage">—</small>
+                            </div>
                         </div>
 
                         <div class="kpi-card">
-                            <span>Densidad</span>
-                            <strong id="density">—</strong>
-                            <small>hab./km²</small>
+                            <div class="kpi-icon">▤</div>
+                            <div class="kpi-info">
+                                <span>Densidad</span>
+                                <strong id="density">—</strong>
+                                <small>hab./km²</small>
+                            </div>
                         </div>
 
                     </div>

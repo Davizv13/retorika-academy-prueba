@@ -257,8 +257,11 @@ function createResultsChart(election) {
 
             datasets: [{
                 data: sorted.map(p => p.votes),
+                backgroundColor: "#2563eb",
+                hoverBackgroundColor: "#1d4ed8",
                 borderWidth: 0,
-                borderRadius: 4
+                borderRadius: 6,
+                barThickness: 22
             }]
         },
 
@@ -274,6 +277,11 @@ function createResultsChart(election) {
                 },
 
                 tooltip: {
+                    backgroundColor: "#172033",
+                    titleColor: "#ffffff",
+                    bodyColor: "#ffffff",
+                    padding: 10,
+                    cornerRadius: 8,
                     callbacks: {
                         label: context =>
                             `${formatNumber(context.parsed.x)} votos`
@@ -286,17 +294,34 @@ function createResultsChart(election) {
                     beginAtZero: true,
 
                     ticks: {
+                        color: "#64748b",
                         callback: value =>
                             formatNumber(value)
                     },
 
                     grid: {
-                        color: "#eef1f4"
+                        color: "#eef2f7"
+                    },
+
+                    border: {
+                        display: false
                     }
                 },
 
                 y: {
+                    ticks: {
+                        color: "#334155",
+                        font: {
+                            size: 11,
+                            weight: "600"
+                        }
+                    },
+
                     grid: {
+                        display: false
+                    },
+
+                    border: {
                         display: false
                     }
                 }
@@ -351,8 +376,8 @@ function createEvolutionChart(election) {
 
                         <span>
                             ${formatNumber(
-                                election.parties[0]?.votes || 0
-                            )} votos
+        election.parties[0]?.votes || 0
+    )} votos
                         </span>
                     </div>
                 </div>

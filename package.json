@@ -1,6 +1,26 @@
 {
   "dependencies": {
     "iconv-lite": "^0.7.3",
+    "pg": "^8.23.1",
     "xlsx": "^0.18.5"
-  }
+  },
+  "name": "prueba-retorika",
+  "version": "1.0.0",
+  "description": "Prototipo web desarrollado como prueba técnica para Retorika Academy SL.",
+  "main": "añadir_extranjeros.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davizv13/retorika-academy-prueba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Davizv13/retorika-academy-prueba/issues"
+  },
+  "homepage": "https://github.com/Davizv13/retorika-academy-prueba#readme"
 }

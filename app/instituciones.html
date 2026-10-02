@@ -86,29 +86,6 @@
 
             <div class="sidebar-bottom">
 
-                <a href="#" class="sidebar-link">
-                    <span class="sidebar-icon">⚙</span>
-                    Configuración
-                </a>
-
-                <a href="#" class="sidebar-link">
-                    <span class="sidebar-icon">?</span>
-                    Ayuda
-                </a>
-
-                <div class="user-profile">
-
-                    <div class="user-avatar">DQ</div>
-
-                    <div class="user-info">
-                        <strong>David Quintas</strong>
-                        <span>Analista</span>
-                    </div>
-
-                    <span class="user-menu">•••</span>
-
-                </div>
-
             </div>
 
         </aside>
@@ -148,35 +125,8 @@
 
                     </div>
 
-                    <button class="secondary-button" onclick="window.location.href='index.html'">
-                        ← Volver al mapa
-                    </button>
-
                 </div>
 
-                <nav class="territory-tabs">
-
-                    <a id="summaryTab" href="territorio.html">
-                        Resumen
-                    </a>
-
-                    <a id="demographyTab" href="territorio.html#demografia">
-                        Demografía
-                    </a>
-
-                    <a id="economyTab" href="economia.html">
-                        Economía
-                    </a>
-
-                    <a id="electionsTab" href="elecciones.html">
-                        Elecciones
-                    </a>
-
-                    <a href="#" class="active">
-                        Instituciones
-                    </a>
-
-                </nav>
 
                 <section class="territory-content">
 
@@ -201,27 +151,67 @@
                         <div class="kpi-grid">
 
                             <div class="kpi-card">
-                                <span>Alcalde / Alcaldesa</span>
-                                <strong id="mayorName">—</strong>
-                                <small id="mayorParty">—</small>
+
+                                <div class="kpi-icon">♙</div>
+
+                                <div class="kpi-info">
+
+                                    <span>Alcalde / Alcaldesa</span>
+
+                                    <strong id="mayorName">—</strong>
+
+                                    <small id="mayorParty">—</small>
+
+                                </div>
+
                             </div>
 
                             <div class="kpi-card">
-                                <span>Representantes</span>
-                                <strong id="representativeCount">—</strong>
-                                <small>municipales</small>
+
+                                <div class="kpi-icon">♙</div>
+
+                                <div class="kpi-info">
+
+                                    <span>Representantes</span>
+
+                                    <strong id="representativeCount">—</strong>
+
+                                    <small>municipales</small>
+
+                                </div>
+
                             </div>
 
                             <div class="kpi-card">
-                                <span>Partidos</span>
-                                <strong id="partyCount">—</strong>
-                                <small>con representación</small>
+
+                                <div class="kpi-icon">◈</div>
+
+                                <div class="kpi-info">
+
+                                    <span>Partidos</span>
+
+                                    <strong id="partyCount">—</strong>
+
+                                    <small>con representación</small>
+
+                                </div>
+
                             </div>
 
                             <div class="kpi-card">
-                                <span>Entidades locales</span>
-                                <strong id="entityCount">—</strong>
-                                <small>registradas</small>
+
+                                <div class="kpi-icon">▤</div>
+
+                                <div class="kpi-info">
+
+                                    <span>Entidades locales</span>
+
+                                    <strong id="entityCount">—</strong>
+
+                                    <small>registradas</small>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -301,46 +291,46 @@
 
                             </article>
 
+
+
+                            <article class="dashboard-card">
+
+                                <div class="card-header">
+
+                                    <div>
+                                        <span class="eyebrow">REPRESENTANTES</span>
+                                        <h2>Composición del Ayuntamiento</h2>
+                                    </div>
+
+                                    <span class="source-label">
+                                        Mandato 2023–2027
+                                    </span>
+
+                                </div>
+
+                                <div id="representativesTable"></div>
+
+                            </article>
+
+                            <article class="dashboard-card">
+
+                                <div class="card-header">
+
+                                    <div>
+                                        <span class="eyebrow">ENTIDADES LOCALES</span>
+                                        <h2>Entidades vinculadas</h2>
+                                    </div>
+
+                                    <span class="source-label">
+                                        Registro de Entidades Locales de Galicia
+                                    </span>
+
+                                </div>
+
+                                <div id="entitiesList"></div>
+
+                            </article>
                         </div>
-
-                        <article class="dashboard-card">
-
-                            <div class="card-header">
-
-                                <div>
-                                    <span class="eyebrow">REPRESENTANTES</span>
-                                    <h2>Composición del Ayuntamiento</h2>
-                                </div>
-
-                                <span class="source-label">
-                                    Mandato 2023–2027
-                                </span>
-
-                            </div>
-
-                            <div id="representativesTable"></div>
-
-                        </article>
-
-                        <article class="dashboard-card">
-
-                            <div class="card-header">
-
-                                <div>
-                                    <span class="eyebrow">ENTIDADES LOCALES</span>
-                                    <h2>Entidades vinculadas</h2>
-                                </div>
-
-                                <span class="source-label">
-                                    Registro de Entidades Locales de Galicia
-                                </span>
-
-                            </div>
-
-                            <div id="entitiesList"></div>
-
-                        </article>
-
                     </div>
 
                 </section>
