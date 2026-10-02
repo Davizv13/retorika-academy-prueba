@@ -27,22 +27,27 @@ async function loadElection() {
 
     try {
 
-        const response = await fetch("../data/elecciones.json");
+        const response =
+            await fetch(
+                `http://localhost:3000/api/municipios/${territoryCode}/elecciones`
+            );
 
         if (!response.ok) {
-            throw new Error("No se pudo cargar elecciones.json");
+            throw new Error(
+                "No se pudieron cargar los datos electorales"
+            );
         }
 
-        const elections = await response.json();
-        const municipality = elections[territoryCode];
+        const municipality = await response.json();
 
-        if (!municipality) {
-            updateTerritoryHeader(false);
-            showEmptyState();
-            return;
-        }
+        const parties = Object.fromEntries(
+            municipality.candidaturas.map(item => [
+                item.candidatura,
+                item.votos
+            ])
+        );
 
-        const parties = Object.entries(municipality.candidaturas)
+        const sortedParties = Object.entries(parties)
             .map(([name, votes]) => ({
                 name,
                 votes,
@@ -69,7 +74,7 @@ async function loadElection() {
 
             validVotes: municipality.validos,
 
-            parties,
+            parties: sortedParties,
 
             historical: null
         };
@@ -84,7 +89,10 @@ async function loadElection() {
 
     } catch (error) {
 
-        console.error("Error cargando elecciones:", error);
+        console.error(
+            "Error cargando elecciones:",
+            error
+        );
 
         updateTerritoryHeader(false);
         showEmptyState();

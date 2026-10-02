@@ -3,7 +3,6 @@ const params = new URLSearchParams(window.location.search);
 const territoryCode = params.get("code");
 const territoryName = params.get("name");
 
-let economiaData = null;
 let incomeChartInstance = null;
 let unemploymentChartInstance = null;
 
@@ -13,19 +12,6 @@ function formatNumber(value) {
     }
 
     return Number(value).toLocaleString("es-ES");
-}
-
-function getMunicipalityData() {
-    if (
-        territoryCode &&
-        economiaData &&
-        economiaData.municipios &&
-        economiaData.municipios[territoryCode]
-    ) {
-        return economiaData.municipios[territoryCode];
-    }
-
-    return null;
 }
 
 function updateTerritoryHeader(data) {
@@ -155,57 +141,26 @@ function updatePage(data) {
         return;
     }
 
-    const incomeYears = Object.keys(data.renta || {})
-        .sort((a, b) => Number(a) - Number(b));
-
-    const latestIncomeYear =
-        incomeYears.length
-            ? incomeYears[incomeYears.length - 1]
-            : null;
-
     const latestIncome =
-        latestIncomeYear
-            ? data.renta[latestIncomeYear].porHabitante
-            : null;
-
-    const pibYears = Object.keys(data.pib || {})
-        .sort((a, b) => Number(a) - Number(b));
-
-    const latestPibYear =
-        pibYears.length
-            ? pibYears[pibYears.length - 1]
+        data.renta && data.renta.length
+            ? data.renta[data.renta.length - 1]
             : null;
 
     const latestPib =
-        latestPibYear
-            ? data.pib[latestPibYear].porHabitante
-            : null;
-
-    const paroYears = Object.keys(data.paro || {})
-        .sort((a, b) => Number(a) - Number(b));
-
-    const latestParoYear =
-        paroYears.length
-            ? paroYears[paroYears.length - 1]
+        data.pib && data.pib.length
+            ? data.pib[data.pib.length - 1]
             : null;
 
     const latestParo =
-        latestParoYear
-            ? data.paro[latestParoYear]
-            : null;
-
-    const unidadesYears = Object.keys(data.unidadesLocales || {})
-        .sort((a, b) => Number(a) - Number(b));
-
-    const latestUnidadesYear =
-        unidadesYears.length
-            ? unidadesYears[unidadesYears.length - 1]
+        data.paro && data.paro.length
+            ? data.paro[data.paro.length - 1]
             : null;
 
     const latestUnidades =
-        latestUnidadesYear
-            ? data.unidadesLocales[latestUnidadesYear]
+        data.unidadesLocales && data.unidadesLocales.length
+            ? data.unidadesLocales[data.unidadesLocales.length - 1]
             : null;
+
 
     const incomeElement =
         document.getElementById("income");
@@ -222,33 +177,38 @@ function updatePage(data) {
     const gdpHighlight =
         document.getElementById("gdpHighlight");
 
+
     if (incomeElement) {
         incomeElement.textContent =
-            latestIncome !== null
-                ? `${formatNumber(latestIncome)} €`
+            latestIncome && latestIncome.por_habitante !== null
+                ? `${formatNumber(latestIncome.por_habitante)} €`
                 : "—";
     }
+
 
     if (gdpElement) {
         gdpElement.textContent =
-            latestPib !== null
-                ? `${formatNumber(latestPib)} €`
+            latestPib && latestPib.por_habitante !== null
+                ? `${formatNumber(latestPib.por_habitante)} €`
                 : "—";
     }
+
 
     if (unemploymentElement) {
         unemploymentElement.textContent =
-            latestParo !== null
-                ? formatNumber(latestParo)
+            latestParo && latestParo.personas !== null
+                ? formatNumber(latestParo.personas)
                 : "—";
     }
 
+
     if (companiesElement) {
         companiesElement.textContent =
-            latestUnidades !== null
-                ? formatNumber(latestUnidades)
+            latestUnidades && latestUnidades.unidades !== null
+                ? formatNumber(latestUnidades.unidades)
                 : "—";
     }
+
 
     const incomeDetail =
         document.getElementById("incomeDetail");
@@ -262,40 +222,46 @@ function updatePage(data) {
     const companiesDetail =
         document.getElementById("companiesDetail");
 
+
     if (incomeDetail) {
         incomeDetail.textContent =
-            latestIncome !== null
-                ? `${formatNumber(latestIncome)} € · ${latestIncomeYear}`
+            latestIncome && latestIncome.por_habitante !== null
+                ? `${formatNumber(latestIncome.por_habitante)} € · ${latestIncome.anio}`
                 : "Dato no disponible";
     }
+
 
     if (gdpHighlight) {
         gdpHighlight.textContent =
-            latestPib !== null
-                ? `${formatNumber(latestPib)} €`
+            latestPib && latestPib.por_habitante !== null
+                ? `${formatNumber(latestPib.por_habitante)} €`
                 : "—";
     }
 
+
     if (gdpDetail) {
         gdpDetail.textContent =
-            latestPib !== null
-                ? `${formatNumber(latestPib)} € · ${latestPibYear}`
+            latestPib && latestPib.por_habitante !== null
+                ? `${formatNumber(latestPib.por_habitante)} € · ${latestPib.anio}`
                 : "Dato no disponible";
     }
+
 
     if (unemploymentDetail) {
         unemploymentDetail.textContent =
-            latestParo !== null
-                ? `${formatNumber(latestParo)} personas · ${latestParoYear}`
+            latestParo && latestParo.personas !== null
+                ? `${formatNumber(latestParo.personas)} personas · ${latestParo.anio}`
                 : "Dato no disponible";
     }
 
+
     if (companiesDetail) {
         companiesDetail.textContent =
-            latestUnidades !== null
-                ? `${formatNumber(latestUnidades)} unidades · ${latestUnidadesYear}`
+            latestUnidades && latestUnidades.unidades !== null
+                ? `${formatNumber(latestUnidades.unidades)} unidades · ${latestUnidades.anio}`
                 : "Dato no disponible";
     }
+
 
     updateTerritoryHeader(data);
 }
@@ -309,15 +275,14 @@ function createIncomeChart(data) {
         return;
     }
 
-    const years = Object.keys(data.renta || {})
-        .sort((a, b) => Number(a) - Number(b));
+    const years = (data.renta || []).map(item => item.anio);
 
     if (!years.length) {
         return;
     }
 
-    const values = years.map(
-        year => data.renta[year].porHabitante
+    const values = (data.renta || []).map(
+        item => item.por_habitante
     );
 
     if (incomeChartInstance) {
@@ -387,8 +352,7 @@ function createUnemploymentChart(data) {
         return;
     }
 
-    const years = Object.keys(data.paro || {})
-        .sort((a, b) => Number(a) - Number(b));
+    const years = (data.paro || []).map(item => item.anio);
 
     if (!years.length) {
 
@@ -409,8 +373,8 @@ function createUnemploymentChart(data) {
         return;
     }
 
-    const values = years.map(
-        year => data.paro[year]
+    const values = (data.paro || []).map(
+        item => item.personas
     );
 
     if (unemploymentChartInstance) {
@@ -483,26 +447,17 @@ async function loadEconomy() {
     try {
 
         const response =
-            await fetch("../data/economia.json");
+            await fetch(
+                `http://localhost:3000/api/municipios/${territoryCode}/economia`
+            );
 
         if (!response.ok) {
             throw new Error(
-                "No se pudo cargar economia.json"
+                "No se pudieron cargar los datos económicos"
             );
         }
 
-        economiaData = await response.json();
-
-        const data = getMunicipalityData();
-
-        if (!data) {
-            console.error(
-                "No hay datos económicos para el territorio seleccionado."
-            );
-
-            showEmptyState();
-            return;
-        }
+        const data = await response.json();
 
         updatePage(data);
         createIncomeChart(data);

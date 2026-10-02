@@ -98,36 +98,39 @@ async function loadReport() {
         return;
     }
 
-
     try {
 
         const [
-            municipiosResponse,
+            municipioResponse,
             economiaResponse
         ] = await Promise.all([
 
-            fetch("../data/municipios.json"),
+            fetch(
+                `http://localhost:3000/api/municipios/${territoryCode}`
+            ),
 
-            fetch("../data/economia.json")
+            fetch(
+                `http://localhost:3000/api/municipios/${territoryCode}/economia`
+            )
 
         ]);
 
 
-        if (
-            !municipiosResponse.ok ||
-            !economiaResponse.ok
-        ) {
+        if (!municipioResponse.ok) {
             throw new Error(
-                "No se pudieron cargar los datos del informe."
+                "No se pudo cargar el municipio"
             );
         }
 
 
         municipiosData =
-            await municipiosResponse.json();
+            await municipioResponse.json();
+
 
         economiaData =
-            await economiaResponse.json();
+            economiaResponse.ok
+                ? await economiaResponse.json()
+                : null;
 
 
         renderReport();
@@ -150,25 +153,19 @@ function renderReport() {
 
     if (
         !territoryCode ||
-        !municipiosData ||
-        !municipiosData[territoryCode]
+        !municipiosData
     ) {
-
         showEmptyState();
-
         return;
     }
 
 
     const municipio =
-        municipiosData[territoryCode];
+        municipiosData;
 
 
     const economia =
-        economiaData &&
-            economiaData.municipios
-            ? economiaData.municipios[territoryCode]
-            : null;
+        economiaData;
 
 
     const nombre =
@@ -229,16 +226,19 @@ function renderReport() {
             "population"
         );
 
+
     if (population) {
         population.textContent =
             formatNumber(municipio.poblacion);
     }
 
 
-    const renta =
+    const latestIncome =
         economia &&
-        economia.renta &&
-        economia.renta["2023"];
+            economia.renta &&
+            economia.renta.length
+            ? economia.renta[economia.renta.length - 1]
+            : null;
 
 
     const income =
@@ -250,18 +250,20 @@ function renderReport() {
     if (income) {
 
         income.textContent =
-            renta &&
-                renta.porHabitante !== null
-                ? `${formatNumber(renta.porHabitante)} €`
+            latestIncome &&
+                latestIncome.por_habitante !== null
+                ? `${formatNumber(latestIncome.por_habitante)} €`
                 : "—";
 
     }
 
 
-    const pib =
+    const latestPib =
         economia &&
-        economia.pib &&
-        economia.pib["2020"];
+            economia.pib &&
+            economia.pib.length
+            ? economia.pib[economia.pib.length - 1]
+            : null;
 
 
     const gdp =
@@ -273,18 +275,20 @@ function renderReport() {
     if (gdp) {
 
         gdp.textContent =
-            pib &&
-                pib.porHabitante !== null
-                ? `${formatNumber(pib.porHabitante)} €`
+            latestPib &&
+                latestPib.por_habitante !== null
+                ? `${formatNumber(latestPib.por_habitante)} €`
                 : "—";
 
     }
 
 
-    const paro =
+    const latestParo =
         economia &&
-        economia.paro &&
-        economia.paro["2025"];
+            economia.paro &&
+            economia.paro.length
+            ? economia.paro[economia.paro.length - 1]
+            : null;
 
 
     const unemployment =
@@ -296,9 +300,9 @@ function renderReport() {
     if (unemployment) {
 
         unemployment.textContent =
-            paro !== undefined &&
-                paro !== null
-                ? formatNumber(paro)
+            latestParo &&
+                latestParo.personas !== null
+                ? formatNumber(latestParo.personas)
                 : "—";
 
     }
@@ -424,8 +428,8 @@ function renderReport() {
     if (foreignPopulation) {
 
         foreignPopulation.textContent =
-            municipio.porcentajeExtranjeros !== undefined
-                ? `${formatNumber(municipio.extranjeros)} · ${formatNumber(municipio.porcentajeExtranjeros)}%`
+            municipio.extranjeros !== undefined
+                ? `${formatNumber(municipio.extranjeros)} · ${formatNumber(municipio.porcentaje_extranjeros)}%`
                 : "—";
 
     }

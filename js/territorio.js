@@ -14,7 +14,6 @@ const ineCode = document.getElementById("ineCode");
 
 const averageAge = document.getElementById("averageAge");
 const foreignPopulation = document.getElementById("foreignPopulation");
-const foreignPercentage = document.getElementById("foreignPercentage");
 
 const youngPopulation = document.getElementById("youngPopulation");
 const workingPopulation = document.getElementById("workingPopulation");
@@ -196,13 +195,28 @@ if (!code) {
 } else {
 
     Promise.all([
-        fetch("../data/municipios.json").then(response => response.json()),
-        fetch("../data/poblacion_historica.json").then(response => response.json()),
-        fetch("../data/elecciones.json").then(response => response.json())
-    ])
-        .then(([municipios, historica, elecciones]) => {
+        fetch(`http://localhost:3000/api/municipios/${code}`).then(response => {
+            if (!response.ok) {
+                throw new Error("No se pudo cargar el municipio");
+            }
+            return response.json();
+        }),
 
-            const territory = municipios[code];
+        fetch(`http://localhost:3000/api/municipios/${code}/poblacion`).then(response => {
+            if (!response.ok) {
+                throw new Error("No se pudo cargar la población");
+            }
+            return response.json();
+        }),
+
+        fetch(`http://localhost:3000/api/municipios/${code}/elecciones`).then(response => {
+            if (!response.ok) {
+                return null;
+            }
+            return response.json();
+        })
+    ])
+        .then(([territory, historica, election]) => {
 
             if (!territory) {
 
@@ -267,13 +281,6 @@ if (!code) {
                         : "—";
             }
 
-            if (foreignPercentage) {
-                foreignPercentage.textContent =
-                    territory.porcentajeExtranjeros !== undefined
-                        ? `${formatPercentage(territory.porcentajeExtranjeros)} de la población`
-                        : "—";
-            }
-
 
             if (youngPopulation) {
                 youngPopulation.textContent =
@@ -297,16 +304,17 @@ if (!code) {
             }
 
 
-            const history = historica[code];
-
-            if (history && history.serie) {
-                createPopulationChart(history);
+            if (historica && historica.length > 0) {
+                createPopulationChart({
+                    serie: historica.map(item => ({
+                        anio: item.anio,
+                        poblacion: item.poblacion
+                    }))
+                });
             } else {
                 showChartEmptyState("populationChart");
             }
 
-
-            const election = elecciones[code];
 
             if (election) {
                 createElectionChart(election);

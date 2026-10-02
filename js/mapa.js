@@ -388,13 +388,31 @@ document.getElementById("sortButton")?.addEventListener("click", () => {
         .forEach(item => container.appendChild(item));
 });
 
-fetch("../data/elecciones.json")
-    .then(response => response.json())
+fetch("http://localhost:3000/api/elecciones")
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error(
+                "No se pudieron cargar los datos electorales"
+            );
+        }
+
+        return response.json();
+    })
     .then(data => {
+
         electionData = data;
+
         loadLevel("comunidades");
+
     })
     .catch(error => {
-        console.error("Error cargando elecciones:", error);
+
+        console.error(
+            "Error cargando elecciones:",
+            error
+        );
+
         loadLevel("comunidades");
+
     });

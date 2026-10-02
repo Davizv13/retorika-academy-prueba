@@ -5,8 +5,6 @@ const territoryCode = params.get("code");
 const territoryName = params.get("name");
 
 let municipiosData = {};
-let historicaData = {};
-let economiaData = {};
 
 let populationComparisonChart = null;
 
@@ -84,22 +82,25 @@ async function loadData() {
 
     try {
 
-        const [
-            municipiosResponse,
-            historicaResponse,
-            economiaResponse
-        ] = await Promise.all([
+        const municipiosResponse =
+            await fetch(
+                "http://localhost:3000/api/municipios"
+            );
 
-            fetch("../data/municipios.json"),
-            fetch("../data/poblacion_historica.json"),
-            fetch("../data/economia.json")
+        if (!municipiosResponse.ok) {
+            throw new Error(
+                "No se pudieron cargar los municipios"
+            );
+        }
 
-        ]);
+        const municipios = await municipiosResponse.json();
 
-
-        municipiosData = await municipiosResponse.json();
-        historicaData = await historicaResponse.json();
-        economiaData = await economiaResponse.json();
+        municipiosData = Object.fromEntries(
+            municipios.map(municipio => [
+                municipio.codigo_ine,
+                municipio
+            ])
+        );
 
 
         populateTerritories();
@@ -187,20 +188,17 @@ function populateTerritories() {
 }
 
 
-function compareTerritories() {
+async function compareTerritories() {
 
     const codeA = territoryA.value;
     const codeB = territoryB.value;
-
 
     if (!codeA || !codeB) {
 
         comparisonContent.classList.add("hidden");
 
         return;
-
     }
-
 
     if (codeA === codeB) {
 
@@ -209,68 +207,140 @@ function compareTerritories() {
         );
 
         return;
-
     }
 
+    try {
 
-    const municipalityA = municipiosData[codeA];
-    const municipalityB = municipiosData[codeB];
+        const [
+            municipalityAResponse,
+            municipalityBResponse,
+            populationAResponse,
+            populationBResponse,
+            economyAResponse,
+            economyBResponse
+        ] = await Promise.all([
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeA}`
+            ),
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeB}`
+            ),
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeA}/poblacion`
+            ),
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeB}/poblacion`
+            ),
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeA}/economia`
+            ),
+
+            fetch(
+                `http://localhost:3000/api/municipios/${codeB}/economia`
+            )
+
+        ]);
 
 
-    if (!municipalityA || !municipalityB) {
-        return;
+        if (
+            !municipalityAResponse.ok ||
+            !municipalityBResponse.ok
+        ) {
+            throw new Error(
+                "No se pudieron cargar los municipios"
+            );
+        }
+
+
+        const municipalityA =
+            await municipalityAResponse.json();
+
+        const municipalityB =
+            await municipalityBResponse.json();
+
+
+        const populationA =
+            populationAResponse.ok
+                ? await populationAResponse.json()
+                : [];
+
+        const populationB =
+            populationBResponse.ok
+                ? await populationBResponse.json()
+                : [];
+
+
+        const economyA =
+            economyAResponse.ok
+                ? await economyAResponse.json()
+                : null;
+
+        const economyB =
+            economyBResponse.ok
+                ? await economyBResponse.json()
+                : null;
+
+
+        comparisonContent.classList.remove("hidden");
+
+
+        document.getElementById("territoryAName").textContent =
+            municipalityA.nombre;
+
+        document.getElementById("territoryBName").textContent =
+            municipalityB.nombre;
+
+
+        document.getElementById("tableNameA").textContent =
+            municipalityA.nombre;
+
+        document.getElementById("tableNameB").textContent =
+            municipalityB.nombre;
+
+
+        fillIndicators(
+            "A",
+            municipalityA,
+            economyA
+        );
+
+
+        fillIndicators(
+            "B",
+            municipalityB,
+            economyB
+        );
+
+
+        createPopulationComparison(
+            populationA,
+            populationB,
+            municipalityA,
+            municipalityB
+        );
+
+
+        window.history.replaceState(
+            {},
+            "",
+            `comparar.html?code=${encodeURIComponent(codeA)}&name=${encodeURIComponent(territoryName || municipalityA.nombre)}`
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error comparando los territorios:",
+            error
+        );
+
+        comparisonContent.classList.add("hidden");
     }
-
-
-    comparisonContent.classList.remove("hidden");
-
-
-    document.getElementById("territoryAName").textContent =
-        municipalityA.nombre;
-
-    document.getElementById("territoryBName").textContent =
-        municipalityB.nombre;
-
-
-    document.getElementById("tableNameA").textContent =
-        municipalityA.nombre;
-
-    document.getElementById("tableNameB").textContent =
-        municipalityB.nombre;
-
-
-    fillIndicators(
-        "A",
-        municipalityA,
-        economiaData.municipios
-            ? economiaData.municipios[codeA]
-            : null
-    );
-
-
-    fillIndicators(
-        "B",
-        municipalityB,
-        economiaData.municipios
-            ? economiaData.municipios[codeB]
-            : null
-    );
-
-
-    createPopulationComparison(
-        codeA,
-        codeB,
-        municipalityA,
-        municipalityB
-    );
-
-
-    window.history.replaceState(
-        {},
-        "",
-        `comparar.html?code=${encodeURIComponent(codeA)}&name=${encodeURIComponent(territoryName || municipalityA.nombre)}`
-    );
-
 }
 
 
@@ -308,94 +378,81 @@ function fillIndicators(
 
     document.getElementById(`foreign${prefix}`)
         .textContent =
-        municipality.porcentajeExtranjeros !== undefined
-            ? `${formatNumber(municipality.extranjeros)} · ${formatPercentage(municipality.porcentajeExtranjeros)}`
+        municipality.extranjeros !== undefined
+            ? `${formatNumber(municipality.extranjeros)} · ${formatPercentage(municipality.porcentaje_extranjeros)}`
             : "—";
 
 
-    const income =
+    const latestIncome =
         economy &&
         economy.renta &&
-        economy.renta["2023"];
+        economy.renta.length
+            ? economy.renta[economy.renta.length - 1]
+            : null;
 
 
     document.getElementById(`income${prefix}`)
         .textContent =
-        income &&
-            income.porHabitante !== null
-            ? formatEuro(income.porHabitante)
+        latestIncome &&
+        latestIncome.por_habitante !== null
+            ? formatEuro(latestIncome.por_habitante)
             : "—";
 
 
-    const gdp =
+    const latestGdp =
         economy &&
         economy.pib &&
-        economy.pib["2020"];
+        economy.pib.length
+            ? economy.pib[economy.pib.length - 1]
+            : null;
 
 
     document.getElementById(`gdp${prefix}`)
         .textContent =
-        gdp &&
-            gdp.porHabitante !== null
-            ? formatEuro(gdp.porHabitante)
+        latestGdp &&
+        latestGdp.por_habitante !== null
+            ? formatEuro(latestGdp.por_habitante)
             : "—";
 
 
-    const unemployment =
+    const latestUnemployment =
         economy &&
         economy.paro &&
-        economy.paro["2025"];
+        economy.paro.length
+            ? economy.paro[economy.paro.length - 1]
+            : null;
 
 
     document.getElementById(`unemployment${prefix}`)
         .textContent =
-        unemployment !== undefined &&
-            unemployment !== null
-            ? formatNumber(unemployment)
+        latestUnemployment &&
+        latestUnemployment.personas !== null
+            ? formatNumber(latestUnemployment.personas)
             : "—";
-
 }
 
-
 function createPopulationComparison(
-    codeA,
-    codeB,
+    populationA,
+    populationB,
     municipalityA,
     municipalityB
 ) {
 
-    const historyA =
-        historicaData[codeA];
-
-    const historyB =
-        historicaData[codeB];
-
-
-    if (
-        !historyA ||
-        !historyB ||
-        !historyA.serie ||
-        !historyB.serie
-    ) {
+    if (!populationA.length || !populationB.length) {
         return;
     }
 
-
-    const years = historyA.serie.map(
+    const years = populationA.map(
         item => item.anio
     );
 
+    const populationValuesA = populationA.map(
+        item => item.poblacion
+    );
 
-    const populationA =
-        historyA.serie.map(
-            item => item.poblacion
-        );
-
-
-    const populationB =
-        historyB.serie.map(
-            item => item.poblacion
-        );
+    const populationValuesB = populationB.map(
+        item => item.poblacion
+    );
 
 
     const canvas =
@@ -422,7 +479,7 @@ function createPopulationComparison(
 
                     {
                         label: municipalityA.nombre,
-                        data: populationA,
+                        data: populationValuesA,
                         borderWidth: 2,
                         tension: 0.25,
                         pointRadius: 0
@@ -430,7 +487,7 @@ function createPopulationComparison(
 
                     {
                         label: municipalityB.nombre,
-                        data: populationB,
+                        data: populationValuesB,
                         borderWidth: 2,
                         tension: 0.25,
                         pointRadius: 0

@@ -189,44 +189,50 @@ async function cargarInstituciones() {
         return;
     }
 
-
     try {
 
         const [
-            institucionesData,
-            ayuntamientosData,
-            entidadesData
+            institucionesResponse,
+            ayuntamientoResponse,
+            entidadesResponse
         ] = await Promise.all([
 
-            fetch("../data/instituciones.json")
-                .then(response => response.json()),
+            fetch(
+                `http://localhost:3000/api/municipios/${codigo}/instituciones`
+            ),
 
-            fetch("../data/ayuntamientos.json")
-                .then(response => response.json()),
+            fetch(
+                `http://localhost:3000/api/municipios/${codigo}/ayuntamiento`
+            ),
 
-            fetch("../data/entidades_locales.json")
-                .then(response => response.json())
+            fetch(
+                `http://localhost:3000/api/municipios/${codigo}/entidades`
+            )
 
         ]);
 
 
+        if (!institucionesResponse.ok) {
+            throw new Error(
+                "No se pudieron cargar las instituciones"
+            );
+        }
+
+
         const instituciones =
-            institucionesData[codigo];
+            await institucionesResponse.json();
+
 
         const ayuntamiento =
-            ayuntamientosData[codigo];
+            ayuntamientoResponse.ok
+                ? await ayuntamientoResponse.json()
+                : null;
+
 
         const entidades =
-            entidadesData.porMunicipio &&
-            entidadesData.porMunicipio[codigo]
-                ? entidadesData.porMunicipio[codigo]
+            entidadesResponse.ok
+                ? await entidadesResponse.json()
                 : [];
-
-
-        if (!instituciones) {
-            mostrarPaginaVacia();
-            return;
-        }
 
 
         mostrarContenido();
@@ -234,6 +240,7 @@ async function cargarInstituciones() {
 
         const alcalde =
             instituciones.alcalde || null;
+
 
         const representantes =
             Array.isArray(instituciones.representantes)
@@ -405,8 +412,8 @@ async function cargarInstituciones() {
 
 
         renderRepresentantes(representantes);
-
         renderEntidades(entidades);
+
 
     } catch (error) {
 
