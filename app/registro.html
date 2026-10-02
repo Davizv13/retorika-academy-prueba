@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Crear cuenta · Retorika</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <section class="auth-card">
+
+            <div class="auth-brand">
+                RETORIKA
+            </div>
+
+            <h1>Crear cuenta</h1>
+
+            <p>
+                Crea tu cuenta para acceder a tu espacio de trabajo.
+            </p>
+
+            <form id="registroForm">
+
+                <label for="nombre">
+                    Nombre
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    required
+                >
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    required
+                >
+
+                <label for="password">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    required
+                >
+
+                <label for="passwordConfirm">
+                    Repetir contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="passwordConfirm"
+                    required
+                >
+
+                <button type="submit">
+                    Crear cuenta
+                </button>
+
+                <p id="registroMessage"></p>
+
+            </form>
+
+            <div class="auth-register">
+
+                ¿Ya tienes cuenta?
+
+                <a href="login.html">
+                    Iniciar sesión
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/registro.js"></script>
+
+</body>
+
+</html>

@@ -1,10 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
+
 app.use(cors());
+app.use(express.json());
+
 const port = 3000;
+const JWT_SECRET = "retorika_clave_secreta";
 
 const pool = new Pool({
     host: "localhost",
@@ -310,6 +316,132 @@ app.get("/api/municipios/:codigo/entidades", async (req, res) => {
             error: "Error al consultar las entidades locales"
         });
     }
+});
+
+app.post("/api/auth/registro", async (req, res) => {
+
+    try {
+
+        const { nombre, email, password } = req.body;
+
+        if (!nombre || !email || !password) {
+            return res.status(400).json({
+                error: "Todos los campos son obligatorios"
+            });
+        }
+
+        const usuarioExistente = await pool.query(
+            `SELECT id
+             FROM usuarios
+             WHERE email = $1`,
+            [email]
+        );
+
+        if (usuarioExistente.rows.length > 0) {
+            return res.status(409).json({
+                error: "El email ya está registrado"
+            });
+        }
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const resultado = await pool.query(
+            `INSERT INTO usuarios
+             (nombre, email, password)
+             VALUES ($1, $2, $3)
+             RETURNING id, nombre, email, rol`,
+            [nombre, email, passwordHash]
+        );
+
+        res.status(201).json({
+            mensaje: "Usuario registrado correctamente",
+            usuario: resultado.rows[0]
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: "Error al registrar el usuario"
+        });
+
+    }
+
+});
+
+app.post("/api/auth/login", async (req, res) => {
+
+    try {
+
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                error: "Email y contraseña son obligatorios"
+            });
+        }
+
+        const resultado = await pool.query(
+            `SELECT id, nombre, email, password, rol
+             FROM usuarios
+             WHERE email = $1`,
+            [email]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(401).json({
+                error: "Email o contraseña incorrectos"
+            });
+        }
+
+        const usuario = resultado.rows[0];
+
+        const passwordCorrecta =
+            await bcrypt.compare(
+                password,
+                usuario.password
+            );
+
+        if (!passwordCorrecta) {
+            return res.status(401).json({
+                error: "Email o contraseña incorrectos"
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                id: usuario.id,
+                email: usuario.email,
+                rol: usuario.rol
+            },
+            JWT_SECRET,
+            {
+                expiresIn: "7d"
+            }
+        );
+
+        res.json({
+            mensaje: "Login correcto",
+            token,
+            usuario: {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                rol: usuario.rol
+            }
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: "Error al iniciar sesión"
+        });
+
+    }
+
 });
 
 app.listen(port, () => {
